@@ -1,0 +1,4 @@
+com.networknt.portal.usermanagement.common.domain
+com.networknt.portal.usermanagement.common.domain.contact
+com.networknt.portal.usermanagement.common.exception
+com.networknt.portal.usermanagement.common.utils
