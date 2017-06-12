@@ -6,6 +6,7 @@ import com.networknt.portal.usermanagement.common.domain.AuditData;
 import com.networknt.portal.usermanagement.common.domain.Entity;
 import com.networknt.portal.usermanagement.common.domain.contact.ContactData;
 import com.networknt.portal.usermanagement.common.exception.InvalidTokenException;
+import com.networknt.portal.usermanagement.common.model.Timezone;
 
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -124,6 +125,46 @@ public class User implements Entity<Long, User> {
     this.id = id;
   }
 
+  public String getScreenName() {
+    return screenName;
+  }
+
+  public void setScreenName(String screenName) {
+    this.screenName = screenName;
+  }
+
+  public Password getPassword() {
+    return password;
+  }
+
+  public void setPassword(Password password) {
+    this.password = password;
+  }
+
+  public boolean isConfirmed() {
+    return confirmed;
+  }
+
+  public void setConfirmed(boolean confirmed) {
+    this.confirmed = confirmed;
+  }
+
+  public boolean isLocked() {
+    return locked;
+  }
+
+  public void setLocked(boolean locked) {
+    this.locked = locked;
+  }
+
+  public boolean isDeleted() {
+    return deleted;
+  }
+
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
+  }
+
   /**
    * Uses the given confirmation token if it exists and it's still valid.
    *
@@ -144,7 +185,9 @@ public class User implements Entity<Long, User> {
       throw new InvalidTokenException();
     }
 
+
     return confirmationToken.use();
   }
+
 
 }

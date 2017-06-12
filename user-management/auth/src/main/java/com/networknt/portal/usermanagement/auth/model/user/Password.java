@@ -13,6 +13,8 @@ public class Password implements ValueObject<Password> {
   private String passwordHash;
   private String passwordSalt;
 
+
+
   /**
    * Create a new password.
    *
@@ -24,6 +26,13 @@ public class Password implements ValueObject<Password> {
     this.passwordSalt = passwordSalt;
   }
 
+  public String getPasswordHash() {
+    return passwordHash;
+  }
+
+  public String getPasswordSalt() {
+    return passwordSalt;
+  }
   @Override
   public boolean sameValueAs(Password other) {
     return equals(other);

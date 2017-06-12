@@ -102,14 +102,51 @@ public class Session implements Entity<Long, Session> {
     return false;
   }
 
+  public Long getUserId() {
+    return userId;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public LocalDateTime getExpiresAt() {
+    return expiresAt;
+  }
+
+  public LocalDateTime getIssuedAt() {
+    return issuedAt;
+  }
+
+  public LocalDateTime getLastUsedAt() {
+    return lastUsedAt;
+  }
+
+  public LocalDateTime getRemovedAt() {
+    return removedAt;
+  }
+
+  public boolean isDeleted() {
+    return deleted;
+  }
+
   public void setDeleted(boolean deleted) {
     this.deleted = deleted;
     this.removedAt = deleted ? LocalDateTime.now(systemUTC()) : null;
+  }
+
+  public void setLastUsedAt(LocalDateTime lastUsedAt) {
+    this.lastUsedAt = lastUsedAt;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 
   @Override
   public void setId(Long id) {
     this.id = id;
   }
+
 
 }

@@ -1,11 +1,11 @@
 
-package com.networknt.portal.usermanagement.auth.model.user;
+package com.networknt.portal.usermanagement.common.model;
 
 import java.time.ZoneId;
 
 
 /**
- * Represent {@link User}s' timezone, so that time can be shown according to their local time.
+ * Represent users' timezone, so that time can be shown according to their local time.
  */
 
 public enum Timezone {

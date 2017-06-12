@@ -1,0 +1,187 @@
+
+package com.networknt.portal.usermanagement.auth.service;
+
+
+import com.networknt.portal.usermanagement.auth.model.user.User;
+import com.networknt.portal.usermanagement.common.exception.InvalidEmailException;
+import com.networknt.portal.usermanagement.common.exception.InvalidTokenException;
+import com.networknt.portal.usermanagement.common.exception.NoSuchUserException;
+
+import java.util.Optional;
+
+/**
+ * {@link UserService} groups functionaries which are needed to manage all the aspects of users.
+ */
+public interface UserService {
+
+  /**
+   * Changes the {@link User}'s email address, provided that {@code newEmail} is available.
+   *
+   * @param userId {@link User}'s ID
+   * @param newEmail new email address
+   * @return the modified {@link User}
+   * @throws NoSuchUserException if the user doesn't exist
+
+   */
+  User changeEmail(Long userId, String newEmail)
+      throws InvalidEmailException, NoSuchUserException;
+
+  /**
+   * Changes the {@link User}'s password.
+   *
+   * @param userId {@link User}'s ID
+   * @param rawPassword new (cleartext) password
+   * @return the modified {@link User}
+   * @throws NoSuchUserException if the user doesn't exist
+   */
+  User changePassword(Long userId, String rawPassword) throws NoSuchUserException;
+
+  /**
+   * Changes the {@link User}'s screen name, provided that {@code newScreenName} is available.
+   *
+   * @param userId {@link User}'s ID
+   * @param newScreenName new screen name
+   * @return the modified {@link User}
+   * @throws NoSuchUserException if the user doesn't exist
+   */
+  User changeScreenName(Long userId, String newScreenName)
+      throws Exception;
+
+  /**
+   * Confirms the {@link User}'s email address with the given token, provided that it's valid.
+   *
+   * @param userId {@link User}'s ID
+   * @param token confirmation token
+   * @return the modified {@link User}
+   * @throws NoSuchUserException if the user doesn't exist
+   * @throws InvalidTokenException if the given confirmation token is invalid
+   */
+  User confirmEmail(Long userId, String token)
+      throws InvalidTokenException, NoSuchUserException;
+
+  /**
+   * Confirms the {@link User}'s previously requested password reset.
+   *
+   * @param userId {@link User}'s ID
+   * @param token confirmation token
+   * @return the modified {@link User}
+   * @throws NoSuchUserException if the user doesn't exist
+   * @throws InvalidTokenException if the given confirmation token is invalid
+   */
+  User confirmPasswordReset(Long userId, String token)
+      throws InvalidTokenException, NoSuchUserException;
+
+  /**
+   * Deletes the given {@link User}.
+   *
+   * @param userId {@link User}'s ID
+   * @throws NoSuchUserException if the user doesn't exist
+   */
+  void delete(Long userId) throws NoSuchUserException;
+
+  /**
+   * Finds a {@link User} in the system by its ID.
+   *
+   * @param userId Email or screen name
+   * @return the {@link User} if exists, null otherwise
+   */
+  Optional<User> findUser(Long userId);
+
+  /**
+   * Finds a {@link User} in the system by its ID.
+   *
+   * @param emailOrScreenName Email or screen name
+   * @return the {@link User} if exists, null otherwise
+   */
+  Optional<User> findUser(String emailOrScreenName);
+
+  /**
+   * Finds a {@link User} in the system by its ID.
+   *
+   * @param userId Email or screen name
+   * @return the {@link User}'s ID if exists
+   * @throws NoSuchUserException if the user doesn't exist
+   */
+  User getUser(Long userId) throws NoSuchUserException;
+
+  /**
+   * Finds a {@link User} in the system by its ID.
+   *
+   * @param emailOrScreenName Email or screen name
+   * @return the {@link User}'s ID if exists
+   * @throws NoSuchUserException if the user doesn't exist
+   */
+  User getUser(String emailOrScreenName) throws NoSuchUserException;
+
+  /**
+   * Checks if the given {@code email} is taken.
+   *
+   * @param email email to check
+   * @return true if it's taken, false otherwise
+   */
+  boolean isEmailTaken(String email);
+
+  /**
+   * Checks if the given {@code screenName} is taken.
+   *
+   * @param screenName screenName to check
+   * @return true if it's taken, false otherwise
+   */
+  boolean isScreenNameTaken(String screenName);
+
+  /**
+   * Logs a user in with the given {@code emailOrScreenName} and {@code password}.
+   *
+   * @param emailOrScreenName Email or screen name
+   * @param password password
+   * @return the {@link User} if it exists and its password matches
+   */
+  User login(String emailOrScreenName, String password)
+      throws NoSuchUserException;
+
+  /**
+   * Returns the next available screen name based on the given email address.
+   *
+   * @param email Email
+   * @return an available screen name.
+   * @throws Exception if the given {@code email} isn't an email address.
+   */
+  String nextScreenName(String email) throws Exception;
+
+  /**
+   * Request email change for the given user.
+   *
+   * @param userId {@link User}'s ID
+   * @param newEmail new email
+   * @throws NoSuchUserException if the user doesn't exist
+   */
+  void requestEmailChange(Long userId, String newEmail)
+      throws Exception;
+
+  /**
+   * Request password reset for the given {@link User}.
+   *
+   * @param userId {@link User}'s ID
+   * @throws NoSuchUserException if the user doesn't exist
+   */
+  void requestPasswordReset(Long userId) throws NoSuchUserException;
+
+  /**
+   * Signs a user up.
+   *
+   * @param user a {@link User}
+   * @param rawPassword {@link User}'s cleartext password
+   */
+  void signup(User user, String rawPassword)
+      throws Exception;
+
+  /**
+   * Stores the given {@link User}.
+   *
+   * @param user a {@link User} to store
+   * @return the stored user
+   */
+  User store(User user)
+      throws Exception;
+
+}
