@@ -1,5 +1,0 @@
-com.networknt.portal.usermanagement.auth.crypto
-com.networknt.portal.usermanagement.auth.model.session
-com.networknt.portal.usermanagement.auth.model.user
-com.networknt.portal.usermanagement.auth.security
-com.networknt.portal.usermanagement.auth.service

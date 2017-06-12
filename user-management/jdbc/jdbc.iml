@@ -12,6 +12,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="auth" />
+    <orderEntry type="module" module-name="usermanagement-auth" />
     <orderEntry type="module" module-name="usermanagementcommon" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-ext:1.7.21" level="project" />
