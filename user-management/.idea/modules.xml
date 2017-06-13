@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/auth/auth.iml" filepath="$PROJECT_DIR$/auth/auth.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jdbc/jdbc.iml" filepath="$PROJECT_DIR$/jdbc/jdbc.iml" />
       <module fileurl="file://$PROJECT_DIR$/user-management.iml" filepath="$PROJECT_DIR$/user-management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/user-management-common.iml" filepath="$PROJECT_DIR$/common/user-management-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc/user-management-jdbc.iml" filepath="$PROJECT_DIR$/jdbc/user-management-jdbc.iml" />
       <module fileurl="file://$PROJECT_DIR$/auth/usermanagement-auth.iml" filepath="$PROJECT_DIR$/auth/usermanagement-auth.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/usermanagementcommon.iml" filepath="$PROJECT_DIR$/common/usermanagementcommon.iml" />
     </modules>
   </component>
 </project>

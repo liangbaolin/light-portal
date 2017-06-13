@@ -7,9 +7,6 @@ import com.networknt.portal.usermanagement.common.domain.contact.ContactData;
 import java.util.Locale;
 
 
-/**
- * Created by lcsontos on 5/10/17.
- */
 
 public class UserInfo {
 
