@@ -135,6 +135,10 @@ public class Session implements Entity<Long, Session> {
     this.removedAt = deleted ? LocalDateTime.now(systemUTC()) : null;
   }
 
+  public void setRemovedAt(LocalDateTime removedAt) {
+    this.removedAt = removedAt;
+  }
+
   public void setLastUsedAt(LocalDateTime lastUsedAt) {
     this.lastUsedAt = lastUsedAt;
   }

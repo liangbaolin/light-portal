@@ -66,12 +66,121 @@
             <version>${version.slf4j}</version>
         </dependency>
         <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>config</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>utility</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>security</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>audit</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>info</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>status</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>exception</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>mask</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>metrics</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>handler</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>sanitizer</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>traceability</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>correlation</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>service</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>body</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>client</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>server</artifactId>
+            <version>${version.light-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>swagger-meta</artifactId>
+            <version>${version.light-java-rest}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>swagger-validator</artifactId>
+            <version>${version.light-java-rest}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>swagger-security</artifactId>
+            <version>${version.light-java-rest}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${version.hikaricp}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${version.h2}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
     </dependencyManagement>
 

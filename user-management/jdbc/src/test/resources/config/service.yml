@@ -1,0 +1,14 @@
+---
+singletons:
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      DriverClassName: org.h2.jdbcx.JdbcDataSource
+      jdbcUrl: jdbc:h2:~/test
+      username: sa
+      password: sa
+- com.networknt.portal.usermanagement.auth.model.user.UserRepository:
+  - com.networknt.portal.usermanagement.auth.jdbc.user.UserRepositoryImpl
+- com.networknt.portal.usermanagement.auth.model.session.SessionRepository:
+  - com.networknt.portal.usermanagement.auth.jdbc.session.SessionRepositoryImpl
+- com.networknt.portal.usermanagement.auth.crypto.PasswordSecurity:
+  - com.networknt.portal.usermanagement.auth.crypto.Pbkdf2PasswordSecurityImpl

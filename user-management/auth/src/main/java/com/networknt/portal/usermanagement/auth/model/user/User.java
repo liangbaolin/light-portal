@@ -29,8 +29,8 @@ public class User implements Entity<Long, User> {
 
   private Set<String> authorities = new LinkedHashSet<>();
 
-  private Timezone timezone = Timezone.AMERICA_LOS_ANGELES;
-  private Locale locale = Locale.US;
+  private Timezone timezone = Timezone.CANADA_EASTERN;
+  private Locale locale = Locale.CANADA;
 
   private boolean confirmed;
   private boolean locked;
@@ -64,12 +64,40 @@ public class User implements Entity<Long, User> {
     return addConfirmationToken(type, 0);
   }
 
+  public Timezone getTimezone() {
+    return timezone;
+  }
+
+  public String getTimezoneName() {
+    return timezone.name();
+  }
+
+  public void setTimezone(Timezone timezone) {
+    this.timezone = timezone;
+  }
+
   public Locale getLocale() {
     return locale;
   }
 
   public void setLocale(Locale locale) {
     this.locale = locale;
+  }
+
+  public ContactData getContactData() {
+    return contactData;
+  }
+
+  public AuditData<User> getAuditData() {
+    return auditData;
+  }
+
+  public void setAuditData(AuditData<User> auditData) {
+    this.auditData = auditData;
+  }
+
+  public void setContactData(ContactData contactData) {
+    this.contactData = contactData;
   }
 
   /**

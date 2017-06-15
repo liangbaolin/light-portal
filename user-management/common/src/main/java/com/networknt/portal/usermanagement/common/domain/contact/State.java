@@ -3,9 +3,6 @@
 package com.networknt.portal.usermanagement.common.domain.contact;
 
 
-/**
- * Created by lcsontos on 4/24/17.
- */
 
 public enum State {
 

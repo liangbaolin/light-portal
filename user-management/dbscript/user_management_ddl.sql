@@ -1,5 +1,6 @@
 DROP table IF EXISTS USER_DETAIL;
 DROP table IF EXISTS  ADDRESS;
+DROP table IF EXISTS  Session;
 DROP table IF EXISTS  authority;
 
 CREATE  TABLE USER_DETAIL (
@@ -26,7 +27,6 @@ CREATE  TABLE USER_DETAIL (
 
 CREATE  TABLE ADDRESS (
    user_id bigint not null,
-   address_id integer not null,
    address_type varchar(20),
    country varchar(120),
    province_state varchar(120),
@@ -34,28 +34,25 @@ CREATE  TABLE ADDRESS (
    zipcode varchar(20),
    addressline1 varchar(256),
    addressline2 varchar(256),
-   active_flg varchar(1) DEFAULT 'Y'
-   PRIMARY KEY(user_id, address_id)
-)
+   active_flg varchar(1) DEFAULT 'Y',
+   PRIMARY KEY(user_id, address_type)
+);
 
 
-CREATE  TABLE Confirmation_Token (
-   id bigint not null
+CREATE  TABLE Session (
+   id bigint not null,
    user_id bigint not null,
-   confirmation_type  varchar(20),
-   token_value varchar(120),
-   payload varchar(1200),
+   token_value varchar(256),
    valid varchar(1) DEFAULT 'Y',
    expiresAt timestamp,
-   usedAt timestamp,
-   createBy bigint,
-   createdAt date,
-   modifiedBy bigint,
-   modifiedAt date,
+   lastUsedAt timestamp,
+   issuedAt timestamp,
+   removedAt timestamp,
+   deleted varchar(1) DEFAULT 'Y',
    PRIMARY KEY(id)
-)
+);
 
 create table authority (
   user_id integer not null,
   authorities varchar(255)
-)
+);

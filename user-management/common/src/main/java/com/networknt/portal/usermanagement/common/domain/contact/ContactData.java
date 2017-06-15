@@ -4,6 +4,7 @@ package com.networknt.portal.usermanagement.common.domain.contact;
 import com.networknt.portal.usermanagement.common.domain.ValueObject;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -19,7 +20,7 @@ public class ContactData implements ValueObject<ContactData> {
 
   private Set<AddressData> addresses;
 
-  private Gender gender;
+  private Gender gender = Gender.UNKNOWN;
 
   private LocalDate birthday;
 
@@ -50,6 +51,13 @@ public class ContactData implements ValueObject<ContactData> {
 
   public Set<AddressData> getAddresses() {
     return addresses;
+  }
+
+  public void addAddresses(AddressData address) {
+    if ( getAddresses()==null) {
+      this.addresses = new HashSet<AddressData>();
+    }
+    this.addresses.add(address);
   }
 
   public void setAddresses(Set<AddressData> addresses) {
