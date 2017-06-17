@@ -5,8 +5,10 @@ package com.networknt.portal.usermanagement.auth.service;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.networknt.portal.usermanagement.auth.command.user.UserCommandService;
 import com.networknt.portal.usermanagement.auth.crypto.PasswordSecurity;
 import com.networknt.portal.usermanagement.auth.model.user.*;
+import com.networknt.portal.usermanagement.common.domain.UserDto;
 import com.networknt.portal.usermanagement.common.event.UserEventEmitter;
 import com.networknt.portal.usermanagement.common.event.UserEventType;
 import com.networknt.portal.usermanagement.common.exception.InvalidEmailException;
@@ -27,26 +29,26 @@ public class UserServiceImpl implements UserService {
   private static final int NEXT_SCREEN_NAME_MAX_TRIES = 20;
 
   private final PasswordSecurity passwordSecurity;
-  private final UserEventEmitter userEventEmitter;
+  private final UserCommandService userCommandService;
   private final UserRepository userRepository;
 
   /**
    * Creates an instance of {@link UserServiceImpl}, injecting its dependencies.
    *
    * @param passwordSecurity a concrete implementation of {@link PasswordSecurity}
-   * @param userEventEmitter a concrete implementation of {@link UserEventEmitter}
+   * @param userCommandService a concrete implementation of {@link UserCommandService}
    * @param userRepository a concrete implementation of {@link UserRepository}
    */
   public UserServiceImpl(
-      PasswordSecurity passwordSecurity, UserEventEmitter userEventEmitter,
+      PasswordSecurity passwordSecurity, UserCommandService userCommandService,
       UserRepository userRepository) {
 
     Objects.requireNonNull(passwordSecurity);
-    Objects.requireNonNull(userEventEmitter);
+    Objects.requireNonNull(userCommandService);
     Objects.requireNonNull(userRepository);
 
     this.passwordSecurity = passwordSecurity;
-    this.userEventEmitter = userEventEmitter;
+    this.userCommandService = userCommandService;
     this.userRepository = userRepository;
   }
 
@@ -280,7 +282,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void signup(User user, String rawPassword)
-      throws InvalidEmailException {
+      throws Exception {
 
     Objects.requireNonNull(user, "user");
     Objects.requireNonNull(rawPassword, "rawPassword");
@@ -291,18 +293,18 @@ public class UserServiceImpl implements UserService {
     }
 
     if (isEmailTaken(email)) {
-     // throw new EmailIsAlreadyTakenException();
+      throw new Exception("Email has been taken by other user");
     }
 
     if (isScreenNameTaken(user.getScreenName())) {
-     // throw new ScreenNameIsAlreadyTakenException();
+      throw new Exception("Screen name has been taken by other user");
     }
 
     Password password = passwordSecurity.ecrypt(rawPassword);
     user.setPassword(password);
     user = store(user);
 
- //   userEventEmitter.emit(new UserEvent(user.getId(), SIGNUP_REQUESTED));
+    userCommandService.add(toUserDto(user));
   }
 
   @Override
@@ -331,6 +333,12 @@ public class UserServiceImpl implements UserService {
     if (otherUser.isPresent() && !user.equals(otherUser.get())) {
       throw new Exception("Screen Name has already been taken");
     }
+  }
+
+  private UserDto toUserDto(User user) {
+    UserDto userDto = new UserDto(user.getId(), user.getScreenName());
+    userDto.setContactData(user.getContactData());
+    return userDto;
   }
 
 }
