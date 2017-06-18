@@ -51,6 +51,7 @@
         <version.hikaricp>2.5.1</version.hikaricp>
         <version.h2>1.3.176</version.h2>
         <version.javamail>1.4.7</version.javamail>
+        <version.postgres>42.1.1</version.postgres>
         <argLine>-Xmx512m -XX:MaxPermSize=256m</argLine>
     </properties>
 
@@ -191,6 +192,11 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>${version.javamail}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${version.postgres}</version>
         </dependency>
     </dependencies>
     </dependencyManagement>
