@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/user-management.iml" filepath="$PROJECT_DIR$/user-management.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/user-management-common.iml" filepath="$PROJECT_DIR$/common/user-management-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/jdbc/user-management-jdbc.iml" filepath="$PROJECT_DIR$/jdbc/user-management-jdbc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/usermanagement-service/user-management-service.iml" filepath="$PROJECT_DIR$/usermanagement-service/user-management-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/auth/usermanagement-auth.iml" filepath="$PROJECT_DIR$/auth/usermanagement-auth.iml" />
     </modules>
   </component>

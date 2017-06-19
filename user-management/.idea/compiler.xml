@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="user-management-common" />
         <module name="user-management-jdbc" />
+        <module name="user-management-service" />
         <module name="usermanagement-auth" />
       </profile>
     </annotationProcessing>
@@ -15,6 +16,7 @@
       <module name="user-management" target="1.8" />
       <module name="user-management-common" target="1.8" />
       <module name="user-management-jdbc" target="1.8" />
+      <module name="user-management-service" target="1.8" />
       <module name="usermanagement-auth" target="1.8" />
     </bytecodeTargetLevel>
   </component>
