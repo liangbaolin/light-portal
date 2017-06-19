@@ -348,11 +348,18 @@ public class UserServiceImpl implements UserService {
     }
   }
 
-  private UserDto toUserDto(User user) {
+  @Override
+  public UserDto toUserDto(User user) {
     UserDto userDto = new UserDto(user.getId(), user.getScreenName());
     userDto.setContactData(user.getContactData());
     return userDto;
   }
 
 
+  @Override
+  public User fromUserDto(UserDto user) {
+    Objects.requireNonNull(user, "user");
+    String email = user.getContactData()==null?null: user.getContactData().getEmail();
+    return new User (user.getId(), user.getScreenName(), email);
+  }
 }

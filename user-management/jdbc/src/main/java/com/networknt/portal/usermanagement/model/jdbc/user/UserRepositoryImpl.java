@@ -217,7 +217,7 @@ public class UserRepositoryImpl implements UserRepository {
            stmt.setString(5, user.getContactData().getFirstName());
            stmt.setString(6, user.getContactData().getLastName());
            stmt.setString(7, user.getContactData().getGender().name());
-           stmt.setDate(8, Date.valueOf(user.getContactData().getBirthday()));
+           stmt.setDate(8, user.getContactData().getBirthday()==null?null:Date.valueOf(user.getContactData().getBirthday()));
            stmt.setString(9, user.getPassword() == null ? null : user.getPassword().getPasswordHash());
            stmt.setString(10, user.getPassword() == null ? null : user.getPassword().getPasswordSalt());
            stmt.setString(11, user.getLocale().getDisplayName());

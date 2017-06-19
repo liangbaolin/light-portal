@@ -3,6 +3,7 @@ package com.networknt.portal.usermanagement.model.auth.service;
 
 
 
+import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 import com.networknt.portal.usermanagement.model.common.exception.InvalidEmailException;
 import com.networknt.portal.usermanagement.model.common.exception.InvalidTokenException;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
@@ -186,8 +187,11 @@ public interface UserService {
       throws Exception;
 
 
-   boolean isEmitEvent();
+  boolean isEmitEvent();
 
   void setEmitEvent(boolean emitEvent);
 
+   UserDto toUserDto(User user);
+
+  User fromUserDto(UserDto user);
 }

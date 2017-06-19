@@ -15,10 +15,12 @@ public class UserDto {
 
   private ContactData contactData = new ContactData();
 
-  private Timezone timezone = Timezone.CANADA_EASTERN;
-  private Locale locale = Locale.CANADA;
+  private String timezone = Timezone.CANADA_EASTERN.name();
+  private String locale = Locale.CANADA.getDisplayName();
 
   private String password;
+
+  public UserDto(){}
 
   public UserDto(Long id, String screenName) {
     this.id = id;
@@ -49,19 +51,19 @@ public class UserDto {
     this.contactData = contactData;
   }
 
-  public Timezone getTimezone() {
+  public String getTimezone() {
     return timezone;
   }
 
-  public void setTimezone(Timezone timezone) {
+  public void setTimezone(String timezone) {
     this.timezone = timezone;
   }
 
-  public Locale getLocale() {
+  public String getLocale() {
     return locale;
   }
 
-  public void setLocale(Locale locale) {
+  public void setLocale(String locale) {
     this.locale = locale;
   }
 
