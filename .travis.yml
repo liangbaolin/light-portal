@@ -10,6 +10,9 @@ cache:
  directories:
    - $HOME/.m2
 
+install:
+  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+
 script: 
   - cd hybrid-server && mvn package
   - cd ../view && npm i && npm test
