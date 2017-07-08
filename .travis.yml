@@ -1,15 +1,14 @@
 language: java
 
+node_js: 
+   - "6"
+
 jdk:
    - oraclejdk8
-
-node_js: 
-   - "node"
 
 cache:
  directories:
    - $HOME/.m2
-
 
 script: 
   - cd hybrid-server && mvn package
