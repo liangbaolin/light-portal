@@ -9,3 +9,4 @@ jdk:
 
 script: 
   - cd hybrid-server && mvn package
+  - cd ../view && npm i && npm test
