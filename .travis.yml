@@ -7,4 +7,5 @@ cache:
 jdk:
    - oraclejdk8
 
-script: build.sh
+script: 
+  - cd hybrid-server && mvn package
