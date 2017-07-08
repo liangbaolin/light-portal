@@ -1,8 +1,10 @@
-# light-portal
+A service consumer and provider runtime management and marketplace to bridge between consumers and proiders.
 
-[![Join the chat at https://gitter.im/networknt/light-portal](https://badges.gitter.im/networknt/light-portal.svg)](https://gitter.im/networknt/light-portal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[Developer Chat](https://gitter.im/networknt/light-portal) |
+[Documentation](https://networknt.github.io/light-portal) |
+[Contribution Guide](CONTRIBUTING.md) |
 
-A portal for client/service management and marketplace.
+[![Build Status](https://travis-ci.org/networknt/light-portal.svg?branch=master)](https://travis-ci.org/networknt/light-portal)
 
 ## Introduction
 
