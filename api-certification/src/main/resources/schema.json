@@ -1,0 +1,25 @@
+{"lightapi.net/certification/certifyEndpoint/0.1.0":{"schema": {
+        "title": "Endpoint Certification",
+        "type": "object",
+        "properties": {
+          "serverInfoUrl": {
+            "type": "string"
+          },
+          "environment": {
+            "type": "string"
+          }
+        },
+        "required": ["serverInfoUrl"]
+      },"scope": "cert.endpoint.r"},"lightapi.net/certification/certifyRegistry/0.1.0":{"schema": {
+        "title": "Registry Certification",
+        "type": "object",
+        "properties": {
+          "registryUrl": {
+            "type": "string"
+          },
+          "environment": {
+            "type": "string"
+          }
+        },
+        "required": ["registryUrl"]
+      },"scope": "cert.registry.r"}}
