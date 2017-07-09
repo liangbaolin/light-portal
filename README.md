@@ -1,4 +1,4 @@
-A service consumer and provider runtime management and marketplace to bridge between consumers and proiders.
+A service consumer and provider runtime management and marketplace to bridge between consumers and providers.
 
 [Developer Chat](https://gitter.im/networknt/light-portal) |
 [Documentation](https://networknt.github.io/light-portal) |
