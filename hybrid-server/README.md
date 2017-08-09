@@ -52,7 +52,7 @@ If you only want to test one service jar file, then your can include the jar fil
 the class path as below.
 
 ```
-java -cp ~/networknt/light-codegen/codegen-web/target/codegen-web-1.3.4.jar:target/pserver-1.0.0.jar com.networknt.server.Server
+java -cp ~/networknt/light-codegen/codegen-web/target/codegen-web-1.3.5.jar:target/pserver-1.0.0.jar com.networknt.server.Server
 ```
 
 ## Test
