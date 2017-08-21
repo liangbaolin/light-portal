@@ -27,7 +27,7 @@ public class SessionPostHandlerTest {
     @Test
     public void testSessionPostHandlerTest() throws ClientException, ApiException {
         CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpPost httpPost = new HttpPost ("http://localhost:8080/v1/session");
+        HttpPost httpPost = new HttpPost ("http://localhost:8081/v1/session");
         /*
         Client.getInstance().addAuthorization(httpPost);
         try {

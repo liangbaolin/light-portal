@@ -27,7 +27,7 @@ public class RemoveSessionIdDeleteHandlerTest {
     @Test
     public void testRemoveSessionIdDeleteHandlerTest() throws ClientException, ApiException {
         CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpDelete httpDelete = new HttpDelete ("http://localhost:8080/v1/removeSession/id");
+        HttpDelete httpDelete = new HttpDelete ("http://localhost:8081/v1/removeSession/id");
         /*
         Client.getInstance().addAuthorization(httpDelete);
         try {

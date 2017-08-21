@@ -27,7 +27,7 @@ public class SessionIdGetHandlerTest {
     @Test
     public void testSessionIdGetHandlerTest() throws ClientException, ApiException {
         CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpGet httpGet = new HttpGet ("http://localhost:8080/v1/session/id");
+        HttpGet httpGet = new HttpGet ("http://localhost:8081/v1/session/id");
         /*
         Client.getInstance().addAuthorization(httpGet);
         try {

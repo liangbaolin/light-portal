@@ -27,7 +27,7 @@ public class ChangeUserPutHandlerTest {
     @Test
     public void testChangeUserPutHandlerTest() throws ClientException, ApiException {
         CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpPut httpPut = new HttpPut ("http://localhost:8080/v1/changeUser");
+        HttpPut httpPut = new HttpPut ("http://localhost:8081/v1/changeUser");
         /*
         Client.getInstance().addAuthorization(httpPut);
         try {

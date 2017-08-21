@@ -27,7 +27,7 @@ public class DeleteUserIdDeleteHandlerTest {
     @Test
     public void testDeleteUserIdDeleteHandlerTest() throws ClientException, ApiException {
         CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpDelete httpDelete = new HttpDelete ("http://localhost:8080/v1/deleteUser/id");
+        HttpDelete httpDelete = new HttpDelete ("http://localhost:8081/v1/deleteUser/id");
         /*
         Client.getInstance().addAuthorization(httpDelete);
         try {

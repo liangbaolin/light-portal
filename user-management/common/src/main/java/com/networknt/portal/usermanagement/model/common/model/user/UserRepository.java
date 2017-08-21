@@ -50,4 +50,12 @@ public interface UserRepository {
    */
   User save(User user);
 
+  /**
+   * Active the given user, provided that it exists.
+   *
+   * @param userId {@link User}'s ID
+   * @throws NoSuchUserException if the user doesn't
+   *     exist
+   */
+  void activeUser(Long userId) throws NoSuchUserException;
 }

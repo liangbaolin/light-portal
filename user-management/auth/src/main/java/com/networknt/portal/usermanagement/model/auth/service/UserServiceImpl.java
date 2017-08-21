@@ -5,6 +5,8 @@ package com.networknt.portal.usermanagement.model.auth.service;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.networknt.config.Config;
+import com.networknt.portal.usermanagement.model.auth.UserConfig;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserCommandService;
 
 
@@ -14,6 +16,7 @@ import com.networknt.portal.usermanagement.model.common.exception.InvalidEmailEx
 import com.networknt.portal.usermanagement.model.common.exception.InvalidTokenException;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
 import com.networknt.portal.usermanagement.model.common.model.user.*;
+import com.networknt.portal.usermanagement.model.common.utils.EmailSender;
 import com.networknt.portal.usermanagement.model.common.utils.IdentityGenerator;
 import com.networknt.portal.usermanagement.model.common.utils.Validator;
 import org.slf4j.Logger;
@@ -32,7 +35,9 @@ public class UserServiceImpl implements UserService {
   private final UserCommandService userCommandService;
   private final UserRepository userRepository;
 
-  private boolean emitEvent = true;
+
+  static String USER_CONFIG_NAME = "user";
+  static UserConfig userConfig = (UserConfig) Config.getInstance().getJsonObjectConfig(USER_CONFIG_NAME, UserConfig.class);private boolean emitEvent = true;
   /**
    * Creates an instance of {@link UserServiceImpl}, injecting its dependencies.
    *
@@ -304,6 +309,9 @@ public class UserServiceImpl implements UserService {
     Password password = passwordSecurity.ecrypt(rawPassword);
     user.setPassword(password);
     user = store(user);
+    EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
+
+ //   emailSender.sendMail(userConfig.getSubject(), "TODO active email");
     if (isEmitEvent()) {
       userCommandService.add(toUserDto(user));
 

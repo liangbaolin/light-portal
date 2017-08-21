@@ -27,7 +27,7 @@ public class UserActionPutHandlerTest {
     @Test
     public void testUserActionPutHandlerTest() throws ClientException, ApiException {
         CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpPut httpPut = new HttpPut ("http://localhost:8080/v1/userAction");
+        HttpPut httpPut = new HttpPut ("http://localhost:8081/v1/userAction");
         /*
         Client.getInstance().addAuthorization(httpPut);
         try {

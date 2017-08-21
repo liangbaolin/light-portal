@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Created by gavin on 2017-06-11.
+ * UserRepository implement class
  */
 public class UserRepositoryImpl implements UserRepository {
 
@@ -256,6 +256,23 @@ public class UserRepositoryImpl implements UserRepository {
 
        return null;
    }
+
+    public void activeUser(Long userId) throws NoSuchUserException {
+        Objects.requireNonNull(userId);
+        try (final Connection connection = dataSource.getConnection()){
+            String psDelete = "UPDATE USER_DETAIL SET locked = 'N' WHERE user_id = ?";
+            PreparedStatement psEntity = connection.prepareStatement(psDelete);
+            psEntity.setLong(1, userId);
+            int count = psEntity.executeUpdate();
+            if (count != 1) {
+                logger.error("Failed to update USER_DETAIL: {}", userId);
+            }
+
+        } catch (SQLException e) {
+            logger.error("SqlException:", e);
+        }
+
+    }
 
 
 }

@@ -27,7 +27,7 @@ public class GetUsersGetHandlerTest {
     @Test
     public void testGetUsersGetHandlerTest() throws ClientException, ApiException {
         CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpGet httpGet = new HttpGet ("http://localhost:8080/v1/getUsers");
+        HttpGet httpGet = new HttpGet ("http://localhost:8081/v1/getUsers");
         /*
         Client.getInstance().addAuthorization(httpGet);
         try {
