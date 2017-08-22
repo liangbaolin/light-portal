@@ -37,7 +37,9 @@ public class UserServiceImpl implements UserService {
 
 
   static String USER_CONFIG_NAME = "user";
-  static UserConfig userConfig = (UserConfig) Config.getInstance().getJsonObjectConfig(USER_CONFIG_NAME, UserConfig.class);private boolean emitEvent = true;
+  static UserConfig userConfig = (UserConfig) Config.getInstance().getJsonObjectConfig(USER_CONFIG_NAME, UserConfig.class);
+
+  private boolean emitEvent = false;
   /**
    * Creates an instance of {@link UserServiceImpl}, injecting its dependencies.
    *
@@ -72,7 +74,7 @@ public class UserServiceImpl implements UserService {
     }
 
     user.setEmail(newEmail);
-    user = store(user);
+    user = update(user);
 
   //  userEventEmitter.emit(new UserEvent(userId, EMAIL_CHANGED));
 
@@ -87,7 +89,7 @@ public class UserServiceImpl implements UserService {
     User user = getUser(userId);
     Password newPassword = passwordSecurity.ecrypt(rawPassword);
     user.setPassword(newPassword);
-    user = store(user);
+    user = update(user);
 
    // userEventEmitter.emit(new UserEvent(userId, PASSWORD_CHANGED));
 
@@ -104,7 +106,7 @@ public class UserServiceImpl implements UserService {
     User user = getUser(userId);
     checkScreenName(user, newScreenName);
     user.setScreenName(newScreenName);
-    user = store(user);
+    user = update(user);
 
     //userEventEmitter.emit(new UserEvent(userId, SCREEN_NAME_CHANGED));
 
@@ -126,7 +128,7 @@ public class UserServiceImpl implements UserService {
     if (!newEmail.isPresent()) {
       boolean confirmed = user.isConfirmed();
       user.setConfirmed(true);
-      user = store(user);
+      user = confirmUser(user);
       if (!confirmed) {
        // userEventEmitter.emit(new UserEvent(userId, EMAIL_CONFIRMED));
       }
@@ -320,8 +322,18 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User store(User user) {
-    // FIXME: don't overwrite email, screenname and password here.
     return userRepository.save(user);
+  }
+
+  @Override
+  public User update(User user) {
+    return userRepository.update(user);
+  }
+
+  @Override
+  public User confirmUser(User user) throws NoSuchUserException {
+     userRepository.activeUser(user.getId());
+    return user;
   }
 
   @Override

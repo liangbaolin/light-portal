@@ -186,6 +186,16 @@ public interface UserService {
   User store(User user)
       throws Exception;
 
+  /**
+   * update the given {@link User}.
+   *
+   * @param user a {@link User} to store
+   * @return the stored user
+   */
+  User update(User user);
+
+  User confirmUser(User user)
+          throws NoSuchUserException;
 
   boolean isEmitEvent();
 

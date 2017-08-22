@@ -51,6 +51,13 @@ public interface UserRepository {
   User save(User user);
 
   /**
+   * update the given user.
+   * @param user a {@link User}
+   * @return the stored {@link User}
+   */
+  User update(User user);
+
+  /**
    * Active the given user, provided that it exists.
    *
    * @param userId {@link User}'s ID

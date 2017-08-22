@@ -22,6 +22,8 @@ package com.networknt.portal.usermanagement.model.common.model.user;
 
 import com.networknt.portal.usermanagement.model.common.domain.AuditData;
 import com.networknt.portal.usermanagement.model.common.domain.Entity;
+import com.networknt.portal.usermanagement.model.common.utils.IdGenerator;
+import com.networknt.portal.usermanagement.model.common.utils.IdGeneratorImpl;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -39,6 +41,7 @@ public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> 
 
   public static final int DEFAULT_EXPIRATION_MINUTES = 10;
 
+  private static IdGenerator idGenerator = new IdGeneratorImpl();
   private Long id;
 
   private String value;
@@ -73,7 +76,7 @@ public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> 
    */
   public ConfirmationToken(User owner, ConfirmationTokenType type, int minutes) {
     // FIXME: Use a bit more sophisticated random token value generaton later
-    this(owner, UUID.randomUUID().toString(), type, minutes);
+    this(owner, idGenerator.genId().asString(), type, minutes);
   }
 
   /**

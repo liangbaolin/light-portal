@@ -148,7 +148,7 @@ public class UserRepositoryImpl implements UserRepository {
        return Optional.of(user);
    }
 
-
+    @Override
    public  Optional<User> findByScreenName(String screenName) {
        Objects.requireNonNull(screenName);
        User user = null;
@@ -198,7 +198,7 @@ public class UserRepositoryImpl implements UserRepository {
    }
 
 
-
+    @Override
    public  User save(User user) {
 
        Objects.requireNonNull(user);
@@ -257,10 +257,40 @@ public class UserRepositoryImpl implements UserRepository {
        return null;
    }
 
+    @Override
+    public  User update(User user) {
+        Objects.requireNonNull(user);
+        try (final Connection connection = dataSource.getConnection()){
+            String psUpdate = "UPDATE USER_DETAIL SET screenName = ?, email = ?,  firstName = ?, lastName= ?, birthday = ?, gender=?, passwordHash =?, passwordSalt = ?, locked = ?, confirmed = ? WHERE user_id = ?";
+            PreparedStatement psEntity = connection.prepareStatement(psUpdate);
+            psEntity.setString(1, user.getScreenName());
+            psEntity.setString(2, user.getEmail());
+            psEntity.setString(3, user.getContactData().getFirstName());
+            psEntity.setString(4, user.getContactData().getLastName());
+            psEntity.setDate(5, user.getContactData().getBirthday()==null?null:Date.valueOf(user.getContactData().getBirthday()));
+            psEntity.setString(6, user.getContactData().getGender().name());
+            psEntity.setString(7, user.getPassword() == null ? null : user.getPassword().getPasswordHash());
+            psEntity.setString(8, user.getPassword() == null ? null : user.getPassword().getPasswordSalt());
+            psEntity.setString(9, user.isConfirmed() ? "Y" : "N");
+            psEntity.setString(10, user.isLocked() ? "Y" : "N");
+            psEntity.setLong(11, user.getId());
+            int count = psEntity.executeUpdate();
+            if (count != 1) {
+                logger.error("Failed to update USER_DETAIL: {}", user);
+            } else {
+                return user;
+            }
+
+        } catch (SQLException e) {
+            logger.error("SqlException:", e);
+        }
+        return null;
+    }
+
     public void activeUser(Long userId) throws NoSuchUserException {
         Objects.requireNonNull(userId);
         try (final Connection connection = dataSource.getConnection()){
-            String psDelete = "UPDATE USER_DETAIL SET locked = 'N' WHERE user_id = ?";
+            String psDelete = "UPDATE USER_DETAIL SET locked = 'N', confirmed = 'Y' WHERE user_id = ?";
             PreparedStatement psEntity = connection.prepareStatement(psDelete);
             psEntity.setLong(1, userId);
             int count = psEntity.executeUpdate();
