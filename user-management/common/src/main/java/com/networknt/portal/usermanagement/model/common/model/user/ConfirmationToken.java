@@ -187,4 +187,12 @@ public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> 
   public void setValid(boolean valid) {
     this.valid = valid;
   }
+
+  public LocalDateTime getExpiresAt() {
+    return expiresAt;
+  }
+
+  public LocalDateTime getUsedAt() {
+    return usedAt;
+  }
 }

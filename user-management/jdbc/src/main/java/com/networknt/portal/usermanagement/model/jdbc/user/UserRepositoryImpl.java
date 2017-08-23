@@ -6,9 +6,7 @@ import com.networknt.portal.usermanagement.model.common.domain.contact.AddressTy
 import com.networknt.portal.usermanagement.model.common.domain.contact.Country;
 import com.networknt.portal.usermanagement.model.common.domain.contact.State;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
-import com.networknt.portal.usermanagement.model.common.model.user.Password;
-import com.networknt.portal.usermanagement.model.common.model.user.User;
-import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
+import com.networknt.portal.usermanagement.model.common.model.user.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +15,8 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 /**
  * UserRepository implement class
@@ -56,6 +56,7 @@ public class UserRepositoryImpl implements UserRepository {
         User user = null;
         String psSelect = "SELECT user_id, email, timezone, screenName, firstName, lastName, gender, birthday, passwordHash, passwordSalt  FROM USER_DETAIL WHERE deleted = 'N' AND user_id = ?";
         String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, addressline1, addressline2  FROM ADDRESS WHERE  user_id = ?";
+        String psSelect_token = "SELECT  id, token_value, token_type, valid, payload, expiresAt, usedAt  FROM CONFIRMATION_TOKEN WHERE  user_id = ? and expiresAt > ?";
         try (final Connection connection = dataSource.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(psSelect);
             stmt.setLong(1, userId);
@@ -74,7 +75,7 @@ public class UserRepositoryImpl implements UserRepository {
                     stmt =  connection.prepareStatement(psSelect_address);
                     stmt.setLong(1, userId);
                     ResultSet rs2 = stmt.executeQuery();
-                    if (rs!=null) {
+                    if (rs2!=null) {
                         while (rs2.next()) {
                             AddressData address = new AddressData();
                             address.setAddressType(AddressType.valueOf(rs2.getString("address_type")));
@@ -85,6 +86,21 @@ public class UserRepositoryImpl implements UserRepository {
                             address.setAddressLine1(rs2.getString("addressline1"));
                             address.setAddressLine2(rs2.getString("addressline2"));
                             user.getContactData().addAddresses(address);
+                        }
+                    }
+
+                    stmt =  connection.prepareStatement(psSelect_token);
+                    stmt.setLong(1, userId);
+                    stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+                    rs2 = stmt.executeQuery();
+                    if (rs2!=null) {
+                        while (rs2.next()) {
+                            Duration  duration = Duration.between(rs2.getTimestamp("expiresAt").toLocalDateTime(),LocalDateTime.now());
+                            ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")),
+                                    (int) duration.toMinutes());
+                            token.setId(rs2.getLong("id"));
+                            token.setValid("Y".equalsIgnoreCase(rs2.getString("valid"))?true:false);
+                            user.addConfirmationToken(token);
                         }
                     }
                 }
@@ -105,6 +121,7 @@ public class UserRepositoryImpl implements UserRepository {
        User user = null;
        String psSelect = "SELECT user_id, email, timezone, screenName, firstName, lastName, gender, birthday, passwordHash, passwordSalt  FROM USER_DETAIL WHERE deleted = 'N' AND email = ?";
        String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, addressline1, addressline2  FROM ADDRESS WHERE  user_id = ?";
+       String psSelect_token = "SELECT  id, token_value, token_type, valid, payload, expiresAt, usedAt  FROM CONFIRMATION_TOKEN WHERE  user_id = ? and expiresAt > ?";
        try (final Connection connection = dataSource.getConnection()){
            PreparedStatement stmt = connection.prepareStatement(psSelect);
            stmt.setString(1, email);
@@ -123,7 +140,7 @@ public class UserRepositoryImpl implements UserRepository {
                    stmt =  connection.prepareStatement(psSelect_address);
                    stmt.setLong(1, user.getId());
                    ResultSet rs2 = stmt.executeQuery();
-                   if (rs!=null) {
+                   if (rs2!=null) {
                        while (rs2.next()) {
                            AddressData address = new AddressData();
                            address.setAddressType(AddressType.valueOf(rs2.getString("address_type")));
@@ -134,6 +151,21 @@ public class UserRepositoryImpl implements UserRepository {
                            address.setAddressLine1(rs2.getString("addressline1"));
                            address.setAddressLine2(rs2.getString("addressline2"));
                            user.getContactData().addAddresses(address);
+                       }
+                   }
+
+                   stmt =  connection.prepareStatement(psSelect_token);
+                   stmt.setLong(1, user.getId());
+                   stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+                   rs2 = stmt.executeQuery();
+                   if (rs2!=null) {
+                       while (rs2.next()) {
+                           Duration  duration = Duration.between(rs2.getTimestamp("expiresAt").toLocalDateTime(),LocalDateTime.now());
+                           ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")),
+                                   (int) duration.toMinutes());
+                           token.setId(rs2.getLong("id"));
+                           token.setValid("Y".equalsIgnoreCase(rs2.getString("valid"))?true:false);
+                           user.addConfirmationToken(token);
                        }
                    }
                }
@@ -154,6 +186,7 @@ public class UserRepositoryImpl implements UserRepository {
        User user = null;
        String psSelect = "SELECT user_id, email, timezone, screenName, firstName, lastName, gender, birthday, passwordHash, passwordSalt  FROM USER_DETAIL WHERE deleted = 'N' AND screenName = ?";
        String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, addressline1, addressline2  FROM ADDRESS WHERE  user_id = ?";
+        String psSelect_token = "SELECT  id, token_value, token_type, valid, payload, expiresAt, usedAt  FROM CONFIRMATION_TOKEN WHERE  user_id = ? and expiresAt > ?";
        try (final Connection connection = dataSource.getConnection()){
            PreparedStatement stmt = connection.prepareStatement(psSelect);
            stmt.setString(1, screenName);
@@ -172,7 +205,7 @@ public class UserRepositoryImpl implements UserRepository {
                    stmt =  connection.prepareStatement(psSelect_address);
                    stmt.setLong(1, user.getId());
                    ResultSet rs2 = stmt.executeQuery();
-                   if (rs!=null) {
+                   if (rs2!=null) {
                        while (rs2.next()) {
                            AddressData address = new AddressData();
                            address.setAddressType(AddressType.valueOf(rs2.getString("address_type")));
@@ -185,6 +218,21 @@ public class UserRepositoryImpl implements UserRepository {
                            user.getContactData().addAddresses(address);
                        }
                    }
+                   stmt =  connection.prepareStatement(psSelect_token);
+                   stmt.setLong(1, user.getId());
+                   stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+                   rs2 = stmt.executeQuery();
+                   if (rs2!=null) {
+                       while (rs2.next()) {
+                           Duration  duration = Duration.between(rs2.getTimestamp("expiresAt").toLocalDateTime(),LocalDateTime.now());
+                           ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")),
+                                   (int) duration.toMinutes());
+                           token.setId(rs2.getLong("id"));
+                           token.setValid("Y".equalsIgnoreCase(rs2.getString("valid"))?true:false);
+                           user.addConfirmationToken(token);
+                       }
+                   }
+
                }
            }
        } catch (SQLException e) {
@@ -197,8 +245,7 @@ public class UserRepositoryImpl implements UserRepository {
        return Optional.of(user);
    }
 
-
-    @Override
+   @Override
    public  User save(User user) {
 
        Objects.requireNonNull(user);
@@ -206,6 +253,7 @@ public class UserRepositoryImpl implements UserRepository {
        String psInsert = "INSERT INTO USER_DETAIL (user_id, email, timezone, screenName, firstName, lastName, gender, birthday, passwordHash," +
                "  passwordSalt, locale, confirmed, locked, deleted, createBy,  createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)";
        String psInsert_address = "INSERT INTO ADDRESS (user_id, address_type, country, province_state, city, zipcode, addressline1, addressline2) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+       String psInsert_token = "INSERT INTO CONFIRMATION_TOKEN (id, user_id, token_value, token_type, payload, expiresAt, usedAt) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
        try (final Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
@@ -241,6 +289,22 @@ public class UserRepositoryImpl implements UserRepository {
                        psAddress.addBatch();
                    }
                    psAddress.executeBatch();
+               }
+           }
+           if (user.getConfirmationTokens()!=null && user.getConfirmationTokens().size() >0) {
+               try (PreparedStatement psToken = connection.prepareStatement(psInsert_token)) {
+                   for(ConfirmationToken token : user.getConfirmationTokens()) {
+                       psToken.setLong(1,  token.getId());
+                       psToken.setLong(2,  user.getId());
+                       psToken.setString(3, token.getValue());
+                       psToken.setString(4, token.getType().name());
+                       psToken.setString(5, token.getPayload() == null?null:token.getPayload().toString());
+                       psToken.setTimestamp(6, token.getExpiresAt()== null?null:Timestamp.valueOf(token.getExpiresAt()));
+                       psToken.setTimestamp(7, token.getUsedAt()== null?null:Timestamp.valueOf(token.getUsedAt()));
+
+                       psToken.addBatch();
+                   }
+                   psToken.executeBatch();
                }
            }
            connection.commit();

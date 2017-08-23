@@ -7,6 +7,7 @@ import com.networknt.portal.usermanagement.model.common.domain.Entity;
 import com.networknt.portal.usermanagement.model.common.domain.contact.ContactData;
 import com.networknt.portal.usermanagement.model.common.exception.InvalidTokenException;
 import com.networknt.portal.usermanagement.model.common.model.Timezone;
+import com.networknt.portal.usermanagement.model.common.utils.IdentityGenerator;
 
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -64,6 +65,11 @@ public class User implements Entity<Long, User> {
     return addConfirmationToken(type, 0);
   }
 
+  public ConfirmationToken addConfirmationToken(ConfirmationToken token) {
+    confirmationTokens.add(token);
+    return token;
+  }
+
   public Timezone getTimezone() {
     return timezone;
   }
@@ -114,6 +120,7 @@ public class User implements Entity<Long, User> {
     }
     // TODO: invalide all other confirmation tokens.
     ConfirmationToken confirmationToken = new ConfirmationToken(this, type, minutes);
+    confirmationToken.setId(IdentityGenerator.generate());
     confirmationTokens.add(confirmationToken);
     return confirmationToken;
   }
@@ -217,5 +224,8 @@ public class User implements Entity<Long, User> {
     return confirmationToken.use();
   }
 
+  public Set<ConfirmationToken> getConfirmationTokens() {
+   return confirmationTokens;
+  }
 
 }

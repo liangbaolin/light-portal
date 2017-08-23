@@ -1,5 +1,6 @@
 DROP table IF EXISTS USER_DETAIL;
 DROP table IF EXISTS  ADDRESS;
+DROP table IF EXISTS  CONFIRMATION_TOKEN;
 DROP table IF EXISTS  Session;
 DROP table IF EXISTS  authority;
 
@@ -38,19 +39,31 @@ CREATE  TABLE ADDRESS (
    PRIMARY KEY(user_id, address_type)
 );
 
+CREATE  TABLE CONFIRMATION_TOKEN (
+  id bigint not null,
+  user_id bigint not null,
+  token_value varchar(128),
+  token_type varchar(30),
+  valid varchar(1) DEFAULT 'Y',
+  payload varchar(400),
+  expiresAt date,
+  usedAt date,
+  PRIMARY KEY(id)
+);
 
 CREATE  TABLE Session (
    id bigint not null,
    user_id bigint not null,
    token_value varchar(256),
    valid varchar(1) DEFAULT 'Y',
-   expiresAt timestamp,
-   lastUsedAt timestamp,
-   issuedAt timestamp,
-   removedAt timestamp,
-   deleted varchar(1) DEFAULT 'Y',
+   expiresAt date,
+   lastUsedAt date,
+   issuedAt date,
+   removedAt date,
+   deleted varchar(1) DEFAULT 'N',
    PRIMARY KEY(id)
 );
+
 
 create table authority (
   user_id integer not null,

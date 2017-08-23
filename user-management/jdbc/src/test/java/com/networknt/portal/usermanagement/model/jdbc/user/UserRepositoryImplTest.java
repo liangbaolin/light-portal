@@ -7,9 +7,7 @@ import com.networknt.portal.usermanagement.model.common.domain.contact.AddressTy
 import com.networknt.portal.usermanagement.model.common.domain.contact.Country;
 import com.networknt.portal.usermanagement.model.common.domain.contact.Gender;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
-import com.networknt.portal.usermanagement.model.common.model.user.Password;
-import com.networknt.portal.usermanagement.model.common.model.user.User;
-import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
+import com.networknt.portal.usermanagement.model.common.model.user.*;
 import com.networknt.portal.usermanagement.model.common.utils.IdentityGenerator;
 import com.networknt.service.SingletonServiceFactory;
 import org.h2.tools.RunScript;
@@ -75,6 +73,9 @@ public class UserRepositoryImplTest {
         address1.setZipCode("L3G G5T");
         address1.setAddressLine1("111 toronto st");
         user.getContactData().addAddresses(address1);
+
+
+        user.addConfirmationToken(ConfirmationTokenType.EMAIL, 60);
     }
 
     @Test
