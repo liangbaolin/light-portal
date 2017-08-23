@@ -7,6 +7,7 @@ import com.networknt.portal.usermanagement.model.common.domain.contact.Country;
 import com.networknt.portal.usermanagement.model.common.domain.contact.State;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
 import com.networknt.portal.usermanagement.model.common.model.user.*;
+import com.networknt.portal.usermanagement.model.common.utils.LocalDateTimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+
+import static java.time.Clock.systemUTC;
 
 /**
  * UserRepository implement class
@@ -95,9 +98,9 @@ public class UserRepositoryImpl implements UserRepository {
                     rs2 = stmt.executeQuery();
                     if (rs2!=null) {
                         while (rs2.next()) {
-                            Duration  duration = Duration.between(rs2.getTimestamp("expiresAt").toLocalDateTime(),LocalDateTime.now());
-                            ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")),
-                                    (int) duration.toMinutes());
+                            int Mins = LocalDateTimeUtil.getMinsDiff(LocalDateTime.now(systemUTC()), rs2.getTimestamp("expiresAt").toLocalDateTime());
+                            ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")), Mins);
+
                             token.setId(rs2.getLong("id"));
                             token.setValid("Y".equalsIgnoreCase(rs2.getString("valid"))?true:false);
                             user.addConfirmationToken(token);
@@ -160,9 +163,8 @@ public class UserRepositoryImpl implements UserRepository {
                    rs2 = stmt.executeQuery();
                    if (rs2!=null) {
                        while (rs2.next()) {
-                           Duration  duration = Duration.between(rs2.getTimestamp("expiresAt").toLocalDateTime(),LocalDateTime.now());
-                           ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")),
-                                   (int) duration.toMinutes());
+                           int Mins = LocalDateTimeUtil.getMinsDiff(LocalDateTime.now(systemUTC()), rs2.getTimestamp("expiresAt").toLocalDateTime());
+                           ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")), Mins);
                            token.setId(rs2.getLong("id"));
                            token.setValid("Y".equalsIgnoreCase(rs2.getString("valid"))?true:false);
                            user.addConfirmationToken(token);
@@ -224,9 +226,8 @@ public class UserRepositoryImpl implements UserRepository {
                    rs2 = stmt.executeQuery();
                    if (rs2!=null) {
                        while (rs2.next()) {
-                           Duration  duration = Duration.between(rs2.getTimestamp("expiresAt").toLocalDateTime(),LocalDateTime.now());
-                           ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")),
-                                   (int) duration.toMinutes());
+                           int Mins = LocalDateTimeUtil.getMinsDiff(LocalDateTime.now(systemUTC()), rs2.getTimestamp("expiresAt").toLocalDateTime());
+                           ConfirmationToken token = new ConfirmationToken(user, rs2.getString("token_value"), ConfirmationTokenType.valueOf(rs2.getString("token_type")), Mins);
                            token.setId(rs2.getLong("id"));
                            token.setValid("Y".equalsIgnoreCase(rs2.getString("valid"))?true:false);
                            user.addConfirmationToken(token);

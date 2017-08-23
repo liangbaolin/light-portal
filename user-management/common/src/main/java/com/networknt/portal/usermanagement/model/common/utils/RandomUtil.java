@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by lcsontos on 5/24/17.
+ * RandomUtil, util class.
  */
 public class RandomUtil {
 
