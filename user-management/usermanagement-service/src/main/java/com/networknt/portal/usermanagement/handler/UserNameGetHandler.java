@@ -7,7 +7,7 @@ import io.undertow.util.HttpString;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChangeUserPutHandler implements HttpHandler {
+public class UserNameGetHandler implements HttpHandler {
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         

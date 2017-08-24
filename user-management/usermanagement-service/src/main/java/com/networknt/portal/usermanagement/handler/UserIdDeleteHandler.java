@@ -7,7 +7,7 @@ import io.undertow.util.HttpString;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserActionPutHandler implements HttpHandler {
+public class UserIdDeleteHandler implements HttpHandler {
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         

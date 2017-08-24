@@ -23,7 +23,7 @@ public class User implements Entity<Long, User> {
 
   private Long id;
   private String screenName;
-
+  private String host;
   private ContactData contactData = new ContactData();
 
   private Password password;
@@ -120,7 +120,6 @@ public class User implements Entity<Long, User> {
     }
     // TODO: invalide all other confirmation tokens.
     ConfirmationToken confirmationToken = new ConfirmationToken(this, type, minutes);
-    confirmationToken.setId(IdentityGenerator.generate());
     confirmationTokens.add(confirmationToken);
     return confirmationToken;
   }
@@ -133,7 +132,7 @@ public class User implements Entity<Long, User> {
    */
   public Optional<ConfirmationToken> getConfirmationToken(String token) {
     return confirmationTokens.stream()
-        .filter(ct -> token.equals(ct.getValue()))
+        .filter(ct -> token.equals(ct.getId()))
         .findFirst();
   }
 
@@ -198,6 +197,14 @@ public class User implements Entity<Long, User> {
 
   public void setDeleted(boolean deleted) {
     this.deleted = deleted;
+  }
+
+  public String getHost() {
+    return host;
+  }
+
+  public void setHost(String host) {
+    this.host = host;
   }
 
   /**

@@ -23,11 +23,11 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.io.IOException;
 
 
-public class HealthGetHandlerTest {
+public class UserGetHandlerTest {
     @ClassRule
     public static TestServer server = TestServer.getInstance();
 
-    static final Logger logger = LoggerFactory.getLogger(HealthGetHandlerTest.class);
+    static final Logger logger = LoggerFactory.getLogger(UserGetHandlerTest.class);
     static final boolean enableHttp2 = server.getServerConfig().isEnableHttp2();
     static final boolean enableHttps = server.getServerConfig().isEnableHttps();
     static final int httpPort = server.getServerConfig().getHttpPort();
@@ -35,7 +35,7 @@ public class HealthGetHandlerTest {
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
     @Test
-    public void testHealthGetHandlerTest() throws ClientException, ApiException {
+    public void testUserGetHandlerTest() throws ClientException, ApiException {
         /*
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
@@ -47,7 +47,7 @@ public class HealthGetHandlerTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/v1/health").setMethod(Methods.GET);
+            ClientRequest request = new ClientRequest().setPath("/v1/user").setMethod(Methods.GET);
             
             connection.sendRequest(request, client.createClientCallback(reference, latch));
             

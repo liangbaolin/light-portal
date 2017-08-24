@@ -18,25 +18,29 @@ public class PathHandlerProvider implements HandlerProvider {
         
             .add(Methods.POST, "/v1/session", new SessionPostHandler())
         
-            .add(Methods.PUT, "/v1/changeUser", new ChangeUserPutHandler())
-        
-            .add(Methods.DELETE, "/v1/deleteUser/{id}", new DeleteUserIdDeleteHandler())
-        
-            .add(Methods.DELETE, "/v1/removeSession/{id}", new RemoveSessionIdDeleteHandler())
+            .add(Methods.GET, "/v1/user/name", new UserNameGetHandler())
         
             .add(Methods.GET, "/v1/health", new HealthGetHandler())
         
-            .add(Methods.GET, "/v1/getUser/{id}", new GetUserIdGetHandler())
+            .add(Methods.PUT, "/v1/user/token/{id}", new UserTokenIdPutHandler())
         
-            .add(Methods.GET, "/v1/getUsers", new GetUsersGetHandler())
+            .add(Methods.POST, "/v1/user", new UserPostHandler())
+        
+            .add(Methods.GET, "/v1/user", new UserGetHandler())
         
             .add(Methods.GET, "/v1/server/info", new ServerInfoGetHandler())
         
+            .add(Methods.GET, "/v1/user/email", new UserEmailGetHandler())
+        
+            .add(Methods.DELETE, "/v1/session/{id}", new SessionIdDeleteHandler())
+        
             .add(Methods.GET, "/v1/session/{id}", new SessionIdGetHandler())
         
-            .add(Methods.POST, "/v1/addUser", new AddUserPostHandler())
+            .add(Methods.DELETE, "/v1/user/{id}", new UserIdDeleteHandler())
         
-            .add(Methods.PUT, "/v1/userAction", new UserActionPutHandler())
+            .add(Methods.PUT, "/v1/user/{id}", new UserIdPutHandler())
+        
+            .add(Methods.GET, "/v1/user/{id}", new UserIdGetHandler())
         
         ;
     }

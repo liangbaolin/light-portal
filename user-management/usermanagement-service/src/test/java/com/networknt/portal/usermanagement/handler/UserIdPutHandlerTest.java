@@ -23,11 +23,11 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.io.IOException;
 
 
-public class HealthGetHandlerTest {
+public class UserIdPutHandlerTest {
     @ClassRule
     public static TestServer server = TestServer.getInstance();
 
-    static final Logger logger = LoggerFactory.getLogger(HealthGetHandlerTest.class);
+    static final Logger logger = LoggerFactory.getLogger(UserIdPutHandlerTest.class);
     static final boolean enableHttp2 = server.getServerConfig().isEnableHttp2();
     static final boolean enableHttps = server.getServerConfig().isEnableHttps();
     static final int httpPort = server.getServerConfig().getHttpPort();
@@ -35,7 +35,7 @@ public class HealthGetHandlerTest {
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
     @Test
-    public void testHealthGetHandlerTest() throws ClientException, ApiException {
+    public void testUserIdPutHandlerTest() throws ClientException, ApiException {
         /*
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
@@ -47,9 +47,9 @@ public class HealthGetHandlerTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/v1/health").setMethod(Methods.GET);
+            ClientRequest request = new ClientRequest().setPath("/v1/user/id").setMethod(Methods.PUT);
             
-            connection.sendRequest(request, client.createClientCallback(reference, latch));
+            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
             
             latch.await();
         } catch (Exception e) {

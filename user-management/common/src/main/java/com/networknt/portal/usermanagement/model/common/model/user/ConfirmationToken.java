@@ -37,14 +37,13 @@ import static java.time.temporal.ChronoUnit.MINUTES;
  * email change and password reset.
  */
 
-public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> {
+public class ConfirmationToken<P> implements Entity<String, ConfirmationToken<P>> {
 
   public static final int DEFAULT_EXPIRATION_MINUTES = 10;
 
   private static IdGenerator idGenerator = new IdGeneratorImpl();
-  private Long id;
+  private String id;
 
-  private String value;
   private User owner;
   private ConfirmationTokenType type;
 
@@ -94,26 +93,26 @@ public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> 
    * Creates a new confirmation token with the given {@link User} and expiration period.
    *
    * @param owner a {@link User}
-   * @param value tokens's value
+   * @param id tokens's value
    * @param type confirmation token's type
    * @param minutes expiration in minutes
    */
-  public ConfirmationToken(User owner, String value, ConfirmationTokenType type, int minutes) {
-    this(owner, value, type, minutes, null);
+  public ConfirmationToken(User owner, String id, ConfirmationTokenType type, int minutes) {
+    this(owner, id, type, minutes, null);
   }
 
   /**
    * Creates a new confirmation token with the given {@link User} and expiration period.
    *
    * @param owner a {@link User}
-   * @param value tokens's value
+   * @param id tokens's value
    * @param type confirmation token's type
    * @param minutes expiration in minutes
    */
   public ConfirmationToken(
-          User owner, String value, ConfirmationTokenType type, int minutes, P payload) {
+          User owner, String id, ConfirmationTokenType type, int minutes, P payload) {
 
-    this.value = value;
+    this.id = id;
     this.owner = owner;
     this.type = type;
     this.payload = payload;
@@ -122,7 +121,7 @@ public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> 
   }
 
   @Override
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
@@ -136,7 +135,7 @@ public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> 
   }
 
   @Override
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -154,14 +153,6 @@ public class ConfirmationToken<P> implements Entity<Long, ConfirmationToken<P>> 
     valid = false;
     usedAt = LocalDateTime.now(systemUTC());
     return this;
-  }
-
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
   }
 
   public User getOwner() {

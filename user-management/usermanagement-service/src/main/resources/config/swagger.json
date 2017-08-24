@@ -1,211 +1,238 @@
 {"basePath": "/v1","paths":{"/session":{"post":{"x-accepts": "application/json","security": [
-          {
-            "session_auth": [
-              "session.r", "session.w"
-            ]
-          }
-        ],"description": "Return a session object with Id","operationId": "add","responses":{"200":{"schema": {
-              "$ref": "#/definitions/Session"
-            },"description": "Successful response"}},"parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Created session object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Session"
+                    {
+                        "session_auth": [
+                            "session.r",
+                            "session.w"
+                        ]
+                    }
+                ],"description": "Return a session object with Id","operationId": "createSession","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/Session"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Created session object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Session"
+                        }
+                    }
+                ],"x-contentType": "application/json"}},"/user/name":{"get":{"x-accepts": "application/json","security": [
+                    {
+                        "user_auth": [
+                            "user.r"
+                        ]
+                    }
+                ],"description": "Return a user by user name","operationId": "getByName","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/User"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "login name of user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],"x-contentType": "application/json"}},"/health":{"get":{"responses":{"200":{"description":"successful operation"}},"parameters":[]}},"/user/token/{id}":{"put":{"x-accepts": "application/json","security": [
+                    {
+                        "user_auth": [
+                            "user.r",
+                            "user.w"
+                        ]
+                    }
+                ],"description": "Return the  user object","operationId": "confirmUser","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/User"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The user id for update",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],"x-contentType": "application/json"}},"/user":{"post":{"x-accepts": "application/json","security": [
+                    {
+                        "user_auth": [
+                            "user.w"
+                        ]
+                    }
+                ],"description": "Return a user object with Id","operationId": "addUser","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/User"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Created user object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],"x-contentType": "application/json"},"get":{"x-accepts": "application/json","security": [
+                    {
+                        "user_auth": [
+                            "user.a"
+                        ]
+                    }
+                ],"description": "Return an array of user","operationId": "getAll","responses":{"200":{"schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        },"description": "Successful response"}},"parameters": [],"x-contentType": "application/json"}},"/server/info":{"get":{"security":[{"user_auth":["server.info.r"]}],"responses":{"200":{"description":"successful operation"}},"parameters":[]}},"/user/email":{"get":{"description": "Return a user by email","operationId": "getByEmail","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/User"
+                        },"description": "Successful response"}},"security": [
+                    {
+                        "user_auth": [
+                            "user.r"
+                        ]
+                    }
+                ],"parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "unqiue email of user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]}},"/session/{id}":{"delete":{"x-accepts": "application/json","security": [
+                    {
+                        "session_auth": [
+                            "session.r",
+                            "session.w"
+                        ]
+                    }
+                ],"description": "Remove a session by Id","operationId": "deleteById","responses":{"400": {
+                        "description": "Invalid ID supplied"
+                    },"404": {
+                        "description": "Session not found"
+                    }},"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of session",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],"x-contentType": "application/json"},"get":{"x-accepts": "application/json","security": [
+                    {
+                        "session_auth": [
+                            "session.r"
+                        ]
+                    }
+                ],"description": "Return a session by Id","operationId": "getBySessionId","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/Session"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of session",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],"x-contentType": "application/json"}},"/user/{id}":{"delete":{"summary": "delete user by ID","security": [
+                    {
+                        "user_auth": [
+                            "user.r",
+                            "user.w"
+                        ]
+                    }
+                ],"produces": [
+                    "application/xml",
+                    "application/json"
+                ],"description": "delete a single User","operationId": "deleteUserById","responses":{"400": {
+                        "description": "Invalid ID supplied"
+                    },"404": {
+                        "description": "User not found"
+                    }},"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of User to return",
+                        "required": true,
+                        "type": "number",
+                        "format": "int64"
+                    }
+                ],"tags": [
+                    "user"
+                ]},"put":{"x-accepts": "application/json","security": [
+                    {
+                        "user_auth": [
+                            "user.w"
+                        ]
+                    }
+                ],"description": "Return the updated user object","operationId": "updateUser","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/User"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of User to return",
+                        "required": true,
+                        "type": "number",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "new user object for update",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],"x-contentType": "application/json"},"get":{"summary": "Find User by ID","security": [
+                    {
+                        "user_auth": [
+                            "user.r"
+                        ]
+                    }
+                ],"produces": [
+                    "application/xml",
+                    "application/json"
+                ],"description": "Returns a single User","operationId": "getUserById","responses":{"400": {
+                        "description": "Invalid ID supplied"
+                    },"404": {
+                        "description": "User not found"
+                    },"200":{"schema": {
+                            "$ref": "#/definitions/User"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of User to return",
+                        "required": true,
+                        "type": "number",
+                        "format": "int64"
+                    }
+                ],"tags": [
+                    "user"
+                ]}}},"host": "user.networknt.com","produces": [
+        "application/json"
+    ],"schemes": [
+        "http"
+    ],"securityDefinitions":{"user_auth":{"scopes":{"user.r": "read user","user.a": "admin user","server.info.r":"read server info","user.w": "write user"},"type": "oauth2","authorizationUrl": "http://localhost:8080/oauth2/code","flow": "implicit"},"session_auth": {
+            "type": "oauth2",
+            "authorizationUrl": "http://localhost:8080/oauth2/code",
+            "flow": "implicit",
+            "scopes": {
+                "session.r": "read session",
+                "session.w": "write session",
+                "session.a": "admin session"
             }
-          }
-        ],"x-contentType": "application/json"}},"/changeUser":{"put":{"x-accepts": "application/json","security": [ {
-            "user_auth" : [ "user.r", "user.w" ]
-          } ],"description": "Return the updated user object","operationId": "update","responses":{"200":{"schema": {
-                "$ref" : "#/definitions/User"
-              },"description": "Successful response"}},"parameters": [
-            {
-              "name": "id",
-              "in": "body",
-              "description": "The user id for update",
-              "required": true,
-              "type": "long"
-            },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "new user object for update",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }            
-          ],"x-contentType": "application/json"}},"/deleteUser/{id}":{"delete":{"x-accepts": "application/json","security": [ {
-          "user_auth" : [ "user.r",  "user.w" ]
-        } ],"description": "Delete a user by Id","operationId": "deleteById","responses":{"400": {
-            "description" : "Invalid ID supplied"
-          },"404": {
-            "description" : "User not found"
-          }},"parameters": [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID of user",
-          "required" : true,
-          "type" : "long"
-        } ],"x-contentType": "application/json"}},"/removeSession/{id}":{"delete":{"x-accepts": "application/json","security": [ {
-          "session_auth" : [ "session.r",  "session.w" ]
-        } ],"description": "Remove a session by Id","operationId": "deleteById","responses":{"400": {
-            "description" : "Invalid ID supplied"
-          },"404": {
-            "description" : "Session not found"
-          }},"parameters": [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID of session",
-          "required" : true,
-          "type" : "long"
-        } ],"x-contentType": "application/json"}},"/health":{"get":{"responses":{"200":{"description":"successful operation"}},"parameters":[]}},"/getUser/{id}":{"get":{"x-accepts": "application/json","security": [ {
-          "user_auth" : [ "user.r" ]
-        } ],"description": "Return a user by Id","operationId": "getById","responses":{"200":{"schema": {
-              "$ref" : "#/definitions/User"
-            },"description": "Successful response"}},"parameters": [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID of user",
-          "required" : true,
-          "type" : "long"
-        } ],"x-contentType": "application/json"}},"/getUsers":{"get":{"x-accepts": "application/json","security": [ {
-          "user_auth" : [ "user.r"]
-        } ],"description": "Return an array of user","operationId": "getAll","responses":{"200":{"schema": {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/User"
-              }
-            },"description": "Successful response"}},"parameters": [ ],"x-contentType": "application/json"}},"/server/info":{"get":{"security":[{"user_auth":["server.info.r"]}],"responses":{"200":{"description":"successful operation"}},"parameters":[]}},"/session/{id}":{"get":{"x-accepts": "application/json","security": [ {
-          "session_auth" : [ "session.r" ]
-        } ],"description": "Return a session by Id","operationId": "getById","responses":{"200":{"schema": {
-              "$ref" : "#/definitions/Session"
-            },"description": "Successful response"}},"parameters": [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "ID of session",
-          "required" : true,
-          "type" : "long"
-        } ],"x-contentType": "application/json"}},"/addUser":{"post":{"x-accepts": "application/json","security": [
-          {
-            "user_auth": [
-              "user.r", "user.w"
-            ]
-          }
-        ],"description": "Return a user object with Id","operationId": "add","responses":{"200":{"schema": {
-              "$ref": "#/definitions/User"
-            },"description": "Successful response"}},"parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Created user object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],"x-contentType": "application/json"}},"/userAction":{"put":{"x-accepts": "application/json","security": [ {
-          "user_auth" : [ "user.r",  "user.w" ]
-        } ],"description": "Return the  user object","operationId": "update","responses":{"200":{"schema": {
-              "$ref" : "#/definitions/User"
-            },"description": "Successful response"}},"parameters": [
-          {
-            "name": "id",
-            "in": "body",
-            "description": "The user id for update",
-            "required": true,
-            "type": "long"
-          },
-          {
-            "name": "token",
-            "in": "body",
-            "description": "The user token for update",
-            "required": true,
-            "type": "string"
-          }
-        ],"x-contentType": "application/json"}}},"host": "user.networknt.com","produces": [ "application/json" ],"schemes": [ "http" ],"securityDefinitions":{"user_auth":{"scopes":{"user.r": "read user","server.info.r":"read server info","user.w": "write user"},"type": "oauth2","authorizationUrl": "http://localhost:8080/oauth2/code","flow": "implicit"},"session_auth": {
-      "type" : "oauth2",
-      "authorizationUrl" : "http://localhost:8080/oauth2/code",
-      "flow" : "implicit",
-      "scopes" : {
-        "session.r" : "read session",
-        "session.w" : "write session"
-      }
-    }},"definitions":{"ContactData": {
-      "type" : "object",
-      "properties" : {
-        "email" : {
-          "type" : "string",
-          "description" : "email address of the user"
+        }},"definitions":{"ContactData":{"type": "object","properties":{"birthday":{"type": "string","format": "date-time","description": "birthday of the user"},"firstName":{"type": "string","description": "firstName of the user"},"lastName":{"type": "string","description": "firstName of the user"},"gender":{"type": "string","description": "user gender type","enum":["FEMALE",
+                        "MALE",
+                        "UNKNOWN"]},"email":{"type": "string","description": "email address of the user"}}},"User":{"type": "object","properties":{"password":{"type": "string","description": "raw password of user"},"contactData":{"$ref": "#/definitions/ContactData"},"timezone":{"type": "string","description": "timezone name of user"},"host":{"type": "string","description": "user host indicator the organization for user"},"id":{"type": "number","description": "a UUID generated"},"screenName":{"type": "string","description": "screenName of user"},"locale":{"type": "string","description": "locale display name of user"}}},"Session":{"type": "object","properties":{"userId":{"type": "number","description": "userId with the session"},"sessionId":{"type": "number","description": "a UUID generated"},"token":{"type": "string","description": "token with the session"}}}},"swagger": "2.0","info": {
+        "description": "User Management service API is a microserice that used for user management on light-portal  built on top of light-4j framework.",
+        "version": "1.0.0",
+        "title": "User Management service API",
+        "contact": {
+            "email": "stevehu@gmail.com"
         },
-        "firstName" : {
-          "type" : "string",
-          "description" : "firstName of the user"
-        },
-        "lastName" : {
-          "type" : "string",
-          "description" : "firstName of the user"
-        },
-        "birthday" : {
-          "type" : "date",
-          "description" : "birthday of the user"
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
-      }
-    },"User": {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "long",
-          "description" : "a UUID generated"
-        },
-        "screenName" : {
-          "type" : "string",
-          "description" : "screenName of user"
-        },
-        "timezone" : {
-          "type" : "string",
-          "description" : "timezone name of user"
-        },
-        "locale" : {
-          "type" : "string",
-          "description" : "locale display name of user"
-        },
-        "password" : {
-          "type" : "string",
-          "description" : "raw password of user"
-        },
-        "contactData" : {
-          "$ref" : "#/definitions/ContactData"
-        }
-
-      }
-    },"Session": {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "long",
-          "description" : "a UUID generated"
-        },
-        "userId" : {
-          "type" : "long",
-          "description" : "userId with the session"
-        },
-        "token" : {
-          "type" : "string",
-          "description" : "token with the session"
-        }
-      }
-    }},"swagger": "2.0","info": {
-    "description" : "User Management service API is a microserice that used for user management on light-portal  built on top of light-4j framework.",
-    "version" : "1.0.0",
-    "title" : "User Management service API",
-    "contact" : {
-      "email" : "stevehu@gmail.com"
-    },
-    "license" : {
-      "name" : "Apache 2.0",
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
-    }
-  },"consumes": [ "application/json" ]}
+    },"consumes": [
+        "application/json"
+    ]}

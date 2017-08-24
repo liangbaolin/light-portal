@@ -1,4 +1,6 @@
----
+
+# Singleton service factory configuration
+
 singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
@@ -6,9 +8,10 @@ singletons:
       jdbcUrl: jdbc:h2:~/test
       username: sa
       password: sa
-- com.networknt.portal.usermanagement.model.common.model.user.UserRepository:
-  - com.networknt.portal.usermanagement.model.jdbc.user.UserRepositoryImpl
-- com.networknt.portal.usermanagement.model.common.model.session.SessionRepository:
-  - com.networknt.portal.usermanagement.model.jdbc.session.SessionRepositoryImpl
-- com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity:
-  - com.networknt.portal.usermanagement.model.common.crypto.Pbkdf2PasswordSecurityImpl
+      maximumPoolSize: 10
+      useServerPrepStmts: true,
+      cachePrepStmts: true,
+      cacheCallableStmts: true,
+      prepStmtCacheSize: 10,
+      prepStmtCacheSqlLimit: 2048,
+      connectionTimeout: 2000
