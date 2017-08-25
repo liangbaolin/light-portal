@@ -310,6 +310,7 @@ public class UserServiceImpl implements UserService {
 
     Password password = passwordSecurity.ecrypt(rawPassword);
     user.setPassword(password);
+    user.addConfirmationToken(ConfirmationTokenType.EMAIL, 24*60);
     user = store(user);
     EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
 
