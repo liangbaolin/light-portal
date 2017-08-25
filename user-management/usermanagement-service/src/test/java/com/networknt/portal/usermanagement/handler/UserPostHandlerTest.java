@@ -12,6 +12,7 @@ import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
 import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
+import io.undertow.util.Headers;
 import io.undertow.util.Methods;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -71,9 +72,6 @@ public class UserPostHandlerTest {
 
     @Test
     public void testUserPostHandlerTest() throws ClientException, ApiException {
-
-
-
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -101,8 +99,9 @@ public class UserPostHandlerTest {
 
         try {
             ClientRequest request = new ClientRequest().setPath("/v1/user").setMethod(Methods.POST);
+            request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
 
-            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
+            connection.sendRequest(request, client.createClientCallback(reference, latch, json));
             
             latch.await();
         } catch (Exception e) {

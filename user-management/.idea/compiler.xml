@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="user-management (1) (com.networknt)" />
         <module name="user-management-common" />
         <module name="user-management-jdbc" />
         <module name="user-management-service" />
@@ -14,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="user-management" target="1.8" />
+      <module name="user-management (1) (com.networknt)" target="1.8" />
       <module name="user-management-common" target="1.8" />
       <module name="user-management-jdbc" target="1.8" />
       <module name="user-management-service" target="1.8" />
