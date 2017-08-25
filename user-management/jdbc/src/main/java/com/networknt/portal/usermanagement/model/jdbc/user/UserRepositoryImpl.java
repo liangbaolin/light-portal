@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -34,13 +36,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     public void setDataSource(DataSource dataSource) {this.dataSource = dataSource;}
 
-   public void delete(Long userId) throws NoSuchUserException {
+    @Override
+   public int delete(Long userId) {
        Objects.requireNonNull(userId);
+       int count = 0;
        try (final Connection connection = dataSource.getConnection()){
            String psDelete = "UPDATE USER_DETAIL SET deleted = 'Y' WHERE user_id = ?";
            PreparedStatement psEntity = connection.prepareStatement(psDelete);
            psEntity.setLong(1, userId);
-           int count = psEntity.executeUpdate();
+           count = psEntity.executeUpdate();
            if (count != 1) {
                logger.error("Failed to update USER_DETAIL: {}", userId);
            }
@@ -48,10 +52,51 @@ public class UserRepositoryImpl implements UserRepository {
        } catch (SQLException e) {
            logger.error("SqlException:", e);
        }
+       return count;
 
    }
 
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<User>();
+        String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' and confirmed = 'Y'";
+        try (final Connection connection = dataSource.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(psSelect);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs.getLong("user_id"), rs.getString("screen_name"), rs.getString("email") );
+                user.setHost(rs.getString("host"));
+                user.getContactData().setFirstName(rs.getString("first_name"));
+                user.getContactData().setLastName(rs.getString("last_name"));
 
+                user.setPassword(new Password(rs.getString("password_hash"), rs.getString("password_salt")));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            logger.error("SqlException:", e);
+        }
+        return users;
+    }
+
+    @Override
+    public Long getUserIdByToken(String token) {
+        Objects.requireNonNull(token);
+        String psSelect = "SELECT user_id FROM confirmation_token WHERE id = ?";
+        Long userId = null;
+        try (final Connection connection = dataSource.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(psSelect);
+            stmt.setString(1, token);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                userId = rs.getLong("user_id");
+            }
+        } catch (SQLException e) {
+            logger.error("SqlException:", e);
+        }
+        return userId;
+    }
+
+    @Override
     public Optional<User> findById(Long userId) {
         Objects.requireNonNull(userId);
         User user = null;

@@ -36,7 +36,7 @@ public class UserIdGetHandlerTest {
 
     @Test
     public void testUserIdGetHandlerTest() throws ClientException, ApiException {
-        /*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -47,7 +47,7 @@ public class UserIdGetHandlerTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/v1/user/id").setMethod(Methods.GET);
+            ClientRequest request = new ClientRequest().setPath("/v1/user/12222").setMethod(Methods.GET);
             
             connection.sendRequest(request, client.createClientCallback(reference, latch));
             
@@ -61,7 +61,8 @@ public class UserIdGetHandlerTest {
         int statusCode = reference.get().getResponseCode();
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
+        System.out.println("response:" + body);
         Assert.assertNotNull(body);
-        */
+
     }
 }

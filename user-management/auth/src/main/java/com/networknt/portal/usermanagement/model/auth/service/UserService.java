@@ -9,6 +9,7 @@ import com.networknt.portal.usermanagement.model.common.exception.InvalidTokenEx
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
 import com.networknt.portal.usermanagement.model.common.model.user.User;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -52,13 +53,12 @@ public interface UserService {
   /**
    * Confirms the {@link User}'s email address with the given token, provided that it's valid.
    *
-   * @param userId {@link User}'s ID
    * @param token confirmation token
    * @return the modified {@link User}
    * @throws NoSuchUserException if the user doesn't exist
    * @throws InvalidTokenException if the given confirmation token is invalid
    */
-  User confirmEmail(Long userId, String token)
+  User confirmEmail(String token)
       throws InvalidTokenException, NoSuchUserException;
 
   /**
@@ -77,9 +77,8 @@ public interface UserService {
    * Deletes the given {@link User}.
    *
    * @param userId {@link User}'s ID
-   * @throws NoSuchUserException if the user doesn't exist
    */
-  void delete(Long userId) throws NoSuchUserException;
+  int delete(Long userId) ;
 
   /**
    * Finds a {@link User} in the system by its ID.
@@ -105,6 +104,13 @@ public interface UserService {
    * @throws NoSuchUserException if the user doesn't exist
    */
   User getUser(Long userId) throws NoSuchUserException;
+
+  /**
+   * Finds a {@link User} in the system by its ID.
+   *
+   * @return the {@link User}'s ID if exists
+   */
+  List<User> getUser();
 
   /**
    * Finds a {@link User} in the system by its ID.

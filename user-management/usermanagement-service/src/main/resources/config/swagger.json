@@ -46,9 +46,9 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "The user id for update",
+                        "description": "The token id for user active",
                         "required": true,
-                        "type": "number"
+                        "type": "string"
                     }
                 ],"x-contentType": "application/json"}},"/user":{"post":{"x-accepts": "application/json","security": [
                     {

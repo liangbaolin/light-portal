@@ -1,17 +1,36 @@
 
 package com.networknt.portal.usermanagement.handler;
 
+import com.networknt.config.Config;
+import com.networknt.portal.usermanagement.model.auth.service.UserService;
+import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
+import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
+import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
+import com.networknt.service.SingletonServiceFactory;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class UserIdDeleteHandler implements HttpHandler {
+    private UserRepository userRepository = (UserRepository) SingletonServiceFactory.getBean(UserRepository.class);
+    private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
+    private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
-        
-            exchange.endExchange();
+        String id = exchange.getQueryParameters().get("id").getFirst();
+
+        int rec  = service.delete(Long.valueOf(id));
+        String result = null;
+        if (rec > 0) {
+            result = "Deleted user: " + id;
+        } else {
+            result = "No Such User:" + id;
+        }
+
+        exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+        exchange.getResponseSender().send(result);
+        //    exchange.endExchange();
         
     }
 }

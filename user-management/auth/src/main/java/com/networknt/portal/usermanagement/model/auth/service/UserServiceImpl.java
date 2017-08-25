@@ -2,6 +2,7 @@
 package com.networknt.portal.usermanagement.model.auth.service;
 
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -116,12 +117,16 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User confirmEmail(Long userId, String token)
+  public User confirmEmail(String token)
       throws InvalidTokenException, NoSuchUserException {
 
-    Objects.requireNonNull(userId, "userId");
-    Objects.requireNonNull(token, "token");
 
+    Objects.requireNonNull(token, "token");
+    Long userId = userRepository.getUserIdByToken(token);
+
+    if (userId == null) {
+      return null;
+    }
     User user = getUser(userId);
 
     ConfirmationToken<String> confirmationToken = user.useConfirmationToken(token);
@@ -162,8 +167,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void delete(Long userId) throws NoSuchUserException {
-    userRepository.delete(userId);
+  public int delete(Long userId) {
+    return userRepository.delete(userId);
   //  userEventEmitter.emit(new UserEvent(userId, DELETED));
   }
 
@@ -184,6 +189,12 @@ public class UserServiceImpl implements UserService {
     }
     return user;
   }
+
+  @Override
+  public List<User> getUser() {
+    return userRepository.getAllUsers();
+  }
+
 
   @Override
   public User getUser(Long userId) throws NoSuchUserException {

@@ -36,7 +36,7 @@ public class UserIdDeleteHandlerTest {
 
     @Test
     public void testUserIdDeleteHandlerTest() throws ClientException, ApiException {
-        /*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -47,7 +47,7 @@ public class UserIdDeleteHandlerTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/v1/user/id").setMethod(Methods.DELETE);
+            ClientRequest request = new ClientRequest().setPath("/v1/user/12222").setMethod(Methods.DELETE);
             
             connection.sendRequest(request, client.createClientCallback(reference, latch));
             
@@ -60,8 +60,9 @@ public class UserIdDeleteHandlerTest {
         }
         int statusCode = reference.get().getResponseCode();
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        System.out.println("response:" + body);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+
     }
 }

@@ -36,7 +36,7 @@ public class UserEmailGetHandlerTest {
 
     @Test
     public void testUserEmailGetHandlerTest() throws ClientException, ApiException {
-        /*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -47,7 +47,7 @@ public class UserEmailGetHandlerTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/v1/user/email").setMethod(Methods.GET);
+            ClientRequest request = new ClientRequest().setPath("/v1/user/email?email=aaa.bbb.@google.com").setMethod(Methods.GET);
             
             connection.sendRequest(request, client.createClientCallback(reference, latch));
             
@@ -60,8 +60,9 @@ public class UserEmailGetHandlerTest {
         }
         int statusCode = reference.get().getResponseCode();
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        System.out.println("response:" + body);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+
     }
 }

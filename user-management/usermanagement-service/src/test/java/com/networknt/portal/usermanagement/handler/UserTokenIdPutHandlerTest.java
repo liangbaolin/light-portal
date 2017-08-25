@@ -8,6 +8,7 @@ import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
 import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
+import io.undertow.util.Headers;
 import io.undertow.util.Methods;
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -36,7 +37,7 @@ public class UserTokenIdPutHandlerTest {
 
     @Test
     public void testUserTokenIdPutHandlerTest() throws ClientException, ApiException {
-        /*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -47,9 +48,10 @@ public class UserTokenIdPutHandlerTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/v1/user/token/id").setMethod(Methods.PUT);
-            
-            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
+            ClientRequest request = new ClientRequest().setPath("/v1/user/token/3e0-456-33eo67").setMethod(Methods.PUT);
+            request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
+            request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
+            connection.sendRequest(request, client.createClientCallback(reference, latch));
             
             latch.await();
         } catch (Exception e) {
@@ -60,8 +62,9 @@ public class UserTokenIdPutHandlerTest {
         }
         int statusCode = reference.get().getResponseCode();
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        System.out.println("response:" + body);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+
     }
 }

@@ -4,6 +4,7 @@ package com.networknt.portal.usermanagement.model.common.model.user;
 
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,10 +16,22 @@ public interface UserRepository {
    * Deletes the given user, provided that it exists.
    *
    * @param userId {@link User}'s ID
-   * @throws NoSuchUserException if the user doesn't
-   *     exist
    */
-  void delete(Long userId) throws NoSuchUserException;
+  int  delete(Long userId);
+
+  /**
+   * Finds a user based on its ID.
+   *
+   * @return a list of {@link User}
+   */
+  List<User> getAllUsers();
+
+  /**
+   * Finds a user based on its ID.
+   *
+   * @return a list of {@link User}
+   */
+  Long getUserIdByToken(String token);
 
   /**
    * Finds a user based on its ID.
