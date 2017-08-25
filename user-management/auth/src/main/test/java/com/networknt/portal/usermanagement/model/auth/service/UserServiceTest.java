@@ -70,7 +70,11 @@ import java.time.LocalDate;
 
     @Test
     public void testSignup()  throws Exception {
-        service.setEmitEvent(false);
+
+
+        System.out.println(service.isEmitEvent());
+
+        //service.setEmitEvent(false);
         service.signup(user, "password");
 
     }

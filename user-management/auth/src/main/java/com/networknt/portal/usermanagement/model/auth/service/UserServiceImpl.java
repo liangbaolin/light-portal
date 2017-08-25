@@ -58,6 +58,8 @@ public class UserServiceImpl implements UserService {
     this.passwordSecurity = passwordSecurity;
     this.userCommandService = userCommandService;
     this.userRepository = userRepository;
+
+    this.emitEvent = userConfig.isEmitEvent();
   }
 
   @Override
@@ -312,7 +314,9 @@ public class UserServiceImpl implements UserService {
     user.setPassword(password);
     user.addConfirmationToken(ConfirmationTokenType.EMAIL, 24*60);
     user = store(user);
-    EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
+    System.out.println("http://localhost:8089/user");
+    //TODO send email
+  //  EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
 
  //   emailSender.sendMail(userConfig.getSubject(), "TODO active email");
     if (isEmitEvent()) {
@@ -371,16 +375,21 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserDto toUserDto(User user) {
-    UserDto userDto = new UserDto(user.getId(), user.getScreenName());
+    UserDto userDto = new UserDto(user.getContactData().getEmail(), user.getScreenName());
     userDto.setContactData(user.getContactData());
     return userDto;
   }
 
 
   @Override
-  public User fromUserDto(UserDto user) {
-    Objects.requireNonNull(user, "user");
-    String email = user.getContactData()==null?null: user.getContactData().getEmail();
-    return new User (user.getId(), user.getScreenName(), email);
+  public User fromUserDto(UserDto userDto) {
+    Objects.requireNonNull(userDto, "user");
+    String email = userDto.getContactData()==null?null: userDto.getContactData().getEmail();
+    User user =   new User (IdentityGenerator.generate(), userDto.getScreenName(), email);
+    user.setContactData(userDto.getContactData());
+
+    user.setHost(userDto.getHost());
+   // user.setLocale(userDto.getLocale());
+    return user;
   }
 }

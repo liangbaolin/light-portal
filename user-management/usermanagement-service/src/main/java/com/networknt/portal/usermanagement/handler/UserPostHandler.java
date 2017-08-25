@@ -33,7 +33,6 @@ public class UserPostHandler implements HttpHandler {
         String json = mapper.writeValueAsString(s);
         UserDto user = mapper.readValue(json, UserDto.class);
 
-        service.setEmitEvent(false);
         service.signup(service.fromUserDto(user), user.getPassword());
 
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");

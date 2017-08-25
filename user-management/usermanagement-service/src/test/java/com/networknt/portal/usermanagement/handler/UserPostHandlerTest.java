@@ -2,14 +2,19 @@
 package com.networknt.portal.usermanagement.handler;
 
 import com.networknt.client.Http2Client;
+import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.exception.ApiException;
 import com.networknt.exception.ClientException;
+import com.networknt.portal.usermanagement.model.common.domain.UserDto;
+import com.networknt.portal.usermanagement.model.common.domain.contact.*;
 import com.networknt.service.SingletonServiceFactory;
 import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
 import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
 import io.undertow.util.Methods;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.h2.tools.RunScript;
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -66,7 +71,9 @@ public class UserPostHandlerTest {
 
     @Test
     public void testUserPostHandlerTest() throws ClientException, ApiException {
-        /*
+
+
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -76,9 +83,25 @@ public class UserPostHandlerTest {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        UserDto userDto = new UserDto("aaa.bbb@gmail.com", "testUser");
+        userDto.setHost("google");
+        userDto.getContactData().setFirstName("test1");
+        userDto.getContactData().setLastName("bbb1");
+        userDto.getContactData().setGender(Gender.MALE);
+        AddressData address = new AddressData();
+        address.setCountry(Country.CA);
+        address.setState(State.AK);
+        address.setCity("BaBa");
+        address.setAddressType(AddressType.SHIPPING);
+        address.setAddressLine1("222 Bay Street");
+        userDto.getContactData().addAddresses(address);
+
+        String json = JSonMapper.toJson(userDto);
+        System.out.println(json);
+
         try {
             ClientRequest request = new ClientRequest().setPath("/v1/user").setMethod(Methods.POST);
-            
+
             connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
             
             latch.await();
@@ -92,6 +115,6 @@ public class UserPostHandlerTest {
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+
     }
 }

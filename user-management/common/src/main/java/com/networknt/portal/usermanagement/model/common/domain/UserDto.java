@@ -10,7 +10,6 @@ import java.util.Locale;
 
 public class UserDto {
 
-  private Long id;
   private String screenName;
 
   private ContactData contactData = new ContactData();
@@ -19,21 +18,16 @@ public class UserDto {
   private String locale = Locale.CANADA.getDisplayName();
 
   private String password;
+  private String host;
 
   public UserDto(){}
 
-  public UserDto(Long id, String screenName) {
-    this.id = id;
+  public UserDto(String email, String screenName) {
+    this.contactData.setEmail(email);
     this.screenName = screenName;
   }
 
-  public Long getId() {
-    return id;
-  }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public String getScreenName() {
     return screenName;
@@ -73,5 +67,13 @@ public class UserDto {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getHost() {
+    return host;
+  }
+
+  public void setHost(String host) {
+    this.host = host;
   }
 }

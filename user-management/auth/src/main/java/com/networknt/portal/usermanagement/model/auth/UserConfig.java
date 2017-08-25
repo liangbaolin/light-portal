@@ -10,6 +10,7 @@ public class UserConfig {
     private String smtpHost;
     private String fromEmail;
     private String subject;
+    private boolean emitEvent;
 
 
     public UserConfig() {
@@ -37,5 +38,13 @@ public class UserConfig {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public boolean isEmitEvent() {
+        return emitEvent;
+    }
+
+    public void setEmitEvent(boolean emitEvent) {
+        this.emitEvent = emitEvent;
     }
 }
