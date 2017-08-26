@@ -10,6 +10,7 @@ import java.nio.ByteBuffer;
 public class Endpoint implements Handler {
     @Override
     public ByteBuffer handle(Object input)  {
+
         return NioUtils.toByteBuffer("");
     }
 }
