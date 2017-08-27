@@ -19,6 +19,9 @@ public class UserDto {
 
   private String password;
   private String host;
+  private boolean emailChange;
+  private boolean passwordReset;
+  private boolean screenNameChange;
 
   public UserDto(){}
 
@@ -75,5 +78,29 @@ public class UserDto {
 
   public void setHost(String host) {
     this.host = host;
+  }
+
+  public boolean isEmailChange() {
+    return emailChange;
+  }
+
+  public void setEmailChange(boolean emailChange) {
+    this.emailChange = emailChange;
+  }
+
+  public boolean isPasswordReset() {
+    return passwordReset;
+  }
+
+  public void setPasswordReset(boolean passwordReset) {
+    this.passwordReset = passwordReset;
+  }
+
+  public boolean isScreenNameChange() {
+    return screenNameChange;
+  }
+
+  public void setScreenNameChange(boolean screenNameChange) {
+    this.screenNameChange = screenNameChange;
   }
 }

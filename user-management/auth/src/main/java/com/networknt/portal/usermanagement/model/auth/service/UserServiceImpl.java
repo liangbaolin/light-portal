@@ -77,7 +77,12 @@ public class UserServiceImpl implements UserService {
     }
 
     user.setEmail(newEmail);
+    user.setConfirmed(false);
     user = update(user);
+
+    //TODO send email to new email address with confirm token
+    //  EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
+    //   emailSender.sendMail(userConfig.getSubject(), "TODO active email");
 
   //  userEventEmitter.emit(new UserEvent(userId, EMAIL_CHANGED));
 
