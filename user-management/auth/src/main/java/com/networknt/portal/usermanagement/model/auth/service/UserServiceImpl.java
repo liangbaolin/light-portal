@@ -164,7 +164,9 @@ public class UserServiceImpl implements UserService {
 
     User user = getUser(userId);
     user.useConfirmationToken(token);
-    user = store(user);
+   // user = store(user);
+    user.setConfirmed(true);
+    user = confirmUser(user);
 
 //    userEventEmitter.emit(new UserEvent(userId, PASSWORD_RESET_CONFIRMED));
 
@@ -237,7 +239,7 @@ public class UserServiceImpl implements UserService {
     User user = getUser(emailOrScreenName);
 
     if (!user.isConfirmed()) {
-      //throw new Exception();
+      throw new NoSuchUserException();
     }
 
     if (passwordSecurity.check(user.getPassword(), rawPassword)) {

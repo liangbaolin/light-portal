@@ -50,6 +50,24 @@
                         "required": true,
                         "type": "string"
                     }
+                ],"x-contentType": "application/json"}},"/user/login":{"put":{"x-accepts": "application/json","security": [
+                    {
+                        "user_auth": [
+                            "user.r", "user.w"
+                        ]
+                    }
+                ],"description": "User login process","operationId": "loginUser","responses":{"200":{"schema": {
+                            "$ref": "#/definitions/User"
+                        },"description": "Successful response"}},"parameters": [
+                    {
+                       "in": "body",
+                        "name": "body",
+                        "description": "user login form object for login",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/LoginForm"
+                        }
+                    }                    
                 ],"x-contentType": "application/json"}},"/user":{"post":{"x-accepts": "application/json","security": [
                     {
                         "user_auth": [
@@ -222,7 +240,7 @@
             }
         }},"definitions":{"ContactData":{"type": "object","properties":{"birthday":{"type": "string","format": "date-time","description": "birthday of the user"},"firstName":{"type": "string","description": "firstName of the user"},"lastName":{"type": "string","description": "firstName of the user"},"gender":{"type": "string","description": "user gender type","enum":["FEMALE",
                         "MALE",
-                        "UNKNOWN"]},"email":{"type": "string","description": "email address of the user"}}},"User":{"type": "object","properties":{"password":{"type": "string","description": "raw password of user"},"contactData":{"$ref": "#/definitions/ContactData"},"timezone":{"type": "string","description": "timezone name of user"},"host":{"type": "string","description": "user host indicator the organization for user"},"id":{"type": "number","description": "a UUID generated"},"screenName":{"type": "string","description": "screenName of user"},"locale":{"type": "string","description": "locale display name of user"}}},"Session":{"type": "object","properties":{"userId":{"type": "number","description": "userId with the session"},"sessionId":{"type": "number","description": "a UUID generated"},"token":{"type": "string","description": "token with the session"}}}},"swagger": "2.0","info": {
+                        "UNKNOWN"]},"email":{"type": "string","description": "email address of the user"}}},"User":{"type": "object","properties":{"password":{"type": "string","description": "raw password of user"},"contactData":{"$ref": "#/definitions/ContactData"},"timezone":{"type": "string","description": "timezone name of user"},"host":{"type": "string","description": "user host indicator the organization for user"},"id":{"type": "number","description": "a UUID generated"},"screenName":{"type": "string","description": "screenName of user"},"locale":{"type": "string","description": "locale display name of user"}}},"LoginForm":{"type": "object","properties":{"nameOrEmail":{"type": "string","description": "user screenName or email for login"},"password":{"type": "string","description": "user password for user login"},"token":{"type": "string","description": "token with the user login"}}},"Session":{"type": "object","properties":{"userId":{"type": "number","description": "userId with the session"},"sessionId":{"type": "number","description": "a UUID generated"},"token":{"type": "string","description": "token with the session"}}}},"swagger": "2.0","info": {
         "description": "User Management service API is a microserice that used for user management on light-portal  built on top of light-4j framework.",
         "version": "1.0.0",
         "title": "User Management service API",
