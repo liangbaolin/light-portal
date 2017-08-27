@@ -1,12 +1,20 @@
 iss0001:
   id: iss0001
-  description: JWT token verification must be enabled.
+  description: Security component is not enabled.
   url: https://api.networknt.com/certification/issue/iss0001
 iss0002:
   id: iss0002
-  description: The public key certification for JWT token signature verification is the default one.
+  description: JWT token scope verification must be enabled.
   url: https://api.networknt.com/certification/issue/iss0002
 iss0003:
   id: iss0003
   description: The TLS key pair are still the default ones for development.
   url: https://api.networknt.com/certification/issue/iss0003
+iss0004:
+  id: iss0004
+  description: The public key certification for JWT token signature verification is the default one.
+  url: https://api.networknt.com/certification/issue/iss0004
+iss0005:
+  id: iss0005
+  description: Exception Handler must be enabled.
+  url: https://api.networknt.com/certification/issue/iss0005
