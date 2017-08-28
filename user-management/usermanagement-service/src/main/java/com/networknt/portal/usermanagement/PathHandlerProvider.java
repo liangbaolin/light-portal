@@ -24,6 +24,8 @@ public class PathHandlerProvider implements HandlerProvider {
         
             .add(Methods.PUT, "/v1/user/token/{id}", new UserTokenIdPutHandler())
         
+            .add(Methods.PUT, "/v1/user/login", new UserLoginPutHandler())
+        
             .add(Methods.POST, "/v1/user", new UserPostHandler())
         
             .add(Methods.GET, "/v1/user", new UserGetHandler())
