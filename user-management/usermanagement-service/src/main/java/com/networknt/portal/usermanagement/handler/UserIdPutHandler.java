@@ -56,7 +56,7 @@ public class UserIdPutHandler implements HttpHandler {
         if (userResult == null) {
             result = "no user changed;";
         } else {
-            result =  Config.getInstance().getMapper().writeValueAsString(userResult);
+            result =  Config.getInstance().getMapper().writeValueAsString(service.toUserDto(userResult));
         }
 
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");

@@ -51,7 +51,7 @@ public class UserLoginPutHandler implements HttpHandler {
         if (userResult == null) {
             result = "Login failed, please re-try or contact to admin;";
         } else {
-            result =  "Login successfully: \n" + mapper.writeValueAsString(userResult);
+            result =  "Login successfully: \n" + mapper.writeValueAsString(service.toUserDto(userResult));
             //TODO get session???
         }
 

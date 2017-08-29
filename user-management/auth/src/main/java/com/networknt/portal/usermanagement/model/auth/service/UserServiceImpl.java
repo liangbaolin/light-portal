@@ -78,6 +78,8 @@ public class UserServiceImpl implements UserService {
 
     user.setEmail(newEmail);
     user.setConfirmed(false);
+    ConfirmationToken token  = new ConfirmationToken(user , ConfirmationTokenType.EMAIL, 24*60);
+    user.addConfirmationToken(token);
     user = update(user);
 
     //TODO send email to new email address with confirm token
@@ -97,6 +99,9 @@ public class UserServiceImpl implements UserService {
     User user = getUser(userId);
     Password newPassword = passwordSecurity.ecrypt(rawPassword);
     user.setPassword(newPassword);
+    user.setConfirmed(false);
+    ConfirmationToken token  = new ConfirmationToken(user , ConfirmationTokenType.PASSWORD_RESET, 10);
+    user.addConfirmationToken(token);
     user = update(user);
 
    // userEventEmitter.emit(new UserEvent(userId, PASSWORD_CHANGED));
@@ -140,7 +145,7 @@ public class UserServiceImpl implements UserService {
     if (!newEmail.isPresent()) {
       boolean confirmed = user.isConfirmed();
       user.setConfirmed(true);
-      user = confirmUser(user);
+      user = confirmUser(user, token);
       if (!confirmed) {
        // userEventEmitter.emit(new UserEvent(userId, EMAIL_CONFIRMED));
       }
@@ -166,7 +171,7 @@ public class UserServiceImpl implements UserService {
     user.useConfirmationToken(token);
    // user = store(user);
     user.setConfirmed(true);
-    user = confirmUser(user);
+    user = confirmUser(user, token);
 
 //    userEventEmitter.emit(new UserEvent(userId, PASSWORD_RESET_CONFIRMED));
 
@@ -239,6 +244,7 @@ public class UserServiceImpl implements UserService {
     User user = getUser(emailOrScreenName);
 
     if (!user.isConfirmed()) {
+      System.out.println("User not confirmed");
       throw new NoSuchUserException();
     }
 
@@ -330,9 +336,11 @@ public class UserServiceImpl implements UserService {
 
     Password password = passwordSecurity.ecrypt(rawPassword);
     user.setPassword(password);
-    user.addConfirmationToken(ConfirmationTokenType.EMAIL, 24*60);
+    ConfirmationToken token  = new ConfirmationToken(user , ConfirmationTokenType.EMAIL, 24*60);
+    user.addConfirmationToken(token);
+    // user.addConfirmationToken(ConfirmationTokenType.EMAIL, 24*60);
     user = store(user);
-    System.out.println("http://localhost:8089/user");
+    System.out.println("http://localhost:8080/user/token/" + token.getId());
     //TODO send email
   //  EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
 
@@ -354,8 +362,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User confirmUser(User user) throws NoSuchUserException {
-     userRepository.activeUser(user.getId());
+  public User confirmUser(User user, String token) throws NoSuchUserException {
+     userRepository.activeUser(user.getId(), token);
     return user;
   }
 

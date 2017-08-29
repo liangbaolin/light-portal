@@ -74,8 +74,9 @@ public interface UserRepository {
    * Active the given user, provided that it exists.
    *
    * @param userId {@link User}'s ID
+   * @param token {@link User}'s token
    * @throws NoSuchUserException if the user doesn't
    *     exist
    */
-  void activeUser(Long userId) throws NoSuchUserException;
+  void activeUser(Long userId, String token) throws NoSuchUserException;
 }

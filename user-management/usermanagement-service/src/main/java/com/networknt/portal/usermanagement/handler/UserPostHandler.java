@@ -9,6 +9,8 @@ import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
 import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
+import com.networknt.portal.usermanagement.model.common.model.user.ConfirmationToken;
+import com.networknt.portal.usermanagement.model.common.model.user.User;
 import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
 import com.networknt.service.SingletonServiceFactory;
 import io.undertow.server.HttpHandler;
@@ -16,6 +18,7 @@ import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserPostHandler implements HttpHandler {
 
@@ -32,11 +35,19 @@ public class UserPostHandler implements HttpHandler {
         // add a new object
         Map s = (Map)exchange.getAttachment(BodyHandler.REQUEST_BODY);
         String json = mapper.writeValueAsString(s);
-        UserDto user = mapper.readValue(json, UserDto.class);
+        UserDto userDto = mapper.readValue(json, UserDto.class);
 
-        String result = "OK!";
+        String result = "Ok!";
         try {
-            service.signup(service.fromUserDto(user), user.getPassword());
+            User user = service.fromUserDto(userDto);
+            service.signup(user, userDto.getPassword());
+
+            //TODO remove the following implemetation after confirm email implemented
+            Optional<ConfirmationToken> token = user.getConfirmationTokens().stream().findFirst();
+            if (token.isPresent()) {
+                result = "http://localhost:8080/v1/user/token/" + token.get().getId();
+            }
+
         } catch (Exception e) {
             result = e.getMessage();
             //TODO handler excption, add log info?

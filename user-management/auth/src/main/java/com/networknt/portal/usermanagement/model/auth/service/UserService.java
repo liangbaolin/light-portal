@@ -200,7 +200,7 @@ public interface UserService {
    */
   User update(User user);
 
-  User confirmUser(User user)
+  User confirmUser(User user, String token)
           throws NoSuchUserException;
 
   boolean isEmitEvent();

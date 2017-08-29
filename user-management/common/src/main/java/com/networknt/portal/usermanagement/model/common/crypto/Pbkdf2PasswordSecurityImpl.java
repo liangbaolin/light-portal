@@ -42,7 +42,8 @@ public class Pbkdf2PasswordSecurityImpl implements PasswordSecurity {
 
     // Compute the hash of the provided password, using the same salt, iteration count, and length
     byte[] testHash = pbkdf2(rawPassword.toCharArray(), salt, PBKDF2_ITERATIONS, hash.length);
-
+    System.out.println(testHash);
+    System.out.println(hash);
     // Compare the hashes in constant time. The password is correct if both hashes match.
     return slowEquals(hash, testHash);
   }

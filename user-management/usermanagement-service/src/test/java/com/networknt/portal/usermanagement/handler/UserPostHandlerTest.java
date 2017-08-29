@@ -84,8 +84,8 @@ public class UserPostHandlerTest {
         UserDto userDto = new UserDto("aaa.bbb@gmail.com", "testUser");
         userDto.setHost("google");
         userDto.setPassword("12345678");
-        userDto.getContactData().setFirstName("test1");
-        userDto.getContactData().setLastName("bbb1");
+        userDto.getContactData().setFirstName("test2");
+        userDto.getContactData().setLastName("bbb2");
         userDto.getContactData().setGender(Gender.MALE);
         AddressData address = new AddressData();
         address.setCountry(Country.CA);
