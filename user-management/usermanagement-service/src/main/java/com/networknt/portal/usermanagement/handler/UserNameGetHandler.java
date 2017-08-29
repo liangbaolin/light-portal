@@ -29,12 +29,12 @@ public class UserNameGetHandler implements HttpHandler {
         String result = null;
 
         if (user.isPresent()) {
-            result = Config.getInstance().getMapper().writeValueAsString(user.get());
+            result = Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get()));
         } else {
             result = "No user find for the screenName:" + name;
         }
 
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
-        exchange.getResponseSender().send(result);
+        exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
     }
 }

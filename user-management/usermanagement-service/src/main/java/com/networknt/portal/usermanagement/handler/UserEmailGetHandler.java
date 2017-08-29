@@ -29,7 +29,7 @@ public class UserEmailGetHandler implements HttpHandler {
         String result = null;
 
         if (user.isPresent()) {
-            result = Config.getInstance().getMapper().writeValueAsString(user.get());
+            result = Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get()));
         } else {
             result = "No user find for the email:" + email;
         }

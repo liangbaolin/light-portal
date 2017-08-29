@@ -39,7 +39,7 @@ public class UserTokenIdPutHandler implements HttpHandler {
 
 
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
-        exchange.getResponseSender().send(result);
+        exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
         //     exchange.endExchange();
     }
 }

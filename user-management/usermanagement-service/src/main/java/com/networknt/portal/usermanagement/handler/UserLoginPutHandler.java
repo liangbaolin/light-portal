@@ -51,12 +51,12 @@ public class UserLoginPutHandler implements HttpHandler {
         if (userResult == null) {
             result = "Login failed, please re-try or contact to admin;";
         } else {
-            result =  "Login successfully: \n" + Config.getInstance().getMapper().writeValueAsString(userResult);
+            result =  "Login successfully: \n" + mapper.writeValueAsString(userResult);
             //TODO get session???
         }
 
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
-        exchange.getResponseSender().send(result);
+        exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
         //    exchange.endExchange();
     }
 }

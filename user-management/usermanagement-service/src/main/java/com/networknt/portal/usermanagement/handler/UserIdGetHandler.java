@@ -29,14 +29,15 @@ public class UserIdGetHandler implements HttpHandler {
         Optional<User> user = service.findUser(Long.valueOf(id));
         String result = null;
 
-        if (user.isPresent()) {
-            result = Config.getInstance().getMapper().writeValueAsString(user.get());
-        } else {
-            result = "No user find for the Id:" + id;
-        }
 
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
-        exchange.getResponseSender().send(result);
+        if (user.isPresent()) {
+            exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get())));
+        } else {
+            result = "No user find for the Id:" + id;
+            exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
+
+        }
         //     exchange.endExchange();
     }
 }

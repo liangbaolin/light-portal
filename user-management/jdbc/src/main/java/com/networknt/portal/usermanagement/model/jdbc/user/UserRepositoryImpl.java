@@ -230,7 +230,7 @@ public class UserRepositoryImpl implements UserRepository {
    public  Optional<User> findByScreenName(String screenName) {
        Objects.requireNonNull(screenName);
        User user = null;
-        String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND email = ?";
+        String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND screen_name = ?";
         String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
         String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt > ?";
         try (final Connection connection = dataSource.getConnection()){
