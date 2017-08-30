@@ -22,7 +22,7 @@ public class PathHandlerProvider implements HandlerProvider {
         
             .add(Methods.GET, "/v1/health", new HealthGetHandler())
         
-            .add(Methods.PUT, "/v1/user/token/{id}", new UserTokenIdPutHandler())
+            .add(Methods.GET, "/v1/user/token/{id}", new UserTokenIdGetHandler())
         
             .add(Methods.PUT, "/v1/user/login", new UserLoginPutHandler())
         

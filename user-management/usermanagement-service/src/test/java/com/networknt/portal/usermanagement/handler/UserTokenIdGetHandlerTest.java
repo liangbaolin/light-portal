@@ -21,14 +21,12 @@ import java.net.URI;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
-import java.io.IOException;
 
-
-public class UserTokenIdPutHandlerTest {
+public class UserTokenIdGetHandlerTest {
     @ClassRule
     public static TestServer server = TestServer.getInstance();
 
-    static final Logger logger = LoggerFactory.getLogger(UserTokenIdPutHandlerTest.class);
+    static final Logger logger = LoggerFactory.getLogger(UserTokenIdGetHandlerTest.class);
     static final boolean enableHttp2 = server.getServerConfig().isEnableHttp2();
     static final boolean enableHttps = server.getServerConfig().isEnableHttps();
     static final int httpPort = server.getServerConfig().getHttpPort();
@@ -36,23 +34,22 @@ public class UserTokenIdPutHandlerTest {
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
     @Test
-    public void testUserTokenIdPutHandlerTest() throws ClientException, ApiException {
-
+    public void testUserTokenIdGetHandlerTest() throws ClientException, ApiException {
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
         try {
-            connection = client.connect(new URI(url), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, enableHttp2 ? OptionMap.create(UndertowOptions.ENABLE_HTTP2, true): OptionMap.EMPTY).get();
+            connection = client.connect(new URI(url), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, enableHttp2 ? OptionMap.create(UndertowOptions.ENABLE_HTTP2, true) : OptionMap.EMPTY).get();
         } catch (Exception e) {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/v1/user/token/3e0-456-33eo67").setMethod(Methods.PUT);
+            ClientRequest request = new ClientRequest().setPath("/v1/user/token/3e0-456-33eo67").setMethod(Methods.GET);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
             connection.sendRequest(request, client.createClientCallback(reference, latch));
-            
+
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);

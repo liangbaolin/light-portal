@@ -12,12 +12,8 @@ import com.networknt.service.SingletonServiceFactory;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
-public class UserTokenIdPutHandler implements HttpHandler {
-
+public class UserTokenIdGetHandler implements HttpHandler {
     private UserRepository userRepository = (UserRepository) SingletonServiceFactory.getBean(UserRepository.class);
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
     private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);

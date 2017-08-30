@@ -33,7 +33,7 @@
                         "required": true,
                         "type": "string"
                     }
-                ],"x-contentType": "application/json"}},"/health":{"get":{"responses":{"200":{"description":"successful operation"}},"parameters":[]}},"/user/token/{id}":{"put":{"x-accepts": "application/json","security": [
+                ],"x-contentType": "application/json"}},"/health":{"get":{"responses":{"200":{"description":"successful operation"}},"parameters":[]}},"/user/token/{id}":{"get":{"x-accepts": "application/json","security": [
                     {
                         "user_auth": [
                             "user.r",

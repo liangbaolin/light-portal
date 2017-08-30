@@ -6,16 +6,27 @@ User Management Service is the portal for Oath2 user manage
 Basic features a user registration system should have.
 
 As a user, I want to register, so that I can get access to content which requires registration
+
 As a user, I want to confirm my email address after registration
+
 As a user, I want to login and log out
+
 As a user, I want to change my password
+
 As a user, I want to change my email address
+
 As a user, I want to be able to reset my password, so that I can login after I lost my password
+
 As a user, I want to update my profile, so that I can provide my correct contact data
+
 As a user, I want to close my account, so that I can close my relationship with that service I signed up for
+
 As an admin, I want to manage (create/delete/update) users manually, so that staff members wouldn’t have to go over the registration process
+
 As an admin, I want to create users manually, so that staff members wouldn’t have to go over the registration process
+
 As an admin, I want to list all users, even those once who closed their account
+
 As an admin, I want to be able to see users’ activity (login, logout, password reset, confirmation, profile update), so that I can comply with external audit requirements
 
 
