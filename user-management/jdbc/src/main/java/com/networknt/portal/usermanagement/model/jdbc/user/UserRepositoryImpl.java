@@ -37,13 +37,13 @@ public class UserRepositoryImpl implements UserRepository {
     public void setDataSource(DataSource dataSource) {this.dataSource = dataSource;}
 
     @Override
-   public int delete(Long userId) {
+   public int delete(String userId) {
        Objects.requireNonNull(userId);
        int count = 0;
        try (final Connection connection = dataSource.getConnection()){
            String psDelete = "UPDATE USER_DETAIL SET deleted = 'Y' WHERE user_id = ?";
            PreparedStatement psEntity = connection.prepareStatement(psDelete);
-           psEntity.setLong(1, userId);
+           psEntity.setString(1, userId);
            count = psEntity.executeUpdate();
            if (count != 1) {
                logger.error("Failed to update USER_DETAIL: {}", userId);
@@ -64,7 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
             PreparedStatement stmt = connection.prepareStatement(psSelect);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getLong("user_id"), rs.getString("screen_name"), rs.getString("email") );
+                User user = new User(rs.getString("user_id"), rs.getString("screen_name"), rs.getString("email") );
                 user.setHost(rs.getString("host"));
                 user.getContactData().setFirstName(rs.getString("first_name"));
                 user.getContactData().setLastName(rs.getString("last_name"));
@@ -79,16 +79,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Long getUserIdByToken(String token) {
+    public String getUserIdByToken(String token) {
         Objects.requireNonNull(token);
         String psSelect = "SELECT user_id FROM confirmation_token WHERE id = ?";
-        Long userId = null;
+        String userId = null;
         try (final Connection connection = dataSource.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(psSelect);
             stmt.setString(1, token);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                userId = rs.getLong("user_id");
+                userId = rs.getString("user_id");
             }
         } catch (SQLException e) {
             logger.error("SqlException:", e);
@@ -97,7 +97,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(Long userId) {
+    public Optional<User> findById(String userId) {
         Objects.requireNonNull(userId);
         User user = null;
         String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND user_id = ?";
@@ -105,7 +105,7 @@ public class UserRepositoryImpl implements UserRepository {
         String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt > ?";
         try (final Connection connection = dataSource.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(psSelect);
-            stmt.setLong(1, userId);
+            stmt.setString(1, userId);
             ResultSet rs = stmt.executeQuery();
             if (rs == null || rs.getFetchSize() > 1) {
                 logger.error("incorrect fetch result {}", userId);
@@ -120,7 +120,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
                 if (user!=null) {
                     stmt =  connection.prepareStatement(psSelect_address);
-                    stmt.setLong(1, userId);
+                    stmt.setString(1, userId);
                     ResultSet rs2 = stmt.executeQuery();
                     if (rs2!=null) {
                         while (rs2.next()) {
@@ -137,7 +137,7 @@ public class UserRepositoryImpl implements UserRepository {
                     }
 
                     stmt =  connection.prepareStatement(psSelect_token);
-                    stmt.setLong(1, userId);
+                    stmt.setString(1, userId);
                     stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
                     rs2 = stmt.executeQuery();
                     if (rs2!=null) {
@@ -176,7 +176,7 @@ public class UserRepositoryImpl implements UserRepository {
                logger.error("incorrect fetch result {}", email);
            } else {
                while (rs.next()) {
-                   user = new User(rs.getLong("user_id"), rs.getString("screen_name"), rs.getString("email") );
+                   user = new User(rs.getString("user_id"), rs.getString("screen_name"), rs.getString("email") );
                    user.setHost(rs.getString("host"));
                    user.getContactData().setFirstName(rs.getString("first_name"));
                    user.getContactData().setLastName(rs.getString("last_name"));
@@ -186,7 +186,7 @@ public class UserRepositoryImpl implements UserRepository {
                }
                if (user!=null) {
                    stmt =  connection.prepareStatement(psSelect_address);
-                   stmt.setLong(1, user.getId());
+                   stmt.setString(1, user.getId());
                    ResultSet rs2 = stmt.executeQuery();
                    if (rs2!=null) {
                        while (rs2.next()) {
@@ -203,7 +203,7 @@ public class UserRepositoryImpl implements UserRepository {
                    }
 
                    stmt =  connection.prepareStatement(psSelect_token);
-                   stmt.setLong(1, user.getId());
+                   stmt.setString(1, user.getId());
                    stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
                    rs2 = stmt.executeQuery();
                    if (rs2!=null) {
@@ -242,7 +242,7 @@ public class UserRepositoryImpl implements UserRepository {
                logger.error("incorrect fetch result {}", screenName);
            } else {
                while (rs.next()) {
-                   user = new User(rs.getLong("user_id"), rs.getString("screen_name"), rs.getString("email") );
+                   user = new User(rs.getString("user_id"), rs.getString("screen_name"), rs.getString("email") );
                    user.setHost(rs.getString("host"));
                    user.getContactData().setFirstName(rs.getString("first_name"));
                    user.getContactData().setLastName(rs.getString("last_name"));
@@ -252,7 +252,7 @@ public class UserRepositoryImpl implements UserRepository {
                }
                if (user!=null) {
                    stmt =  connection.prepareStatement(psSelect_address);
-                   stmt.setLong(1, user.getId());
+                   stmt.setString(1, user.getId());
                    ResultSet rs2 = stmt.executeQuery();
                    if (rs2!=null) {
                        while (rs2.next()) {
@@ -268,7 +268,7 @@ public class UserRepositoryImpl implements UserRepository {
                        }
                    }
                    stmt =  connection.prepareStatement(psSelect_token);
-                   stmt.setLong(1, user.getId());
+                   stmt.setString(1, user.getId());
                    stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
                    rs2 = stmt.executeQuery();
                    if (rs2!=null) {
@@ -305,7 +305,7 @@ public class UserRepositoryImpl implements UserRepository {
        try (final Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
            PreparedStatement stmt = connection.prepareStatement(psInsert);
-           stmt.setLong(1, user.getId());
+           stmt.setString(1, user.getId());
            stmt.setString(2, user.getEmail());
            stmt.setString(3, user.getHost());
            stmt.setString(4, user.getTimezoneName());
@@ -320,13 +320,13 @@ public class UserRepositoryImpl implements UserRepository {
            stmt.setString(13, user.isConfirmed() ? "Y" : "N");
            stmt.setString(14, user.isLocked() ? "Y" : "N");
            stmt.setString(15, user.isDeleted() ? "Y" : "N");
-           stmt.setLong(16, user.getAuditData()==null?0:user.getAuditData().getCreatedBy().getId());
+           stmt.setString(16, user.getAuditData()==null?"0":user.getAuditData().getCreatedBy().getId());
            stmt.setTimestamp(17, Timestamp.valueOf(LocalDateTime.now()));
            int count = stmt.executeUpdate();
            if (user.getContactData().getAddresses()!=null && user.getContactData().getAddresses().size()>0) {
                try (PreparedStatement psAddress = connection.prepareStatement(psInsert_address)) {
                    for(AddressData address : user.getContactData().getAddresses()) {
-                       psAddress.setLong(1,  user.getId());
+                       psAddress.setString(1,  user.getId());
                        psAddress.setString(2, address.getAddressType().name());
                        psAddress.setString(3, address.getCountry()==null? null:address.getCountry().name() );
                        psAddress.setString(4, address.getState()==null? null: address.getState().name());
@@ -343,7 +343,7 @@ public class UserRepositoryImpl implements UserRepository {
                try (PreparedStatement psToken = connection.prepareStatement(psInsert_token)) {
                    for(ConfirmationToken token : user.getConfirmationTokens()) {
                        psToken.setString(1,  token.getId());
-                       psToken.setLong(2,  user.getId());
+                       psToken.setString(2,  user.getId());
                        psToken.setString(3, token.getType().name());
                        psToken.setString(4, token.getPayload() == null?null:token.getPayload().toString());
                        psToken.setTimestamp(5, token.getExpiresAt()== null?null:Timestamp.valueOf(token.getExpiresAt()));
@@ -386,13 +386,13 @@ public class UserRepositoryImpl implements UserRepository {
             psEntity.setString(8, user.getPassword() == null ? null : user.getPassword().getPasswordSalt());
             psEntity.setString(9, user.isConfirmed() ? "Y" : "N");
             psEntity.setString(10, user.isLocked() ? "Y" : "N");
-            psEntity.setLong(11, user.getId());
+            psEntity.setString(11, user.getId());
             int count = psEntity.executeUpdate();
             if (user.getConfirmationTokens()!=null && user.getConfirmationTokens().size() >0) {
                 try (PreparedStatement psToken = connection.prepareStatement(psInsert_token)) {
                     for(ConfirmationToken token : user.getConfirmationTokens()) {
                         psToken.setString(1,  token.getId());
-                        psToken.setLong(2,  user.getId());
+                        psToken.setString(2,  user.getId());
                         psToken.setString(3, token.getType().name());
                         psToken.setString(4, token.getPayload() == null?null:token.getPayload().toString());
                         psToken.setTimestamp(5, token.getExpiresAt()== null?null:Timestamp.valueOf(token.getExpiresAt()));
@@ -418,14 +418,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void activeUser(Long userId, String token) throws NoSuchUserException {
+    public void activeUser(String userId, String token) throws NoSuchUserException {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(token);
         try (final Connection connection = dataSource.getConnection()){
             String psDelete1 = "UPDATE user_detail SET locked = 'N', confirmed = 'Y' WHERE user_id = ?";
             String psDelete2 = "DELETE FROM  confirmation_token WHERE id = ?";
             PreparedStatement psEntity = connection.prepareStatement(psDelete1);
-            psEntity.setLong(1, userId);
+            psEntity.setString(1, userId);
             int count = psEntity.executeUpdate();
             psEntity = connection.prepareStatement(psDelete2);
             psEntity.setString(1, token);

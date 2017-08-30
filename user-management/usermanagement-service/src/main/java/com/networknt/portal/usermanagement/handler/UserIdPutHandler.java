@@ -37,14 +37,14 @@ public class UserIdPutHandler implements HttpHandler {
         User userResult = null;
         try {
             if (user.isEmailChange()) {
-                userResult= service.changeEmail(Long.valueOf(id),  user.getContactData().getEmail());
+                userResult= service.changeEmail(id,  user.getContactData().getEmail());
             } else if (user.isPasswordReset()) {
-                userResult= service.changePassword(Long.valueOf(id), user.getPassword());
+                userResult= service.changePassword(id, user.getPassword());
             } else if (user.isScreenNameChange()) {
-                userResult= service.changeScreenName(Long.valueOf(id), user.getScreenName());
+                userResult= service.changeScreenName(id, user.getScreenName());
             } else {
                 userResult =  service.fromUserDto(user);
-                userResult.setId(Long.valueOf(id));
+                userResult.setId(id);
                 userResult = service.update(userResult);
             }
         } catch (NoSuchUserException e) {

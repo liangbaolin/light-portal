@@ -54,10 +54,10 @@ public class UserRepositoryImplTest {
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
 
     private static User user;
-    private static  Long  id;
+    private static  String  id;
     @BeforeClass
     public static void setUp() {
-        id = IdentityGenerator.generate();
+        id = Long.toString(IdentityGenerator.generate());
         user = new User(id, "testUser", "aaa.bbb@gmail.com");
         Password password = passwordSecurity.ecrypt("password");
         user.setPassword(password);

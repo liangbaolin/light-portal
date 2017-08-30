@@ -26,7 +26,7 @@ public class UserIdGetHandler implements HttpHandler {
     public void handleRequest(HttpServerExchange exchange) throws Exception {
 
         String id = exchange.getQueryParameters().get("id").getFirst();
-        Optional<User> user = service.findUser(Long.valueOf(id));
+        Optional<User> user = service.findUser(id);
         String result = null;
 
 

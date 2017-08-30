@@ -14,7 +14,7 @@ public class User {
     
     private String host;
     
-    private java.math.BigDecimal id;
+    private String id;
     
     private String screenName;
     
@@ -71,11 +71,11 @@ public class User {
     
     
     @JsonProperty("id")
-    public java.math.BigDecimal getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(java.math.BigDecimal id) {
+    public void setId(String id) {
         this.id = id;
     }
     

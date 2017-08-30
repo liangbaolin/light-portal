@@ -64,13 +64,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User changeEmail(Long userId, String newEmail)
+  public User changeEmail(String userId, String newEmail)
       throws InvalidEmailException, NoSuchUserException {
 
     Objects.requireNonNull(userId, "userId");
     Objects.requireNonNull(newEmail, "newEmail");
 
-    User user = getUser(userId);
+    User user = getUserById(userId);
     checkEmail(user, newEmail);
     if (newEmail.equals(user.getEmail())) {
       return user;
@@ -92,11 +92,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User changePassword(Long userId, String rawPassword) throws NoSuchUserException {
+  public User changePassword(String userId, String rawPassword) throws NoSuchUserException {
     Objects.requireNonNull(userId, "userId");
     Objects.requireNonNull(rawPassword, "rawPassword");
 
-    User user = getUser(userId);
+    User user = getUserById(userId);
     Password newPassword = passwordSecurity.ecrypt(rawPassword);
     user.setPassword(newPassword);
     user.setConfirmed(false);
@@ -110,13 +110,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User changeScreenName(Long userId, String newScreenName)
+  public User changeScreenName(String userId, String newScreenName)
       throws Exception{
 
     Objects.requireNonNull(userId, "userId");
     Objects.requireNonNull(newScreenName, "newScreenName");
 
-    User user = getUser(userId);
+    User user = getUserById(userId);
     checkScreenName(user, newScreenName);
     user.setScreenName(newScreenName);
     user = update(user);
@@ -132,12 +132,12 @@ public class UserServiceImpl implements UserService {
 
 
     Objects.requireNonNull(token, "token");
-    Long userId = userRepository.getUserIdByToken(token);
+    String userId = userRepository.getUserIdByToken(token);
 
     if (userId == null) {
       return null;
     }
-    User user = getUser(userId);
+    User user = getUserById(userId);
 
     ConfirmationToken<String> confirmationToken = user.useConfirmationToken(token);
 
@@ -161,13 +161,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User confirmPasswordReset(Long userId, String token)
+  public User confirmPasswordReset(String userId, String token)
       throws InvalidTokenException, NoSuchUserException {
 
     Objects.requireNonNull(userId, "userId");
     Objects.requireNonNull(token, "token");
 
-    User user = getUser(userId);
+    User user = getUserById(userId);
     user.useConfirmationToken(token);
    // user = store(user);
     user.setConfirmed(true);
@@ -179,13 +179,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public int delete(Long userId) {
+  public int delete(String userId) {
     return userRepository.delete(userId);
   //  userEventEmitter.emit(new UserEvent(userId, DELETED));
   }
 
   @Override
-  public Optional<User> findUser(Long userId) {
+  public Optional<User> findUserById(String userId) {
     Objects.requireNonNull(userId);
     return userRepository.findById(userId);
   }
@@ -209,7 +209,7 @@ public class UserServiceImpl implements UserService {
 
 
   @Override
-  public User getUser(Long userId) throws NoSuchUserException {
+  public User getUserById(String userId) throws NoSuchUserException {
     Optional<User> user = findUser(userId);
     return user.orElseThrow(NoSuchUserException::new);
   }
@@ -285,13 +285,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void requestEmailChange(Long userId, String newEmail)
+  public void requestEmailChange(String userId, String newEmail)
       throws NoSuchUserException,  InvalidEmailException {
 
     Objects.requireNonNull(userId, "userId");
     Objects.requireNonNull(newEmail, "newEmail");
 
-    User user = getUser(userId);
+    User user = getUserById(userId);
     checkEmail(user, newEmail);
     if (newEmail.equals(user.getEmail())) {
       return;
@@ -304,10 +304,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void requestPasswordReset(Long userId) throws NoSuchUserException {
+  public void requestPasswordReset(String userId) throws NoSuchUserException {
     Objects.requireNonNull(userId, "userId");
 
-    User user = getUser(userId);
+    User user = getUserById(userId);
     ConfirmationToken confirmationToken = user.addConfirmationToken(ConfirmationTokenType.PASSWORD_RESET);
     store(user);
 
@@ -411,7 +411,7 @@ public class UserServiceImpl implements UserService {
   public User fromUserDto(UserDto userDto) {
     Objects.requireNonNull(userDto, "user");
     String email = userDto.getContactData()==null?null: userDto.getContactData().getEmail();
-    User user =   new User (IdentityGenerator.generate(), userDto.getScreenName(), email);
+    User user =   new User (Long.toString(IdentityGenerator.generate()), userDto.getScreenName(), email);
     user.setContactData(userDto.getContactData());
 
     user.setHost(userDto.getHost());

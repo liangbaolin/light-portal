@@ -6,12 +6,19 @@ import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 public class UpdateUserCommand implements UserCommand {
 
     private UserDto user;
+    private long id;
 
-    public UpdateUserCommand(UserDto user) {
+
+    public UpdateUserCommand(long id, UserDto user) {
+        this.id = id;
         this.user = user;
     }
 
     public UserDto getUser() {
         return user;
+    }
+
+    public long getId() {
+        return id;
     }
 }

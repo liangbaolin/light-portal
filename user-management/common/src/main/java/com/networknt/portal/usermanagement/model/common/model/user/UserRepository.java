@@ -17,7 +17,7 @@ public interface UserRepository {
    *
    * @param userId {@link User}'s ID
    */
-  int  delete(Long userId);
+  int  delete(String userId);
 
   /**
    * Finds a user based on its ID.
@@ -31,7 +31,7 @@ public interface UserRepository {
    *
    * @return a list of {@link User}
    */
-  Long getUserIdByToken(String token);
+  String getUserIdByToken(String token);
 
   /**
    * Finds a user based on its ID.
@@ -39,7 +39,7 @@ public interface UserRepository {
    * @param userId ID
    * @return a {@link User}
    */
-  Optional<User> findById(Long userId);
+  Optional<User> findById(String userId);
 
   /**
    * Finds a user by email address.
@@ -78,5 +78,5 @@ public interface UserRepository {
    * @throws NoSuchUserException if the user doesn't
    *     exist
    */
-  void activeUser(Long userId, String token) throws NoSuchUserException;
+  void activeUser(String userId, String token) throws NoSuchUserException;
 }

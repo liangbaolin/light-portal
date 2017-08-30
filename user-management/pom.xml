@@ -17,6 +17,8 @@
         <module>jdbc</module>
         <module>auth</module>
         <module>usermanagement-service</module>
+        <module>rest-command</module>
+        <module>rest-query</module>
     </modules>
 
     <properties>

@@ -13,11 +13,11 @@ public class UserDeleteEvent implements UserEvent {
         this.userId = userId;
     }
 
-    public long getUserDeletedId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserDetail(long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

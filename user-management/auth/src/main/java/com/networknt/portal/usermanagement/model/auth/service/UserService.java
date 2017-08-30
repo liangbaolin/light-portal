@@ -26,7 +26,7 @@ public interface UserService {
    * @throws NoSuchUserException if the user doesn't exist
 
    */
-  User changeEmail(Long userId, String newEmail)
+  User changeEmail(String userId, String newEmail)
       throws InvalidEmailException, NoSuchUserException;
 
   /**
@@ -37,7 +37,7 @@ public interface UserService {
    * @return the modified {@link User}
    * @throws NoSuchUserException if the user doesn't exist
    */
-  User changePassword(Long userId, String rawPassword) throws NoSuchUserException;
+  User changePassword(String userId, String rawPassword) throws NoSuchUserException;
 
   /**
    * Changes the {@link User}'s screen name, provided that {@code newScreenName} is available.
@@ -47,7 +47,7 @@ public interface UserService {
    * @return the modified {@link User}
    * @throws NoSuchUserException if the user doesn't exist
    */
-  User changeScreenName(Long userId, String newScreenName)
+  User changeScreenName(String userId, String newScreenName)
       throws Exception;
 
   /**
@@ -70,7 +70,7 @@ public interface UserService {
    * @throws NoSuchUserException if the user doesn't exist
    * @throws InvalidTokenException if the given confirmation token is invalid
    */
-  User confirmPasswordReset(Long userId, String token)
+  User confirmPasswordReset(String userId, String token)
       throws InvalidTokenException, NoSuchUserException;
 
   /**
@@ -78,7 +78,7 @@ public interface UserService {
    *
    * @param userId {@link User}'s ID
    */
-  int delete(Long userId) ;
+  int delete(String userId) ;
 
   /**
    * Finds a {@link User} in the system by its ID.
@@ -86,7 +86,7 @@ public interface UserService {
    * @param userId Email or screen name
    * @return the {@link User} if exists, null otherwise
    */
-  Optional<User> findUser(Long userId);
+  Optional<User> findUserById(String userId);
 
   /**
    * Finds a {@link User} in the system by its ID.
@@ -103,7 +103,7 @@ public interface UserService {
    * @return the {@link User}'s ID if exists
    * @throws NoSuchUserException if the user doesn't exist
    */
-  User getUser(Long userId) throws NoSuchUserException;
+  User getUserById(String userId) throws NoSuchUserException;
 
   /**
    * Finds a {@link User} in the system by its ID.
@@ -163,7 +163,7 @@ public interface UserService {
    * @param newEmail new email
    * @throws NoSuchUserException if the user doesn't exist
    */
-  void requestEmailChange(Long userId, String newEmail)
+  void requestEmailChange(String userId, String newEmail)
       throws Exception;
 
   /**
@@ -172,7 +172,7 @@ public interface UserService {
    * @param userId {@link User}'s ID
    * @throws NoSuchUserException if the user doesn't exist
    */
-  void requestPasswordReset(Long userId) throws NoSuchUserException;
+  void requestPasswordReset(String userId) throws NoSuchUserException;
 
   /**
    * Signs a user up.

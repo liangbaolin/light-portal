@@ -19,9 +19,9 @@ import java.util.Set;
  * Model class for users.
  */
 
-public class User implements Entity<Long, User> {
+public class User implements Entity<String, User> {
 
-  private Long id;
+  private String id;
   private String screenName;
   private String host;
   private ContactData contactData = new ContactData();
@@ -48,7 +48,7 @@ public class User implements Entity<Long, User> {
    * @param screenName screen name
    * @param email email
    */
-  public User(Long id, String screenName, String email) {
+  public User(String id, String screenName, String email) {
     this.id = id;
     this.screenName = screenName;
     contactData.setEmail(email);
@@ -141,7 +141,7 @@ public class User implements Entity<Long, User> {
   }
 
   @Override
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
@@ -155,7 +155,7 @@ public class User implements Entity<Long, User> {
   }
 
   @Override
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

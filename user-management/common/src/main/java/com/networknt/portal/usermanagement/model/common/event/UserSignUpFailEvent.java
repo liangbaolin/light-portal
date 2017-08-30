@@ -10,7 +10,7 @@ public class UserSignUpFailEvent implements UserEvent {
     this.message = message;
   }
 
-  public String getTransactionId() {
+  public String getMessage() {
     return message;
   }
 }

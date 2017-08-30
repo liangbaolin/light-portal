@@ -20,7 +20,7 @@ public class UserIdDeleteHandler implements HttpHandler {
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         String id = exchange.getQueryParameters().get("id").getFirst();
 
-        int rec  = service.delete(Long.valueOf(id));
+        int rec  = service.delete(id);
         String result = null;
         if (rec > 0) {
             result = "Deleted user: " + id;
