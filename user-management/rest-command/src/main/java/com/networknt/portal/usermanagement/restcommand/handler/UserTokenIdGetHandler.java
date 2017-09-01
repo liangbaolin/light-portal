@@ -1,6 +1,7 @@
 
 package com.networknt.portal.usermanagement.restcommand.handler;
 
+
 import com.networknt.config.Config;
 import com.networknt.eventuate.common.AggregateRepository;
 import com.networknt.eventuate.common.EventuateAggregateStore;
@@ -11,8 +12,8 @@ import com.networknt.service.SingletonServiceFactory;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.concurrent.CompletableFuture;
 
 public class UserTokenIdGetHandler implements HttpHandler {
     private EventuateAggregateStore eventStore  = (EventuateAggregateStore) SingletonServiceFactory.getBean(EventuateAggregateStore.class);
@@ -23,10 +24,14 @@ public class UserTokenIdGetHandler implements HttpHandler {
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
         String id = exchange.getQueryParameters().get("id").getFirst();
+        String token = exchange.getQueryParameters().get("token").getFirst();
 
-
+        CompletableFuture<String> result = service.confirm(id, token).thenApply((e) -> {
+            String m =  "active user: " + e.getEntityId();
+            return m;
+        });
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
-    //    exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
+        exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
 
     }
 }

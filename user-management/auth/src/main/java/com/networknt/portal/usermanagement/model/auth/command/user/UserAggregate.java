@@ -52,7 +52,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
         if (this.deleted) {
             return Collections.emptyList();
         }
-        return EventUtil.events(new UserActionEvent( cmd.getTokenId()));
+        return EventUtil.events(new UserActionEvent( cmd.getId(), cmd.getTokenId()));
     }
 
 
@@ -73,7 +73,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
     }
 
     public void apply(UserActionEvent event) {
-
+        this.userId = event.getId();
         this.tokenId = event.getTokenId();
     }
 

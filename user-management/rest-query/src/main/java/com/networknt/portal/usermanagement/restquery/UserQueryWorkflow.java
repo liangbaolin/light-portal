@@ -54,7 +54,7 @@ public class UserQueryWorkflow {
       if (token.isPresent()) {
         //TODO send email
 
-        System.out.println("Link in the email:\n" + "http://localhost:8080/v1/user/token/" + user.getId() + "/" + token.get().getId());
+        System.out.println("Link in the email:\n" + "http://localhost:8080/v1/user/token/" + user.getId() + "?token=" + token.get().getId());
       }
 
     } catch (Exception e) {

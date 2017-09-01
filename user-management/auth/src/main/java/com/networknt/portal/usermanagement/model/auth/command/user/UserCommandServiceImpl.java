@@ -31,9 +31,9 @@ public class UserCommandServiceImpl implements UserCommandService {
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<UserAggregate>> confirm(String id) {
+    public CompletableFuture<EntityWithIdAndVersion<UserAggregate>> confirm(String id, String token) {
 
-        return aggregateRepository.save(new UserActionCommand(id));
+        return aggregateRepository.update(id, new UserActionCommand(id, token));
     }
 
     @Override
