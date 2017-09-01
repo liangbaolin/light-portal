@@ -26,14 +26,20 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     @Override
     public CompletableFuture<EntityWithIdAndVersion<UserAggregate>> remove(String id) {
-        return null;
-       // return aggregateRepository.update(id, new DeleteUserCommand());
+
+        return aggregateRepository.update(id, new DeleteUserCommand(id));
+    }
+
+    @Override
+    public CompletableFuture<EntityWithIdAndVersion<UserAggregate>> confirm(String id) {
+
+        return aggregateRepository.save(new UserActionCommand(id));
     }
 
     @Override
     public CompletableFuture<EntityWithIdAndVersion<UserAggregate>> update(String id, UserDto newUser) {
-        return null;
-     //   return aggregateRepository.update(id, new UpdateUserCommand(id, newTodo));
+
+        return aggregateRepository.update(id, new UpdateUserCommand(id, newUser));
     }
 
 

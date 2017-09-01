@@ -6,10 +6,10 @@ import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 public class UpdateUserCommand implements UserCommand {
 
     private UserDto user;
-    private long id;
+    private String id;
 
 
-    public UpdateUserCommand(long id, UserDto user) {
+    public UpdateUserCommand(String id, UserDto user) {
         this.id = id;
         this.user = user;
     }
@@ -18,7 +18,7 @@ public class UpdateUserCommand implements UserCommand {
         return user;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 }

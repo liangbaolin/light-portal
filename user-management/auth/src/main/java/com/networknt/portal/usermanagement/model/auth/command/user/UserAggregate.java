@@ -19,7 +19,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
 
     private UserDto user;
 
-    private long deleteUserId;
+    private String userId;
 
     private String tokenId;
 
@@ -63,12 +63,13 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
     }
 
     public void apply(UserUpdateEvent event) {
+        this.userId = event.getId();
         this.user = event.getUserDetail();
     }
 
     public void apply(UserDeleteEvent event) {
         this.deleted = true;
-        this.deleteUserId = event.getUserId();
+        this.userId = event.getUserId();
     }
 
     public void apply(UserActionEvent event) {

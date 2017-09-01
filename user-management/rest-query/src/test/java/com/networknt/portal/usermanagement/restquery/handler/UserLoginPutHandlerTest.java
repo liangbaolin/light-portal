@@ -2,8 +2,10 @@
 package com.networknt.portal.usermanagement.restquery.handler;
 
 import com.networknt.client.Http2Client;
+import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.exception.ApiException;
 import com.networknt.exception.ClientException;
+import com.networknt.portal.usermanagement.restquery.model.LoginForm;
 import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
 import io.undertow.client.ClientRequest;
@@ -37,7 +39,7 @@ public class UserLoginPutHandlerTest {
 
     @Test
     public void testUserLoginPutHandlerTest() throws ClientException, ApiException {
-        /*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -47,13 +49,19 @@ public class UserLoginPutHandlerTest {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        LoginForm login = new LoginForm();
+        login.setPassword("password");
+        login.setNameOrEmail("user_login");
+
+        String json = JSonMapper.toJson(login);
+        System.out.println(json);
         try {
             ClientRequest request = new ClientRequest().setPath("/v1/user/login").setMethod(Methods.PUT);
-            
+
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
-            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
-            
+            connection.sendRequest(request, client.createClientCallback(reference, latch, json));
+
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);
@@ -63,8 +71,9 @@ public class UserLoginPutHandlerTest {
         }
         int statusCode = reference.get().getResponseCode();
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        System.out.println("response:" + body);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+
     }
 }

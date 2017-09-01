@@ -3,13 +3,13 @@ package com.networknt.portal.usermanagement.model.auth.command.user;
 
 public class DeleteUserCommand implements UserCommand {
 
-    private long userId;
+    private String userId;
 
-    public DeleteUserCommand(long userId) {
+    public DeleteUserCommand(String userId) {
         this.userId = userId;
     }
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 }

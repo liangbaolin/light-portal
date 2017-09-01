@@ -8,7 +8,7 @@ public class User {
     
     private String password;
     
-    private ContactData contactData;
+    private ContactData contactData = new ContactData();
     
     private String timezone;
     
@@ -39,6 +39,9 @@ public class User {
     
     @JsonProperty("contactData")
     public ContactData getContactData() {
+        if (contactData == null) {
+            return new ContactData();
+        }
         return contactData;
     }
 

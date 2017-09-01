@@ -12,6 +12,9 @@ public interface UserCommandService {
 
     CompletableFuture<EntityWithIdAndVersion<UserAggregate>> remove(String id);
 
+    CompletableFuture<EntityWithIdAndVersion<UserAggregate>> confirm(String id);
+
+
     CompletableFuture<EntityWithIdAndVersion<UserAggregate>> update(String id, UserDto newUser);
 
 
