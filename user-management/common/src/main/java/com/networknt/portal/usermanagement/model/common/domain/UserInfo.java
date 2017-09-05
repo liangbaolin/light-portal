@@ -1,21 +1,23 @@
 package com.networknt.portal.usermanagement.model.common.domain;
 
 
-
 import com.networknt.portal.usermanagement.model.common.domain.contact.ContactData;
 import com.networknt.portal.usermanagement.model.common.model.Timezone;
 
 import java.util.Locale;
 
 
-public class UserDto {
+public class UserInfo {
 
-  private String screenName;
-
-  private ContactData contactData = new ContactData();
 
   private String timezone = Timezone.CANADA_EASTERN.name();
   private String locale = Locale.CANADA.getDisplayName();
+
+
+  private ContactData contactData = new ContactData();
+  private String screenName;
+
+
 
   private String password;
   private String host;
@@ -24,29 +26,16 @@ public class UserDto {
   private boolean passwordReset;
   private boolean screenNameChange;
 
-  public UserDto(){}
+  public UserInfo() {
+  }
 
-  public UserDto(String email, String screenName) {
+
+  public UserInfo(String email, String screenName) {
     this.contactData.setEmail(email);
     this.screenName = screenName;
   }
 
 
-  public String getScreenName() {
-    return screenName;
-  }
-
-  public void setScreenName(String screenName) {
-    this.screenName = screenName;
-  }
-
-  public ContactData getContactData() {
-    return contactData;
-  }
-
-  public void setContactData(ContactData contactData) {
-    this.contactData = contactData;
-  }
 
   public String getTimezone() {
     return timezone;
@@ -62,6 +51,22 @@ public class UserDto {
 
   public void setLocale(String locale) {
     this.locale = locale;
+  }
+
+  public ContactData getContactData() {
+    return contactData;
+  }
+
+  public void setContactData(ContactData contactData) {
+    this.contactData = contactData;
+  }
+
+  public String getScreenName() {
+    return screenName;
+  }
+
+  public void setScreenName(String screenName) {
+    this.screenName = screenName;
   }
 
   public String getPassword() {

@@ -11,7 +11,7 @@ public class CreateUserCommand implements UserCommand {
         this.user = user;
     }
 
-    public UserDto getUser() {
+    public UserDto getUserDto() {
         return user;
     }
 }

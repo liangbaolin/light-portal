@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS  confirmation_token;
 
 
 CREATE  TABLE user_detail (
-  user_id bigint not null,
+  user_id varchar(100) not null,
   email varchar(100),
   host varchar(100),
   timezone varchar(60),
@@ -27,7 +27,7 @@ CREATE  TABLE user_detail (
 );
 
 CREATE  TABLE address (
-   user_id bigint not null,
+   user_id varchar(100) not null,
    address_type varchar(20),
    country varchar(120),
    province_state varchar(120),
@@ -41,7 +41,7 @@ CREATE  TABLE address (
 
 CREATE  TABLE confirmation_token (
   id varchar(256) not null,
-  user_id bigint not null,
+  user_id varchar(100) not null,
   token_type varchar(30),
   valid varchar(1) DEFAULT 'Y',
   payload varchar(400),

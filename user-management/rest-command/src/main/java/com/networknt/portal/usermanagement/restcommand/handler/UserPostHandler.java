@@ -44,6 +44,7 @@ public class UserPostHandler implements HttpHandler {
         CompletableFuture<User> result = service.add(userDto).thenApply((e) -> {
             User m =  new User();
             m.setId(e.getEntityId());
+            m.setPassword(e.getAggregate().getUser().getPassword());
             m.setHost(e.getAggregate().getUser().getHost());
             m.setScreenName(e.getAggregate().getUser().getScreenName());
             m.getContactData().setEmail(e.getAggregate().getUser().getContactData().getEmail());

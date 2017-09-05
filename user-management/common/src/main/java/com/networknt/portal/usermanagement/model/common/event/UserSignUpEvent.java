@@ -15,11 +15,11 @@ public class UserSignUpEvent implements UserEvent {
         this.user = user;
     }
 
-    public UserDto getUserDetail() {
+    public UserDto getUserDto() {
         return user;
     }
 
-    public void setUserDetail(UserDto todo) {
+    public void setUserDto(UserDto todo) {
         this.user = user;
     }
 

@@ -29,7 +29,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
         if (this.deleted) {
             return Collections.emptyList();
         }
-        return EventUtil.events(new UserSignUpEvent(cmd.getUser()));
+        return EventUtil.events(new UserSignUpEvent(cmd.getUserDto()));
     }
 
     public List<Event> process(UpdateUserCommand cmd) {
@@ -59,7 +59,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
 
 
     public void apply(UserSignUpEvent event) {
-        this.user = event.getUserDetail();
+        this.user = event.getUserDto();
     }
 
     public void apply(UserUpdateEvent event) {

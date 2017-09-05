@@ -418,4 +418,17 @@ public class UserServiceImpl implements UserService {
    // user.setLocale(userDto.getLocale());
     return user;
   }
+
+
+  @Override
+  public User fromUserDto(UserDto userDto, String id) {
+    Objects.requireNonNull(userDto, "user");
+    String email = userDto.getContactData()==null?null: userDto.getContactData().getEmail();
+    User user =   new User (id, userDto.getScreenName(), email);
+    user.setContactData(userDto.getContactData());
+
+    user.setHost(userDto.getHost());
+    // user.setLocale(userDto.getLocale());
+    return user;
+  }
 }

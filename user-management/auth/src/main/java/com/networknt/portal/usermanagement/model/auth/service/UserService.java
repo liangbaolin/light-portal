@@ -210,4 +210,6 @@ public interface UserService {
    UserDto toUserDto(User user);
 
   User fromUserDto(UserDto user);
+
+  User fromUserDto(UserDto user, String id);
 }

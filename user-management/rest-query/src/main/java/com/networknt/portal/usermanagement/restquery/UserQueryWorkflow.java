@@ -6,6 +6,7 @@ import com.networknt.eventuate.common.DispatchedEvent;
 import com.networknt.eventuate.common.EventHandlerMethod;
 import com.networknt.eventuate.common.EventSubscriber;
 import com.networknt.eventuate.common.Int128;
+import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
@@ -40,14 +41,20 @@ public class UserQueryWorkflow {
 
   @EventHandlerMethod
   public void create(DispatchedEvent<UserSignUpEvent> de) {
+    System.out.println(JSonMapper.toJson(de));
     UserSignUpEvent event = de.getEvent();
     String id = de.getEntityId();
-    UserDto userDto = de.getEvent().getUserDetail();
+    String json2 = JSonMapper.toJson(event);
+    System.out.println(json2);
+    UserDto userDto = event.getUserDto();
     Int128 eventId = de.getEventId();
     logger.info("**************** account version={}, {}", id, eventId);
-
+    String json = JSonMapper.toJson(userDto);
+    System.out.println(json);
+    System.out.println(id);
     try {
-      User user = service.fromUserDto(userDto);
+      User user = service.fromUserDto(userDto, id);
+      System.out.println("password:" + userDto.getPassword());
       service.signup(user, userDto.getPassword());
       //TODO remove the following implemetation after confirm email implemented
       Optional<ConfirmationToken> token = user.getConfirmationTokens().stream().findFirst();
@@ -58,6 +65,7 @@ public class UserQueryWorkflow {
       }
 
     } catch (Exception e) {
+      System.out.println("error:" + e.getMessage());
       logger.error("user signup failed:", userDto + " error:" + e.getMessage());
 
       //TODO handler excption, add log info?

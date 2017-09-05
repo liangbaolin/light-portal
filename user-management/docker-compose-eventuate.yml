@@ -20,6 +20,8 @@ services:
       - ./docker/rest-command/config:/config
     ports:
       - 8081:8081
+    links:
+        - postgresdb
     networks:
       - localnet
 
@@ -29,6 +31,8 @@ services:
       - ./docker/rest-query/config:/config
     ports:
       - 8082:8082
+    links:
+        - postgresdb
     networks:
       - localnet
 # Networks
