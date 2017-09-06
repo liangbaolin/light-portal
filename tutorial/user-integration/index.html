@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>User Management Service Integration - Light Poral - A bridge between service consumers and providers</title>
+    <meta name="generator" content="Hugo 0.21" />
+
+    
+    <meta name="description" content="Light Portal Docs">
+    
+    <link rel="canonical" href="https://networknt.github.io/light-portal/tutorial/user-integration/">
+    
+    <meta name="author" content="Steve Hu">
+    
+
+    <meta property="og:url" content="https://networknt.github.io/light-portal/tutorial/user-integration/">
+    <meta property="og:title" content="Light Poral - A bridge between service consumers and providers">
+    <meta property="og:image" content="https://networknt.github.io/light-portal/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Light Poral - A bridge between service consumers and providers">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://networknt.github.io/light-portal/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://networknt.github.io/light-portal/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://networknt.github.io/light-portal/fonts/icon.eot');
+        src: url('https://networknt.github.io/light-portal/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://networknt.github.io/light-portal/fonts/icon.woff')
+               format('woff'),
+             url('https://networknt.github.io/light-portal/fonts/icon.ttf')
+               format('truetype'),
+             url('https://networknt.github.io/light-portal/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://networknt.github.io/light-portal/stylesheets/application.css">
+    <link rel="stylesheet" href="https://networknt.github.io/light-portal/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://networknt.github.io/light-portal/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://networknt.github.io/light-portal/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://networknt.github.io/light-portal/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        User Management Service Integration
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/stevehu" title="@stevehu on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/networknt/light-portal" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://networknt.github.io/light-portal/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Light Poral - A bridge between service consumers and providers <span class="version">1.3.4</span></strong>
+        
+          <br>
+          networknt/light-portal
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/networknt/light-portal/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/networknt/light-portal/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting started" href="https://networknt.github.io/light-portal/getting-started/">
+	
+	Getting started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Architecture" href="https://networknt.github.io/light-portal/architecture/">
+	
+	Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Design" href="https://networknt.github.io/light-portal/design/">
+	
+	Design
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Component" href="https://networknt.github.io/light-portal/component/">
+	
+	Component
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="DevOps" href="https://networknt.github.io/light-portal/devops/">
+	
+	DevOps
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tutorial" href="https://networknt.github.io/light-portal/tutorial/">
+	
+	Tutorial
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tool" href="https://networknt.github.io/light-portal/tool/">
+	
+	Tool
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Issues &amp; Help" href="https://github.com/networknt/light-portal/issues">
+	
+	Issues &amp; Help
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Roadmap" href="https://networknt.github.io/light-portal/roadmap/">
+	
+	Roadmap
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="License" href="https://www.apache.org/licenses/LICENSE-2.0">
+	
+	License
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Introduction" href="https://networknt.github.io/light-portal/index.html">
+	
+	Introduction
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/stevehu" target="_blank" title="@stevehu on GitHub">
+              @stevehu on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:stevehu@gmail.com" title="Email of stevehu@gmail.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>User Management Service Integration </h1>
+
+			
+
+<h1 id="integration-test">Integration Test</h1>
+
+<p>Get the project from GitHub and build the project:</p>
+
+<pre><code>cd ~/networknt
+git clone git@github.com/networknt/light-portal.git
+cd light-portal/user-management
+mvn clean install
+</code></pre>
+
+<h2 id="normal-microservice">Normal microservice:</h2>
+
+<p>It can be run local to and persist the user info to local database only.</p>
+
+<p>Module:</p>
+
+<p>usermanagement-service</p>
+
+<p>Run docker-compose file for the service:</p>
+
+<pre><code>cd ~/networknt/light-portal/user-management
+
+docker-compose up
+</code></pre>
+
+<p>The docker-compose will start local postgres database and usermanagement-service microservice</p>
+
+<h2 id="event-sourcing-microservice">Event sourcing microservice:</h2>
+
+<p>Integrate the service with light-eventuate-4j framework to process user management with event sourcing. It include command side service and query side service.</p>
+
+<p>Module:</p>
+
+<p>rest-coomand    &ndash; command side service</p>
+
+<p>rest-query      &ndash; query side service</p>
+
+<p>Before starting any service, we need to make sure that light-eventuate-4j is
+up and running. Please follow this <a href="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/">tutorial</a>
+to set up.</p>
+
+<p>Run docker-compose file for the service:</p>
+
+<pre><code>cd ~/networknt/light-portal/user-management
+
+docker-compose -f docker-compose-eventuate.yml up
+
+</code></pre>
+
+<p>The docker docker-compose-eventuate.yml will start local postgres database (used by query side service) and restful command side service and restful query side service</p>
+
+<h2 id="verify-result">Verify result:</h2>
+
+<p>— new user signing</p>
+
+<pre><code>curl -X POST \
+  http://localhost:8080/v1/user \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+   -d '{&quot;screenName&quot;:&quot;testUser&quot;,&quot;contactData&quot;:{&quot;email&quot;:&quot;aaa.bbb@gmail.com&quot;,&quot;firstName&quot;:&quot;test1&quot;,&quot;lastName&quot;:&quot;bbb1&quot;,&quot;addresses&quot;:[{&quot;country&quot;:&quot;CA&quot;,&quot;state&quot;:&quot;AK&quot;,&quot;city&quot;:&quot;BaBa&quot;,&quot;addressLine1&quot;:&quot;222 Bay Street&quot;,&quot;addressType&quot;:&quot;SHIPPING&quot;}],&quot;gender&quot;:&quot;MALE&quot;},&quot;timezone&quot;:&quot;CANADA_EASTERN&quot;,&quot;locale&quot;:&quot;English (Canada)&quot;,&quot;password&quot;:&quot;12345678&quot;,&quot;host&quot;:&quot;google&quot;,&quot;emailChange&quot;:false,&quot;passwordReset&quot;:false,&quot;screenNameChange&quot;:false}
+'
+</code></pre>
+
+<p>— active user by the link in the confirm email (replace the token from DB)</p>
+
+<pre><code>curl -X PUT \
+  http://localhost:8080/v1/user/token/0000015e2a49af26-0242ac1200020000 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json'
+</code></pre>
+
+<p>— get ALL user list (for admin user)</p>
+
+<pre><code>curl -X GET \
+  http://localhost:8080/v1/user \
+  -H 'cache-control: no-cache' \
+</code></pre>
+
+<p>— get user by login in name</p>
+
+<pre><code>curl -X GET \
+  'http://localhost:8080/v1/user/name?name=testUser' \
+  -H 'cache-control: no-cache' \
+</code></pre>
+
+<p>— user login</p>
+
+<pre><code>curl -X PUT \
+  http://localhost:8080//v1/user/login \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;nameOrEmail&quot;:&quot;testUser&quot;,&quot;password&quot;:&quot;12345678&quot;}'
+</code></pre>
+
+<p>&ndash; user change (change email)</p>
+
+<pre><code>curl -X PUT \
+  http://localhost:8080/v1/user/1080408346077690 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;screenName&quot;:&quot;testUser&quot;,&quot;contactData&quot;:{&quot;email&quot;:&quot;aaa.bbb2@gmail.com&quot;,&quot;gender&quot;:&quot;UNKNOWN&quot;},&quot;timezone&quot;:&quot;CANADA_EASTERN&quot;,&quot;locale&quot;:&quot;English (Canada)&quot;,&quot;emailChange&quot;:true,&quot;passwordReset&quot;:false,&quot;screenNameChange&quot;:false}'
+</code></pre>
+
+<h2 id="end">End</h2>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Released under the MIT license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://networknt.github.io/light-portal/tutorial/user-management/" title="User Management Service">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              User Management Service
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://networknt.github.io/light-portal/tutorial/user-introduction/" title="User Management Service Introduction">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              User Management Service Introduction
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/networknt.github.io\/light-portal\/';
+      var repo_id  = 'networknt\/light-portal';
+    
+    </script>
+
+    <script src="https://networknt.github.io/light-portal/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
