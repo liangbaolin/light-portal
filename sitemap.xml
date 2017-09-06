@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/component/</loc>
+    <lastmod>2017-07-29T18:51:48-04:00</lastmod>
+  </url>
   
   <url>
     <loc>https://networknt.github.io/light-portal/</loc>
     <lastmod>2017-07-08T17:01:57-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/tutorial/</loc>
+    <lastmod>2017-04-27T09:37:50-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/tutorial/user-management/</loc>
+    <lastmod>2016-10-22T20:22:34-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/tutorial/user-integration/</loc>
+    <lastmod>2016-10-22T20:22:34-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/tutorial/user-introduction/</loc>
+    <lastmod>2016-10-22T20:22:34-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/getting-started/</loc>
   </url>
   
   <url>
@@ -12,13 +42,30 @@
   </url>
   
   <url>
+    <loc>https://networknt.github.io/light-portal/component/</loc>
+    <lastmod>2017-07-29T18:51:48-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/getting-started/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://networknt.github.io/light-portal/</loc>
-    <lastmod>2017-07-08T17:01:57-04:00</lastmod>
+    <lastmod>2017-07-29T18:51:48-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://networknt.github.io/light-portal/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-portal/tutorial/</loc>
+    <lastmod>2017-04-27T09:37:50-04:00</lastmod>
     <priority>0</priority>
   </url>
   

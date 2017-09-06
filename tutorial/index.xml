@@ -1,37 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Light Poral - A bridge between service consumers and providers</title>
-    <link>https://networknt.github.io/light-portal/</link>
-    <description>Recent content on Light Poral - A bridge between service consumers and providers</description>
+    <title>Tutorials on Light Poral - A bridge between service consumers and providers</title>
+    <link>https://networknt.github.io/light-portal/tutorial/</link>
+    <description>Recent content in Tutorials on Light Poral - A bridge between service consumers and providers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Sat, 29 Jul 2017 18:51:48 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 27 Apr 2017 09:37:50 -0400</lastBuildDate>
     
-	<atom:link href="https://networknt.github.io/light-portal/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://networknt.github.io/light-portal/tutorial/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Components</title>
-      <link>https://networknt.github.io/light-portal/component/</link>
-      <pubDate>Sat, 29 Jul 2017 18:51:48 -0400</pubDate>
-      
-      <guid>https://networknt.github.io/light-portal/component/</guid>
-      <description>Major component for light-portal:
-api-certification This service is part of light-portal and it is used to check if the production deployment meet the security requirements.
-The following things will be checked with server/info endpoint:
-If TLS https is enable and key pair are replaced If http port is disabled If JWT token verification and scope verification are enabled If metrics is enabled If the right version of JDK/JRE is used to start the server If the default JWT key is replaced</description>
-    </item>
-    
-    <item>
-      <title>Introduction</title>
-      <link>https://networknt.github.io/light-portal/</link>
-      <pubDate>Sat, 08 Jul 2017 17:01:57 -0400</pubDate>
-      
-      <guid>https://networknt.github.io/light-portal/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Tutorial</title>
@@ -81,19 +60,6 @@ Event sourcing microservice: Integrate the service with light-eventuate-4j frame
 This service is part of light-portal and it is used for managing user for light-4j. And user can get the service to run separate for user management for their own project.
 Scoop User Management Service only manage user create, confirm, update, delete and login. The user role and authorization will be implemented in light-oauth.
 And the session management will be implement in light-4j framework</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://networknt.github.io/light-portal/getting-started/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://networknt.github.io/light-portal/getting-started/</guid>
-      <description> A service consumer and provider runtime management and marketplace to bridge between consumers and providers.
-Developer Chat | Documentation | Contribution Guide |
-
-Introduction Light-portal is the entry point for light-4j platform.
-Features Ecosystem </description>
     </item>
     
   </channel>
