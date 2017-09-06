@@ -68,7 +68,8 @@ The docker docker-compose-eventuate.yml will start local postgres database (used
 ## Verify result:
 
 
-— new user signing
+-- New user signup
+
 ```
 curl -X POST \
   http://localhost:8080/v1/user \
@@ -78,7 +79,8 @@ curl -X POST \
 '
 ```
 
-— active user by the link in the confirm email (replace the token from DB)
+-- Active user by the link in the confirm email (replace the token from DB)
+
 ```
 curl -X PUT \
   http://localhost:8080/v1/user/token/0000015e2a49af26-0242ac1200020000 \
@@ -86,21 +88,24 @@ curl -X PUT \
   -H 'content-type: application/json'
 ```
 
-— get ALL user list (for admin user)
+-- Get ALL user list (for admin user)
+
 ```
 curl -X GET \
   http://localhost:8080/v1/user \
   -H 'cache-control: no-cache' \
 ```
 
-— get user by login in name
+--Get user by login in name
+
 ```
 curl -X GET \
   'http://localhost:8080/v1/user/name?name=testUser' \
   -H 'cache-control: no-cache' \
  ```
 
-— user login
+--User login
+
 ```
 curl -X PUT \
   http://localhost:8080//v1/user/login \
@@ -109,13 +114,36 @@ curl -X PUT \
   -d '{"nameOrEmail":"testUser","password":"12345678"}'
 ```
 
--- user change (change email)
+-- User change (change email)
+
 ```
 curl -X PUT \
   http://localhost:8080/v1/user/1080408346077690 \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{"screenName":"testUser","contactData":{"email":"aaa.bbb2@gmail.com","gender":"UNKNOWN"},"timezone":"CANADA_EASTERN","locale":"English (Canada)","emailChange":true,"passwordReset":false,"screenNameChange":false}'
+```
+
+-- Possword reset
+
+```
+curl -X PUT \
+  http://localhost:8081/v1/user/0000015e54ab8932-0242ac1200080000 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: f88f295d-8bcc-dfad-acd3-0d01d65f40b4' \
+  -d '{"screenName":"testUser","password":"22222222", "contactData":{"email":"aaa.bbb2@gmail.com","gender":"UNKNOWN"},"timezone":"CANADA_EASTERN","locale":"English (Canada)","emailChange":false,"passwordReset":true,"screenNameChange":false}'
+```
+
+
+-- Login with token (after password reset, system will require use sign again with new password and confirm token)
+```
+curl -X PUT \
+  http://localhost:8082/v1/user/login \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 4493c47b-3f83-5c0b-81ed-7032178ca5f6' \
+  -d '{"nameOrEmail":"testUser","password":"22222222", "token": "0000015e54c0d4b1-0242ac1200070000"}'
 ```
 
 
