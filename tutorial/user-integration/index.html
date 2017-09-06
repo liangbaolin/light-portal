@@ -464,7 +464,7 @@ docker-compose -f docker-compose-eventuate.yml up
 
 <h2 id="verify-result">Verify result:</h2>
 
-<p>— new user signing</p>
+<p>&ndash; New user signup</p>
 
 <pre><code>curl -X POST \
   http://localhost:8080/v1/user \
@@ -474,7 +474,7 @@ docker-compose -f docker-compose-eventuate.yml up
 '
 </code></pre>
 
-<p>— active user by the link in the confirm email (replace the token from DB)</p>
+<p>&ndash; Active user by the link in the confirm email (replace the token from DB)</p>
 
 <pre><code>curl -X PUT \
   http://localhost:8080/v1/user/token/0000015e2a49af26-0242ac1200020000 \
@@ -482,21 +482,21 @@ docker-compose -f docker-compose-eventuate.yml up
   -H 'content-type: application/json'
 </code></pre>
 
-<p>— get ALL user list (for admin user)</p>
+<p>&ndash; Get ALL user list (for admin user)</p>
 
 <pre><code>curl -X GET \
   http://localhost:8080/v1/user \
   -H 'cache-control: no-cache' \
 </code></pre>
 
-<p>— get user by login in name</p>
+<p>&ndash;Get user by login in name</p>
 
 <pre><code>curl -X GET \
   'http://localhost:8080/v1/user/name?name=testUser' \
   -H 'cache-control: no-cache' \
 </code></pre>
 
-<p>— user login</p>
+<p>&ndash;User login</p>
 
 <pre><code>curl -X PUT \
   http://localhost:8080//v1/user/login \
@@ -505,13 +505,33 @@ docker-compose -f docker-compose-eventuate.yml up
   -d '{&quot;nameOrEmail&quot;:&quot;testUser&quot;,&quot;password&quot;:&quot;12345678&quot;}'
 </code></pre>
 
-<p>&ndash; user change (change email)</p>
+<p>&ndash; User change (change email)</p>
 
 <pre><code>curl -X PUT \
   http://localhost:8080/v1/user/1080408346077690 \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{&quot;screenName&quot;:&quot;testUser&quot;,&quot;contactData&quot;:{&quot;email&quot;:&quot;aaa.bbb2@gmail.com&quot;,&quot;gender&quot;:&quot;UNKNOWN&quot;},&quot;timezone&quot;:&quot;CANADA_EASTERN&quot;,&quot;locale&quot;:&quot;English (Canada)&quot;,&quot;emailChange&quot;:true,&quot;passwordReset&quot;:false,&quot;screenNameChange&quot;:false}'
+</code></pre>
+
+<p>&ndash; Possword reset</p>
+
+<pre><code>curl -X PUT \
+  http://localhost:8081/v1/user/0000015e54ab8932-0242ac1200080000 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: f88f295d-8bcc-dfad-acd3-0d01d65f40b4' \
+  -d '{&quot;screenName&quot;:&quot;testUser&quot;,&quot;password&quot;:&quot;22222222&quot;, &quot;contactData&quot;:{&quot;email&quot;:&quot;aaa.bbb2@gmail.com&quot;,&quot;gender&quot;:&quot;UNKNOWN&quot;},&quot;timezone&quot;:&quot;CANADA_EASTERN&quot;,&quot;locale&quot;:&quot;English (Canada)&quot;,&quot;emailChange&quot;:false,&quot;passwordReset&quot;:true,&quot;screenNameChange&quot;:false}'
+</code></pre>
+
+<p>&ndash; Login with token (after password reset, system will require use sign again with new password and confirm token)</p>
+
+<pre><code>curl -X PUT \
+  http://localhost:8082/v1/user/login \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 4493c47b-3f83-5c0b-81ed-7032178ca5f6' \
+  -d '{&quot;nameOrEmail&quot;:&quot;testUser&quot;,&quot;password&quot;:&quot;22222222&quot;, &quot;token&quot;: &quot;0000015e54c0d4b1-0242ac1200070000&quot;}'
 </code></pre>
 
 <h2 id="end">End</h2>
