@@ -17,6 +17,8 @@ import java.util.Optional;
 
 public class UserEmailGetHandler implements HttpHandler {
 
+    public static final String NO_USER_USER_EMAIL = "No user find to use the email";
+
     private UserRepository userRepository = (UserRepository) SingletonServiceFactory.getBean(UserRepository.class);
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
     private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);
@@ -31,7 +33,7 @@ public class UserEmailGetHandler implements HttpHandler {
         if (user.isPresent()) {
             result = Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get()));
         } else {
-            result = "No user find for the email:" + email;
+            result = NO_USER_USER_EMAIL;
         }
 
         exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
