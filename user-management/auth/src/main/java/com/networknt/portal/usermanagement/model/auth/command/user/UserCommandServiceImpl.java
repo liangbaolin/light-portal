@@ -20,8 +20,8 @@ public class UserCommandServiceImpl implements UserCommandService {
 
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<UserAggregate>> add(UserDto user) {
-        return aggregateRepository.save(new CreateUserCommand(user));
+    public CompletableFuture<EntityWithIdAndVersion<UserAggregate>> add(UserDto userDto) {
+        return aggregateRepository.save(new CreateUserCommand(userDto));
     }
 
     @Override

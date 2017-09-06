@@ -32,9 +32,9 @@ public class UserIdPutHandler implements HttpHandler {
 
         ObjectMapper mapper = new ObjectMapper();
 
-
         Map s = (Map)exchange.getAttachment(BodyHandler.REQUEST_BODY);
         String json = mapper.writeValueAsString(s);
+
         UserDto user = mapper.readValue(json, UserDto.class);
 
         CompletableFuture<User> result = service.update(id, user).thenApply((e) -> {

@@ -41,27 +41,24 @@ public class UserQueryWorkflow {
 
   @EventHandlerMethod
   public void create(DispatchedEvent<UserSignUpEvent> de) {
-    System.out.println(JSonMapper.toJson(de));
     UserSignUpEvent event = de.getEvent();
     String id = de.getEntityId();
-    String json2 = JSonMapper.toJson(event);
-    System.out.println(json2);
+
     UserDto userDto = event.getUserDto();
     Int128 eventId = de.getEventId();
     logger.info("**************** account version={}, {}", id, eventId);
     String json = JSonMapper.toJson(userDto);
-    System.out.println(json);
-    System.out.println(id);
+
     try {
       User user = service.fromUserDto(userDto, id);
-      System.out.println("password:" + userDto.getPassword());
+
       service.signup(user, userDto.getPassword());
       //TODO remove the following implemetation after confirm email implemented
       Optional<ConfirmationToken> token = user.getConfirmationTokens().stream().findFirst();
       if (token.isPresent()) {
         //TODO send email
 
-        System.out.println("Link in the email:\n" + "http://localhost:8080/v1/user/token/" + user.getId() + "?token=" + token.get().getId());
+        System.out.println("Link in the email:\n" + "http://localhost:8081/v1/user/token/" + user.getId() + "?token=" + token.get().getId());
       }
 
     } catch (Exception e) {
@@ -90,7 +87,7 @@ public class UserQueryWorkflow {
   @EventHandlerMethod
   public void update(DispatchedEvent<UserUpdateEvent> de) {
     String id = de.getEntityId();
-    UserDto user = de.getEvent().getUserDetail();
+    UserDto user = de.getEvent().getUserDto();
 
     User userResult = null;
     try {
@@ -119,6 +116,7 @@ public class UserQueryWorkflow {
   public void action(DispatchedEvent<UserActionEvent> de) {
     String id = de.getEntityId();
     String token = de.getEvent().getTokenId();
+    System.out.println("token:" + token);
 
     try {
       User user = service.confirmEmail(token);

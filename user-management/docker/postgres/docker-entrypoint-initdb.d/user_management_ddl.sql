@@ -45,7 +45,7 @@ CREATE  TABLE confirmation_token (
   token_type varchar(30),
   valid varchar(1) DEFAULT 'Y',
   payload varchar(400),
-  expiresAt date,
+  expiresAt timestamp,
   usedAt date,
   PRIMARY KEY(id)
 );

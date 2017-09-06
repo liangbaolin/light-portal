@@ -140,7 +140,6 @@ public class UserServiceImpl implements UserService {
     User user = getUserById(userId);
 
     ConfirmationToken<String> confirmationToken = user.useConfirmationToken(token);
-
     Optional<String> newEmail = confirmationToken.getPayload();
     if (!newEmail.isPresent()) {
       boolean confirmed = user.isConfirmed();
@@ -161,13 +160,14 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User confirmPasswordReset(String userId, String token)
+  public User confirmPasswordReset(String emailOrScreenName, String token)
       throws InvalidTokenException, NoSuchUserException {
 
-    Objects.requireNonNull(userId, "userId");
+    Objects.requireNonNull(emailOrScreenName, "emailOrScreenName");
     Objects.requireNonNull(token, "token");
+    User user = getUser(emailOrScreenName);
 
-    User user = getUserById(userId);
+
     user.useConfirmationToken(token);
    // user = store(user);
     user.setConfirmed(true);
@@ -210,7 +210,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User getUserById(String userId) throws NoSuchUserException {
-    Optional<User> user = findUser(userId);
+    Optional<User> user = findUserById(userId);
     return user.orElseThrow(NoSuchUserException::new);
   }
 

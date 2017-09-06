@@ -6,21 +6,21 @@ import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 
 public class UserSignUpEvent implements UserEvent {
 
-    private UserDto user;
+    private UserDto userDto;
 
     private UserSignUpEvent() {
     }
 
-    public UserSignUpEvent(UserDto user) {
-        this.user = user;
+    public UserSignUpEvent(UserDto userDto) {
+        this.userDto = userDto;
     }
 
     public UserDto getUserDto() {
-        return user;
+        return userDto;
     }
 
-    public void setUserDto(UserDto todo) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 
 

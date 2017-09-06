@@ -6,23 +6,23 @@ import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 
 public class UserUpdateEvent implements UserEvent {
 
-    private UserDto user;
+    private UserDto userDto;
     private String id;
 
     private UserUpdateEvent() {
     }
 
-    public UserUpdateEvent(String id, UserDto user) {
+    public UserUpdateEvent(String id, UserDto userDto) {
         this.id = id;
-        this.user = user;
+        this.userDto = userDto;
     }
 
-    public UserDto getUserDetail() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUserDetail(UserDto todo) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 
     public String getId() {

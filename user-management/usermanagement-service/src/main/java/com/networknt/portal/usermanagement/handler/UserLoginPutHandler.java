@@ -36,10 +36,10 @@ public class UserLoginPutHandler implements HttpHandler {
         LoginForm login = mapper.readValue(json, LoginForm.class);
         User userResult = null;
         try {
-            userResult =  service.login(login.getNameOrEmail(), login.getPassword());
-            if (login.getToken() != null && userResult !=null) {
-                userResult= service.confirmPasswordReset(userResult.getId(), login.getToken());
+            if (login.getToken() != null ) {
+                userResult= service.confirmPasswordReset(login.getNameOrEmail(), login.getToken());
             }
+            userResult =  service.login(login.getNameOrEmail(), login.getPassword());
         } catch (NoSuchUserException e) {
             //TODO handler excption, add log info?
         } catch (InvalidTokenException e) {

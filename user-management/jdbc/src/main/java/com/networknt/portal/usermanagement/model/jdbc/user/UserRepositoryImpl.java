@@ -102,7 +102,7 @@ public class UserRepositoryImpl implements UserRepository {
         User user = null;
         String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND user_id = ?";
         String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
-        String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt > ?";
+        String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt >= ?";
         try (final Connection connection = dataSource.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(psSelect);
             stmt.setString(1, userId);
@@ -167,7 +167,7 @@ public class UserRepositoryImpl implements UserRepository {
        User user = null;
        String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND email = ?";
        String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
-       String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt > ?";
+       String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt >= ?";
        try (final Connection connection = dataSource.getConnection()){
            PreparedStatement stmt = connection.prepareStatement(psSelect);
            stmt.setString(1, email);
@@ -233,7 +233,7 @@ public class UserRepositoryImpl implements UserRepository {
        User user = null;
         String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday,confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND screen_name = ?";
         String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
-        String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt > ?";
+        String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt >= ?";
         try (final Connection connection = dataSource.getConnection()){
            PreparedStatement stmt = connection.prepareStatement(psSelect);
            stmt.setString(1, screenName);
@@ -419,16 +419,17 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void activeUser(String userId, String token) throws NoSuchUserException {
+
         Objects.requireNonNull(userId);
         Objects.requireNonNull(token);
         try (final Connection connection = dataSource.getConnection()){
             String psDelete1 = "UPDATE user_detail SET locked = 'N', confirmed = 'Y' WHERE user_id = ?";
-            String psDelete2 = "DELETE FROM  confirmation_token WHERE id = ?";
+            String psDelete2 = "DELETE FROM  confirmation_token WHERE user_id = ?";
             PreparedStatement psEntity = connection.prepareStatement(psDelete1);
             psEntity.setString(1, userId);
             int count = psEntity.executeUpdate();
             psEntity = connection.prepareStatement(psDelete2);
-            psEntity.setString(1, token);
+            psEntity.setString(1, userId);
             psEntity.executeUpdate();
             if (count != 1) {
                 logger.error("Failed to update USER_DETAIL: {}", userId);

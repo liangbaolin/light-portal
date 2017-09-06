@@ -35,10 +35,11 @@ public class UserLoginPutHandler implements HttpHandler {
         LoginForm login = mapper.readValue(json, LoginForm.class);
         User userResult = null;
         try {
-            userResult =  service.login(login.getNameOrEmail(), login.getPassword());
-            if (login.getToken() != null && userResult !=null) {
-                userResult= service.confirmPasswordReset(userResult.getId(), login.getToken());
+
+            if (login.getToken() != null ) {
+                userResult= service.confirmPasswordReset(login.getNameOrEmail(), login.getToken());
             }
+            userResult =  service.login(login.getNameOrEmail(), login.getPassword());
         } catch (NoSuchUserException e) {
             //TODO handler excption, add log info?
         } catch (InvalidTokenException e) {
@@ -50,7 +51,7 @@ public class UserLoginPutHandler implements HttpHandler {
         if (userResult == null) {
             result = "Login failed, please re-try or contact to admin;";
         } else {
-            result =  "Login successfully: \n" + mapper.writeValueAsString(service.toUserDto(userResult));
+            result =  "Login successfully: \n" + service.toUserDto(userResult);
             //TODO get session???
         }
 

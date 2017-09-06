@@ -64,13 +64,13 @@ public interface UserService {
   /**
    * Confirms the {@link User}'s previously requested password reset.
    *
-   * @param userId {@link User}'s ID
+   * @param emailOrScreenName {@link User}'s ID
    * @param token confirmation token
    * @return the modified {@link User}
    * @throws NoSuchUserException if the user doesn't exist
    * @throws InvalidTokenException if the given confirmation token is invalid
    */
-  User confirmPasswordReset(String userId, String token)
+  User confirmPasswordReset(String emailOrScreenName, String token)
       throws InvalidTokenException, NoSuchUserException;
 
   /**

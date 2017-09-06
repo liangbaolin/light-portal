@@ -5,13 +5,13 @@ import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 
 public class CreateUserCommand implements UserCommand {
 
-    private UserDto user;
+    private UserDto userDto;
 
-    public CreateUserCommand(UserDto user) {
-        this.user = user;
+    public CreateUserCommand(UserDto userDto) {
+        this.userDto = userDto;
     }
 
     public UserDto getUserDto() {
-        return user;
+        return userDto;
     }
 }

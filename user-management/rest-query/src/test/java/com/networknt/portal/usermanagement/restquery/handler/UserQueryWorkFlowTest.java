@@ -1,6 +1,8 @@
 
 package com.networknt.portal.usermanagement.restquery.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.body.BodyHandler;
 import com.networknt.client.Http2Client;
 import com.networknt.eventuate.common.EndOfCurrentEventsReachedEvent;
 import com.networknt.eventuate.common.Event;
@@ -12,11 +14,11 @@ import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
 import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 import com.networknt.portal.usermanagement.model.common.domain.contact.*;
-import com.networknt.portal.usermanagement.model.common.event.UserSignEvent;
 import com.networknt.portal.usermanagement.model.common.event.UserSignUpEvent;
 import com.networknt.portal.usermanagement.model.common.model.user.ConfirmationToken;
 import com.networknt.portal.usermanagement.model.common.model.user.User;
 import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
+import com.networknt.portal.usermanagement.restquery.model.LoginForm;
 import com.networknt.service.SingletonServiceFactory;
 import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
@@ -38,6 +40,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
@@ -115,27 +118,28 @@ public class UserQueryWorkFlowTest {
 
         String str = "{\"userDto\":{\"screenName\":\"testUser\",\"contactData\":{\"email\":\"aaa.bbb@gmail.com\",\"firstName\":\"test2\",\"lastName\":\"bbb2\",\"addresses\":[{\"country\":\"CA\",\"state\":\"AK\",\"city\":\"BaBa\",\"addressLine1\":\"222 Bay Street\",\"addressType\":\"SHIPPING\"}],\"gender\":\"MALE\"},\"timezone\":\"CANADA_EASTERN\",\"locale\":\"English (Canada)\",\"password\":\"12345678\",\"host\":\"google\",\"emailChange\":false,\"passwordReset\":false,\"screenNameChange\":false}}";
         System.out.println(str);
-        Event event = JSonMapper.fromJson(str, eventClass);
+
         UserSignUpEvent event1 = JSonMapper.fromJson(str, (Class<UserSignUpEvent>) Class.forName(eventType));
         System.out.println(event1.toString());
         System.out.println(event1.getUserDto());
-        Assert.assertNotNull(event1.getUserDto());
+        Assert.assertNotNull(event1.getUserDto().getHost());
     }
 
     @Test
-    public void testCreateEvent2() throws Exception{
-        String eventType = "com.networknt.portal.usermanagement.model.common.event.UserSignEvent";
+    public void testCreate2() throws Exception{
 
-        Class<Event> eventClass = toEventClass(eventType);
 
-         String str = "{\"userInfo\":{\"screenName\":\"testUser\",\"contactData\":{\"email\":\"aaa.bbb@gmail.com\",\"firstName\":\"test2\",\"lastName\":\"bbb2\",\"addresses\":[{\"country\":\"CA\",\"state\":\"AK\",\"city\":\"BaBa\",\"addressLine1\":\"222 Bay Street\",\"addressType\":\"SHIPPING\"}],\"gender\":\"MALE\"},\"timezone\":\"CANADA_EASTERN\",\"locale\":\"English (Canada)\",\"password\":\"12345678\",\"host\":\"google\",\"emailChange\":false,\"passwordReset\":false,\"screenNameChange\":false}}";
-        System.out.println(str);
-        Event event = JSonMapper.fromJson(str, eventClass);
-        UserSignEvent event1 = JSonMapper.fromJson(str, (Class<UserSignEvent>) Class.forName(eventType));
-        System.out.println(event1.toString());
-        System.out.println(event1.getUserInfo());
-        System.out.println(event1.getUserInfo().getHost());
-        Assert.assertNotNull(event1.getUserInfo());
+        ObjectMapper mapper = new ObjectMapper();
+
+
+         String json = "{\"nameOrEmail\":\"testUser\",\"password\":\"22222222\", \"token\": \"0000015e5494e057-0242ac1200070000\"}";
+        LoginForm login = mapper.readValue(json, LoginForm.class);
+
+
+
+        System.out.println(login);
+        System.out.println(login.getNameOrEmail());
+
     }
 
     private Class<Event> toEventClass(String eventType) {
