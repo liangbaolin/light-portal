@@ -4,15 +4,15 @@ package com.networknt.portal.usermanagement.model.common.event;
 import com.networknt.portal.usermanagement.model.common.domain.UserDto;
 
 
-public class UserUpdateEvent implements UserEvent {
+public class UserUpdatedEvent implements UserEvent {
 
     private UserDto userDto;
     private String id;
 
-    private UserUpdateEvent() {
+    private UserUpdatedEvent() {
     }
 
-    public UserUpdateEvent(String id, UserDto userDto) {
+    public UserUpdatedEvent(String id, UserDto userDto) {
         this.id = id;
         this.userDto = userDto;
     }

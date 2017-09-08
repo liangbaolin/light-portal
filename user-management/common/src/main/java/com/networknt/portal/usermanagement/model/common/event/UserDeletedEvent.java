@@ -2,14 +2,14 @@ package com.networknt.portal.usermanagement.model.common.event;
 
 
 
-public class UserDeleteEvent implements UserEvent {
+public class UserDeletedEvent implements UserEvent {
 
     private String userId;
 
-    private UserDeleteEvent() {
+    private UserDeletedEvent() {
     }
 
-    public UserDeleteEvent(String userId) {
+    public UserDeletedEvent(String userId) {
         this.userId = userId;
     }
 

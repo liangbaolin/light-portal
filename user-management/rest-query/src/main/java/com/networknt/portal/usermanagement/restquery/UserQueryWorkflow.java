@@ -1,7 +1,6 @@
 package com.networknt.portal.usermanagement.restquery;
 
 
-import com.networknt.config.Config;
 import com.networknt.eventuate.common.DispatchedEvent;
 import com.networknt.eventuate.common.EventHandlerMethod;
 import com.networknt.eventuate.common.EventSubscriber;
@@ -11,10 +10,10 @@ import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
 import com.networknt.portal.usermanagement.model.common.domain.UserDto;
-import com.networknt.portal.usermanagement.model.common.event.UserActionEvent;
-import com.networknt.portal.usermanagement.model.common.event.UserDeleteEvent;
+import com.networknt.portal.usermanagement.model.common.event.UserConfirmedEvent;
+import com.networknt.portal.usermanagement.model.common.event.UserDeletedEvent;
 import com.networknt.portal.usermanagement.model.common.event.UserSignUpEvent;
-import com.networknt.portal.usermanagement.model.common.event.UserUpdateEvent;
+import com.networknt.portal.usermanagement.model.common.event.UserUpdatedEvent;
 import com.networknt.portal.usermanagement.model.common.exception.InvalidEmailException;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
 import com.networknt.portal.usermanagement.model.common.model.user.ConfirmationToken;
@@ -71,7 +70,7 @@ public class UserQueryWorkflow {
   }
 
   @EventHandlerMethod
-  public void delete(DispatchedEvent<UserDeleteEvent> de) {
+  public void delete(DispatchedEvent<UserDeletedEvent> de) {
     String id = de.getEntityId();
     int rec  = service.delete(id);
     String result = null;
@@ -85,7 +84,7 @@ public class UserQueryWorkflow {
   }
 
   @EventHandlerMethod
-  public void update(DispatchedEvent<UserUpdateEvent> de) {
+  public void update(DispatchedEvent<UserUpdatedEvent> de) {
     String id = de.getEntityId();
     UserDto user = de.getEvent().getUserDto();
 
@@ -113,7 +112,7 @@ public class UserQueryWorkflow {
   }
 
   @EventHandlerMethod
-  public void action(DispatchedEvent<UserActionEvent> de) {
+  public void action(DispatchedEvent<UserConfirmedEvent> de) {
     String id = de.getEntityId();
     String token = de.getEvent().getTokenId();
     System.out.println("token:" + token);

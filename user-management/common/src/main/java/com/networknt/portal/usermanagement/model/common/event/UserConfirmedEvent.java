@@ -1,15 +1,15 @@
 package com.networknt.portal.usermanagement.model.common.event;
 
 
-public class UserActionEvent implements UserEvent {
+public class UserConfirmedEvent implements UserEvent {
 
     private String tokenId;
     private String id;
 
-    private UserActionEvent() {
+    private UserConfirmedEvent() {
     }
 
-    public UserActionEvent(String id, String tokenId) {
+    public UserConfirmedEvent(String id, String tokenId) {
         this.id = id;
 
         this.tokenId = tokenId;

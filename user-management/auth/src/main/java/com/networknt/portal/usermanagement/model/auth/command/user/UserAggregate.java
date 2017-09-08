@@ -6,10 +6,10 @@ import com.networknt.eventuate.common.EventUtil;
 import com.networknt.eventuate.common.ReflectiveMutableCommandProcessingAggregate;
 
 import com.networknt.portal.usermanagement.model.common.domain.UserDto;
-import com.networknt.portal.usermanagement.model.common.event.UserActionEvent;
-import com.networknt.portal.usermanagement.model.common.event.UserDeleteEvent;
+import com.networknt.portal.usermanagement.model.common.event.UserConfirmedEvent;
+import com.networknt.portal.usermanagement.model.common.event.UserDeletedEvent;
 import com.networknt.portal.usermanagement.model.common.event.UserSignUpEvent;
-import com.networknt.portal.usermanagement.model.common.event.UserUpdateEvent;
+import com.networknt.portal.usermanagement.model.common.event.UserUpdatedEvent;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +36,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
         if (this.deleted) {
             return Collections.emptyList();
         }
-        return EventUtil.events(new UserUpdateEvent(cmd.getId(), cmd.getUserDto()));
+        return EventUtil.events(new UserUpdatedEvent(cmd.getId(), cmd.getUserDto()));
     }
 
 
@@ -44,7 +44,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
         if (this.deleted) {
             return Collections.emptyList();
         }
-        return EventUtil.events(new UserDeleteEvent(cmd.getUserId()));
+        return EventUtil.events(new UserDeletedEvent(cmd.getUserId()));
     }
 
 
@@ -52,7 +52,7 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
         if (this.deleted) {
             return Collections.emptyList();
         }
-        return EventUtil.events(new UserActionEvent( cmd.getId(), cmd.getTokenId()));
+        return EventUtil.events(new UserConfirmedEvent( cmd.getId(), cmd.getTokenId()));
     }
 
 
@@ -62,17 +62,17 @@ public class UserAggregate extends ReflectiveMutableCommandProcessingAggregate<U
         this.user = event.getUserDto();
     }
 
-    public void apply(UserUpdateEvent event) {
+    public void apply(UserUpdatedEvent event) {
         this.userId = event.getId();
         this.user = event.getUserDto();
     }
 
-    public void apply(UserDeleteEvent event) {
+    public void apply(UserDeletedEvent event) {
         this.deleted = true;
         this.userId = event.getUserId();
     }
 
-    public void apply(UserActionEvent event) {
+    public void apply(UserConfirmedEvent event) {
         this.userId = event.getId();
         this.tokenId = event.getTokenId();
     }
