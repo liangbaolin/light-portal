@@ -44,7 +44,7 @@ public class GetMenuByHostTest {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
-        String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"getMenuByHost\",\"version\":\"0.1.0\",\"data\":{\"host\":\"example.com\"}}";
+        final String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"getMenuByHost\",\"version\":\"0.1.0\",\"data\":{\"host\":\"example.com\"}}";
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");

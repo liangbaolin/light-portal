@@ -14,7 +14,6 @@ import java.util.Map;
 
 @ServiceHandler(id="lightapi.net/menu/getMenuByHost/0.1.0")
 public class GetMenuByHost implements Handler {
-    ObjectMapper mapper = Config.getInstance().getMapper();
     MenuRepository menuQueryRepository = SingletonServiceFactory.getBean(MenuRepository.class);
 
     @Override

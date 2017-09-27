@@ -132,7 +132,20 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
 
     @Override
     public String getMenu() {
-        return null;
+        String result = null;
+        List<Map<String, Object>> list = new ArrayList<>();
+        final String query = "FOR m IN menu RETURN m";
+        final ArangoCursor<Map> cursor = db.query(query, null, null, Map.class);
+        for (; cursor.hasNext();) {
+            final Map map = cursor.next();
+            list.add(map);
+        }
+        try {
+            result = mapper.writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            logger.error("Error converting list to json in getMenu.", e);
+        }
+        return result;
     }
 
     @Override
@@ -155,7 +168,20 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
 
     @Override
     public String getMenuItem() {
-        return null;
+        String result = null;
+        List<Map<String, Object>> list = new ArrayList<>();
+        final String query = "FOR m IN menuItem RETURN m";
+        final ArangoCursor<Map> cursor = db.query(query, null, null, Map.class);
+        for (; cursor.hasNext();) {
+            final Map map = cursor.next();
+            list.add(map);
+        }
+        try {
+            result = mapper.writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            logger.error("Error converting list to json in getMenuItem.", e);
+        }
+        return result;
     }
 
     @Override
