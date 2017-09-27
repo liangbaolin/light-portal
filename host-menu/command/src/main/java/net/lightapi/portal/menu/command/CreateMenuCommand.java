@@ -1,16 +1,14 @@
 package net.lightapi.portal.menu.command;
 
-import net.lightapi.portal.menu.common.model.Menu;
-
 public class CreateMenuCommand implements MenuCommand {
 
-    Menu menu;
+    String data;
 
-    public CreateMenuCommand(Menu menu) {
-        this.menu = menu;
+    public CreateMenuCommand(String data) {
+        this.data = data;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public String getMenu() {
+        return data;
     }
 }

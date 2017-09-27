@@ -1,18 +1,16 @@
 package net.lightapi.portal.menu.command;
 
-import net.lightapi.portal.menu.common.model.Menu;
-
 public class UpdateMenuCommand implements MenuCommand {
     String host;
-    Menu menu;
+    String data;
 
-    public UpdateMenuCommand(String host, Menu menu) {
+    public UpdateMenuCommand(String host, String data) {
         this.host = host;
-        this.menu = menu;
+        this.data = data;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public String getMenu() {
+        return data;
     }
 
     public String getHost() { return host; }

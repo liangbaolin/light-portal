@@ -2,5 +2,3 @@
 singletons:
 - net.lightapi.portal.menu.MenuRepository:
   - net.lightapi.portal.menu.MenuRepositoryArangoImpl
-- net.lightapi.portal.menu.MenuQueryService:
-  - net.lightapi.portal.menu.MenuQueryServiceImpl

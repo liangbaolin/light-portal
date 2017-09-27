@@ -2,12 +2,11 @@ package net.lightapi.portal.menu;
 
 import com.networknt.eventuate.common.AggregateRepository;
 import com.networknt.eventuate.common.EntityWithIdAndVersion;
-import net.lightapi.portal.menu.command.DeleteMenuCommand;
 import net.lightapi.portal.menu.command.CreateMenuCommand;
+import net.lightapi.portal.menu.command.DeleteMenuCommand;
 import net.lightapi.portal.menu.command.MenuCommand;
 import net.lightapi.portal.menu.command.UpdateMenuCommand;
 import net.lightapi.portal.menu.domain.MenuAggregate;
-import net.lightapi.portal.menu.common.model.Menu;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -24,8 +23,8 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> add(Menu menu) {
-        return aggregateRepository.save(new CreateMenuCommand(menu));
+    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> create(String data) {
+        return aggregateRepository.save(new CreateMenuCommand(data));
     }
 
     @Override
@@ -34,8 +33,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String host, Menu newMenu) {
-        return aggregateRepository.update(host, new UpdateMenuCommand(host, newMenu));
+    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String host, String data) {
+        return aggregateRepository.update(host, new UpdateMenuCommand(host, data));
     }
 
 }

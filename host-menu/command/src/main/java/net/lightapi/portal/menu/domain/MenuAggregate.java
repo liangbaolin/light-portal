@@ -11,7 +11,6 @@ import net.lightapi.portal.menu.command.UpdateMenuCommand;
 import net.lightapi.portal.menu.common.event.MenuCreatedEvent;
 import net.lightapi.portal.menu.common.event.MenuDeletedEvent;
 import net.lightapi.portal.menu.common.event.MenuUpdatedEvent;
-import net.lightapi.portal.menu.common.model.Menu;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
 
 public class MenuAggregate extends ReflectiveMutableCommandProcessingAggregate<MenuAggregate, MenuCommand> {
 
-    Menu menu;
+    String data;
     boolean deleted;
 
     public List<Event> process(CreateMenuCommand cmd) {
@@ -45,19 +44,19 @@ public class MenuAggregate extends ReflectiveMutableCommandProcessingAggregate<M
 
 
     public void apply(MenuCreatedEvent event) {
-        this.menu = event.getMenu();
+        this.data = event.getMenu();
     }
 
     public void apply(MenuUpdatedEvent event) {
-        this.menu = event.getMenu();
+        this.data = event.getMenu();
     }
 
     public void apply(MenuDeletedEvent event) {
         this.deleted = true;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public String getMenu() {
+        return data;
     }
 
 }

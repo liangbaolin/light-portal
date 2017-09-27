@@ -1,11 +1,6 @@
 package net.lightapi.portal.menu;
 
-import com.arangodb.ArangoDB;
-import net.lightapi.portal.menu.common.model.Menu;
-
-import java.util.List;
-import java.util.Map;
-
+import java.io.IOException;
 
 public interface MenuRepository {
 
@@ -13,11 +8,21 @@ public interface MenuRepository {
 
     Object getDataSource();
 
-    List<Menu> getAll();
+    String getMenu();
 
-    Menu findByKey(String key);
+    String getMenuByHost(String host);
 
-    Menu save(String key, Menu menu);
+    String getMenuItem();
 
-    void remove(String key);
+    void createMenu(String entityId, String data);
+
+    void updateMenu(String entityId, String data);
+
+    void removeMenu(String entityId);
+
+    void createMenuItem(String entityId, String data);
+
+    void updateMenuItem(String entityId, String data);
+
+    void removeMenuItem(String entityId);
 }

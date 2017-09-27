@@ -1,22 +1,22 @@
 package net.lightapi.portal.menu.common.event;
 
-import net.lightapi.portal.menu.common.model.Menu;
+import java.util.Map;
 
 public class MenuUpdatedEvent implements MenuEvent {
-    Menu menu;
+    String data;
 
     public MenuUpdatedEvent() {
     }
 
-    public MenuUpdatedEvent(Menu menu) {
-        this.menu = menu;
+    public MenuUpdatedEvent(String data) {
+        this.data = data;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public String getMenu() {
+        return data;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setMenu(String data) {
+        this.data = data;
     }
 }

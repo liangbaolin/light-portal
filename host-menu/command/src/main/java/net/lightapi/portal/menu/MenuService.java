@@ -2,7 +2,6 @@ package net.lightapi.portal.menu;
 
 import com.networknt.eventuate.common.EntityWithIdAndVersion;
 import net.lightapi.portal.menu.domain.MenuAggregate;
-import net.lightapi.portal.menu.common.model.Menu;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -11,9 +10,9 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface MenuService {
 
-    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> add(Menu menu);
+    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> create(String data);
 
     CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> remove(String host);
 
-    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String host, Menu newMenu);
+    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String host, String data);
 }
