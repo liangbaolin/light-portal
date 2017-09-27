@@ -5,7 +5,10 @@ import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.*;
 import com.arangodb.model.HashIndexOptions;
+import com.arangodb.model.VertexDeleteOptions;
 import com.arangodb.util.MapBuilder;
+import com.arangodb.velocypack.VPackSlice;
+import com.arangodb.velocypack.exception.VPackException;
 import com.arangodb.velocypack.module.jdk8.VPackJdk8Module;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -188,6 +191,17 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
     @Override
     public void removeMenu(String entityId) {
         // entityId should be uniquely indexed.
+        final String query = "FOR m IN menu FILTER m.entityId == @entityId RETURN m";
+        final Map<String, Object> bindVars = new MapBuilder().put("entityId", entityId).get();
+        final ArangoCursor<VPackSlice> cursor = db.query(query, bindVars, null, VPackSlice.class);
+        for (; cursor.hasNext();) {
+            final VPackSlice vpack = cursor.next();
+            try {
+                db.graph(CONTAINSGRAPH).vertexCollection(MENU).deleteVertex(vpack.get("_key").getAsString(), null);
+            } catch (final VPackException e) {
+                logger.error("Error accessing VPackSlice.", e);
+            }
+        }
     }
 
     @Override
@@ -223,6 +237,16 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
     @Override
     public void removeMenuItem(String entityId) {
         // entityId should be uniquely indexed.
-
+        final String query = "FOR m IN menuItem FILTER m.entityId == @entityId RETURN m";
+        final Map<String, Object> bindVars = new MapBuilder().put("entityId", entityId).get();
+        final ArangoCursor<VPackSlice> cursor = db.query(query, bindVars, null, VPackSlice.class);
+        for (; cursor.hasNext();) {
+            final VPackSlice vpack = cursor.next();
+            try {
+                db.graph(CONTAINSGRAPH).vertexCollection(MENUITEM).deleteVertex(vpack.get("_key").getAsString(), null);
+            } catch (final VPackException e) {
+                logger.error("Error accessing VPackSlice.", e);
+            }
+        }
     }
 }

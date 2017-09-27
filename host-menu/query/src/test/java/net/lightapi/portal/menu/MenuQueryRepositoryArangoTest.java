@@ -27,11 +27,13 @@ public class MenuQueryRepositoryArangoTest {
     @Test
     public void testCreateMenuItem() throws Exception {
         // clean up all vertexes if exist.
-        menuQueryRepository.removeMenu("1");
-        menuQueryRepository.removeMenuItem("11");
-        menuQueryRepository.removeMenuItem("12");
-        menuQueryRepository.removeMenuItem("13");
-        menuQueryRepository.removeMenuItem("1");
+        menuQueryRepository.removeMenu("e1");
+        menuQueryRepository.removeMenuItem("e11");
+        menuQueryRepository.removeMenuItem("e12");
+        menuQueryRepository.removeMenuItem("e13");
+        menuQueryRepository.removeMenuItem("e1");
+        menuQueryRepository.removeMenuItem("e2");
+        menuQueryRepository.removeMenuItem("e3");
         // at this moment, the edge collect should be removed. verify it.
 
 
