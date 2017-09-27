@@ -3,11 +3,11 @@ package net.lightapi.portal.menu.command;
 import net.lightapi.portal.menu.common.model.MenuItem;
 
 public class UpdateMenuItemCommand implements MenuItemCommand {
-    String id;
+    String menuItemId;
     MenuItem menuItem;
 
-    public UpdateMenuItemCommand(String id, MenuItem menuItem) {
-        this.id = id;
+    public UpdateMenuItemCommand(String menuItemId, MenuItem menuItem) {
+        this.menuItemId = menuItemId;
         this.menuItem = menuItem;
     }
 
@@ -15,6 +15,6 @@ public class UpdateMenuItemCommand implements MenuItemCommand {
         return menuItem;
     }
 
-    public String getId() { return id; }
+    public String getMenuItemId() { return menuItemId; }
 
 }

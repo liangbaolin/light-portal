@@ -1,31 +1,35 @@
 package net.lightapi.portal.menu.common.model;
 
+import com.arangodb.velocypack.annotations.SerializedName;
+
 import java.util.List;
 
 public class MenuItem {
-    String key;
-    String text;
+    @SerializedName("_key")
+    String menuItemId;
+    String label;
     String host;
     String route;
     List<String> roles;
+    List<String> contains;
 
     public MenuItem() {
     }
 
-    public String getKey() {
-        return key;
+    public String getMenuItemId() {
+        return menuItemId;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setMenuItemId(String menuItemId) {
+        this.menuItemId = menuItemId;
     }
 
-    public String getText() {
-        return text;
+    public String getLabel() {
+        return label;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getHost() {
@@ -50,5 +54,13 @@ public class MenuItem {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public List<String> getContains() {
+        return contains;
+    }
+
+    public void setContains(List<String> contains) {
+        this.contains = contains;
     }
 }

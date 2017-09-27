@@ -1,47 +1,127 @@
-{"lightapi.net/todo/create/0.1.0":{"schema": {
-      "title" : "Service",
-      "type" : "object",
-      "properties" : {
-        "title" : {
-          "type" : "string"
+{"lightapi.net/menu/deleteMenuItem/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "menuItemId": {
+            "type": "string"
+          }
         },
-        "completed" : {
-          "type" : "boolean"
+        "required": [
+          "menuItemId"
+        ]
+      },"scope": "menuItem.w"},"lightapi.net/menu/createMenuItem/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "menuItemId": {
+            "type": "string"
+          },
+          "host": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "route": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         },
-        "order" : {
-          "description" : "order of todo in the todo list",
-          "type" : "integer",
-          "minimum" : 0
-        }
-      },
-      "required" : [ "title" ]
-    },"scope": "todo.w"},"lightapi.net/todo/update/0.1.0":{"schema": {
-      "title" : "Service",
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string"
+        "required": [
+          "menuItemId", "label"
+        ]
+      },"scope": "menuItem.w"},"lightapi.net/menu/updateMenuItem/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "menuItemId": {
+            "type": "string"
+          },
+          "host": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "route": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         },
-        "title" : {
-          "type" : "string"
+        "required": [
+          "menuItemId", "label"
+        ]
+      },"scope": "menuItem.w"},"lightapi.net/menu/createMenu/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "contains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         },
-        "completed" : {
-          "type" : "boolean"
+        "required": [
+          "host"
+        ]
+      },"scope": "menu.w"},"lightapi.net/menu/deleteMenu/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          }
         },
-        "order" : {
-          "description" : "order of todo in the todo list",
-          "type" : "integer",
-          "minimum" : 0
-        }
-      },
-      "required" : [ "id" ]
-    },"scope": "todo.w"},"lightapi.net/todo/delete/0.1.0":{"schema": {
-      "title" : "Service",
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string"
-        }
-      },
-      "required" : [ "id"]
-    },"scope": "todo.w"}}
+        "required": [
+          "host"
+        ]
+      },"scope": "menu.w"},"lightapi.net/menu/updateMenu/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "contains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "host"
+        ]
+      },"scope": "menu.w"}}

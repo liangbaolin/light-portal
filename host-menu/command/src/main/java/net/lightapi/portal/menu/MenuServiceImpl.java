@@ -29,13 +29,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> remove(String id) {
-        return aggregateRepository.update(id, new DeleteMenuCommand());
+    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> remove(String host) {
+        return aggregateRepository.update(host, new DeleteMenuCommand());
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String id, Menu newMenu) {
-        return aggregateRepository.update(id, new UpdateMenuCommand(id, newMenu));
+    public CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String host, Menu newMenu) {
+        return aggregateRepository.update(host, new UpdateMenuCommand(host, newMenu));
     }
 
 }

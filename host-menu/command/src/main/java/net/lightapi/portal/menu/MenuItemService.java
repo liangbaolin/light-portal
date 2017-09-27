@@ -9,8 +9,8 @@ import java.util.concurrent.CompletableFuture;
 public interface MenuItemService {
     CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> add(MenuItem menuItem);
 
-    CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> remove(String id);
+    CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> remove(String menuItemId);
 
-    CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> update(String id, MenuItem newMenuItem);
+    CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> update(String menuItemId, MenuItem newMenuItem);
 
 }

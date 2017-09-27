@@ -1,12 +1,22 @@
-{"lightapi.net/todo/gettodos/0.1.0":{"schema": {
-      "title" : "Service"
-    },"scope": "todo.r"},"lightapi.net/todo/gettodo/0.1.0":{"schema": {
-      "title" : "Service",
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string"
+{"lightapi.net/menu/getMenu/0.1.0":{"schema": {
+        "title": "Service"
+      },"scope": "menu.all.r"},"lightapi.net/menu/getMenuByHost/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "host"
+        ]
+      },"scope": "menu.r"},"lightapi.net/menu/getMenuItem/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          }
         }
-      },
-      "required" : [ "id" ]
-    },"scope": "todo.r"}}
+      },"scope": "menuItem.all.r"}}

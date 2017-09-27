@@ -7,9 +7,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.lightapi</groupId>
-    <artifactId>hybrid-command</artifactId>
+    <artifactId>menu-command</artifactId>
     <packaging>jar</packaging>
-    <name>hybrid-command</name>
+    <name>menu-command</name>
     <version>0.1.0</version>
     <prerequisites>
         <maven>2.2.0</maven>
@@ -18,19 +18,27 @@
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.light-4j>1.4.3</version.light-4j>
-        <version.light-hybrid-4j>1.4.3</version.light-hybrid-4j>
-        <version.light-eventuate-4j>1.4.3</version.light-eventuate-4j>
-        <version.jackson>2.9.0</version.jackson>
+        <version.light-4j>1.4.6</version.light-4j>
+        <version.light-hybrid-4j>1.4.6</version.light-hybrid-4j>
+        <version.jackson>2.8.10</version.jackson>
         <version.slf4j>1.7.25</version.slf4j>
         <version.jose4j>0.5.5</version.jose4j>
+        <version.antlr4>4.7</version.antlr4>
+        <version.commons-lang>2.6</version.commons-lang>
+        <version.commons.io>2.5</version.commons.io>
+        <version.commons.codec>1.10</version.commons.codec>
         <version.encoder>1.2.1</version.encoder>
         <version.logback>1.2.3</version.logback>
         <version.junit>4.12</version.junit>
+        <version.mockito>2.1.0-RC.1</version.mockito>
         <version.undertow>1.4.19.Final</version.undertow>
         <version.json-schema-validator>0.1.7</version.json-schema-validator>
         <version.fastscanner>2.0.8</version.fastscanner>
-        <version.hikaricp>2.5.1</version.hikaricp>
+        
+        
+        
+        
+        
     </properties>
 
     <dependencies>
@@ -66,35 +74,9 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-common</artifactId>
-            <version>${version.light-eventuate-4j}</version>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${version.json-schema-validator}</version>
         </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>test-jdbc</artifactId>
-            <version>${version.light-eventuate-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-jdbc</artifactId>
-            <version>${version.light-eventuate-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-client</artifactId>
-            <version>${version.light-eventuate-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.lightapi</groupId>
-            <artifactId>host-menu-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.lightapi</groupId>
-            <artifactId>host-menu-command</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -106,9 +88,9 @@
             <version>${version.jackson}</version>
         </dependency>
         <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>json-schema-validator</artifactId>
-            <version>${version.json-schema-validator}</version>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -125,12 +107,10 @@
             <artifactId>fast-classpath-scanner</artifactId>
             <version>${version.fastscanner}</version>
         </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${version.hikaricp}</version>
-        </dependency>
-
+        
+        
+        
+        
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -138,6 +118,7 @@
             <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
+        
     </dependencies>
 
 

@@ -13,7 +13,7 @@ public interface MenuService {
 
     CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> add(Menu menu);
 
-    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> remove(String id);
+    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> remove(String host);
 
-    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String id, Menu newMenu);
+    CompletableFuture<EntityWithIdAndVersion<MenuAggregate>> update(String host, Menu newMenu);
 }

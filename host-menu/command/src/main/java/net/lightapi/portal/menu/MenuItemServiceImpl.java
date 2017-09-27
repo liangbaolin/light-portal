@@ -25,13 +25,13 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> remove(String id) {
-        return aggregateRepository.update(id, new DeleteMenuItemCommand());
+    public CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> remove(String menuItemId) {
+        return aggregateRepository.update(menuItemId, new DeleteMenuItemCommand());
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> update(String id, MenuItem newMenuItem) {
-        return aggregateRepository.update(id, new UpdateMenuItemCommand(id, newMenuItem));
+    public CompletableFuture<EntityWithIdAndVersion<MenuItemAggregate>> update(String menuItemId, MenuItem newMenuItem) {
+        return aggregateRepository.update(menuItemId, new UpdateMenuItemCommand(menuItemId, newMenuItem));
     }
 
 }

@@ -1,53 +1,66 @@
 
 package net.lightapi.portal.menu.command.handler;
 
-import com.networknt.client.Client;
-import com.networknt.exception.ClientException;
+import com.networknt.client.Http2Client;
 import com.networknt.exception.ApiException;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.*;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.jose4j.json.internal.json_simple.JSONObject;
-import org.junit.*;
+import com.networknt.exception.ClientException;
+import io.undertow.UndertowOptions;
+import io.undertow.client.ClientConnection;
+import io.undertow.client.ClientRequest;
+import io.undertow.client.ClientResponse;
+import io.undertow.util.Headers;
+import io.undertow.util.Methods;
+import org.junit.Assert;
+import org.junit.ClassRule;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xnio.IoUtils;
+import org.xnio.OptionMap;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URI;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DeleteMenuTest {
     @ClassRule
     public static TestServer server = TestServer.getInstance();
 
-    static final Logger logger = LoggerFactory.getLogger(DeleteMenu.class);
+    static final Logger logger = LoggerFactory.getLogger(DeleteMenu.class); 
+    static final boolean enableHttp2 = server.getServerConfig().isEnableHttp2();
+    static final boolean enableHttps = server.getServerConfig().isEnableHttps();
+    static final int httpPort = server.getServerConfig().getHttpPort();
+    static final int httpsPort = server.getServerConfig().getHttpsPort();
+    static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
     @Test
-    public void testDeleteTodo() throws ClientException, ApiException {
-        CloseableHttpClient client = Client.getInstance().getSyncClient();
-        HttpPost httpPost = new HttpPost("http://localhost:8080/api/json");
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("host", "lightapi.net");
-        map.put("service", "todo");
-        map.put("action", "delete");
-        map.put("version", "0.1.0");
-        map.put("id", "101010");
-
-        JSONObject json = new JSONObject();
-        json.putAll( map );
-        System.out.printf( "JSON: %s", json.toString() );
-
-
+    public void testDeleteMenu() throws ClientException, ApiException {
+        /*
+        final Http2Client client = Http2Client.getInstance();
+        final CountDownLatch latch = new CountDownLatch(1);
+        final ClientConnection connection;
         try {
-            httpPost.setEntity(new StringEntity(json.toString()));
-            httpPost.setHeader("Content-type", "application/json");
-            CloseableHttpResponse response = client.execute(httpPost);
-            Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+            connection = client.connect(new URI(url), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, enableHttp2 ? OptionMap.create(UndertowOptions.ENABLE_HTTP2, true): OptionMap.EMPTY).get();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ClientException(e);
         }
-
+        final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        try {
+            ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
+            request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
+            request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
+            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
+            latch.await();
+        } catch (Exception e) {
+            logger.error("Exception: ", e);
+            throw new ClientException(e);
+        } finally {
+            IoUtils.safeClose(connection);
+        }
+        int statusCode = reference.get().getResponseCode();
+        String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        Assert.assertEquals(200, statusCode);
+        Assert.assertNotNull(body);
+        */
     }
 }
