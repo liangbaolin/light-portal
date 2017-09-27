@@ -1,10 +1,13 @@
 package net.lightapi.portal.menu;
 
+import com.arangodb.ArangoCursor;
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.*;
 import com.arangodb.model.HashIndexOptions;
+import com.arangodb.util.MapBuilder;
 import com.arangodb.velocypack.module.jdk8.VPackJdk8Module;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.config.Config;
@@ -131,7 +134,20 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
 
     @Override
     public String getMenuByHost(String host) {
-        return null;
+        String result = null;
+        final String query = "RETURN LIGHTAPI::COMMON::AGGREGATE_PATH(FOR v, e, p IN 1..3 OUTBOUND @domain GRAPH 'containsGraph' RETURN p.vertices)";
+        final Map<String, Object> bindVars = new MapBuilder().put("domain", "menu/" + host).get();
+        final ArangoCursor<Map> cursor = db.query(query, bindVars, null, Map.class);
+        for (; cursor.hasNext();) {
+            final Map map = cursor.next();
+            try {
+                result = mapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                logger.error("Error converting map to json in getMenuByHost.", e);
+                // TODO should I throw a runtime exception here?
+            }
+        }
+        return result;
     }
 
     @Override

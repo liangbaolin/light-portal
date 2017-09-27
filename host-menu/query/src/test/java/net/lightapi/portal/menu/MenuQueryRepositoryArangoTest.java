@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.config.Config;
 import com.networknt.service.SingletonServiceFactory;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -53,15 +54,15 @@ public class MenuQueryRepositoryArangoTest {
         String site1 = "{\"host\":\"example.com\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
         menuQueryRepository.createMenu("e1", site1);
 
+        String result = menuQueryRepository.getMenuByHost("example.com");
+        System.out.println("result = " + result);
+        Assert.assertNotNull(result);
     }
 
     @Test
-    public void testSave() {
-        /*
-        Menu menu = new Menu();
-        menu.setHost("networknt.com");
-        menu.setDescription("Menu for networknt.com");
-        //menuQueryRepository.save(menu.getHost(), menu);
-        */
+    public void testGetMenuByHost() {
+        String result = menuQueryRepository.getMenuByHost("example.com");
+        System.out.println("result = " + result);
+        Assert.assertNotNull(result);
     }
 }
