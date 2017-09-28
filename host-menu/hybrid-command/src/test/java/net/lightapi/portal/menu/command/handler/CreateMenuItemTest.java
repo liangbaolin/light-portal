@@ -35,7 +35,6 @@ public class CreateMenuItemTest {
 
     @Test
     public void testCreateMenuItem() throws ClientException, ApiException {
-        /*
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -45,11 +44,12 @@ public class CreateMenuItemTest {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"createMenuItem\",\"version\":\"0.1.0\",\"data\":{\"menuItemId\":\"14\",\"label\":\"Access Admin\",\"route\":\"/admin/accessAdmin\",\"roles\":[\"admin\",\"owner\"]}}";
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
-            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
+            connection.sendRequest(request, client.createClientCallback(reference, latch, requestBody));
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);
@@ -61,6 +61,5 @@ public class CreateMenuItemTest {
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
     }
 }

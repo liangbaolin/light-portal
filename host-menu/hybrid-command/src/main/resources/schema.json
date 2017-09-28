@@ -10,38 +10,47 @@
           "menuItemId"
         ]
       },"scope": "menuItem.w"},"lightapi.net/menu/createMenuItem/0.1.0":{"schema": {
-        "title": "Service",
-        "type": "object",
-        "properties": {
-          "menuItemId": {
+  "title": "Service",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "menuItemId": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "route": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
             "type": "string"
-          },
-          "host": {
-            "type": "string"
-          },
-          "label": {
-            "type": "string"
-          },
-          "route": {
-            "type": "string"
-          },
-          "roles": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "contains": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           }
         },
-        "required": [
-          "menuItemId", "label"
-        ]
-      },"scope": "menuItem.w"},"lightapi.net/menu/updateMenuItem/0.1.0":{"schema": {
+        "contains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "menuItemId",
+        "label"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+  },"scope": "menuItem.w"},"lightapi.net/menu/updateMenuItem/0.1.0":{"schema": {
         "title": "Service",
         "type": "object",
         "properties": {
