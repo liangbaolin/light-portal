@@ -28,9 +28,8 @@ public class CreateMenuItem implements Handler {
     @Override
     public ByteBuffer handle(Object input)  {
         System.out.println("input = " + input);
-        Map<String, Object> data = (Map<String, Object>)((Map<String, Object>)input).get("data");
         try {
-            CompletableFuture<String> result =  service.create(Config.getInstance().getMapper().writeValueAsString(data)).thenApply((e) -> {
+            CompletableFuture<String> result =  service.create(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {
                 String s = e.getAggregate().getMenuItem();
                 return s;
             });
