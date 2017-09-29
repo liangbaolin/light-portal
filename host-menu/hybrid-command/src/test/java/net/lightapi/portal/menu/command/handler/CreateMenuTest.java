@@ -33,7 +33,7 @@ public class CreateMenuTest {
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
-    static final String s = "";
+    static final String s = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"createMenu\",\"version\":\"0.1.0\",\"data\":{\"host\":\"example.org\",\"description\":\"example org web site\",\"contains\":[\"1\",\"2\",\"3\"]}}";
 
     @Test
     public void testCreateMenu() throws ClientException, ApiException {
