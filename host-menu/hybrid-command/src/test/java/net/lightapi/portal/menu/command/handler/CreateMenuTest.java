@@ -4,12 +4,14 @@ package net.lightapi.portal.menu.command.handler;
 import com.networknt.client.Http2Client;
 import com.networknt.exception.ApiException;
 import com.networknt.exception.ClientException;
+import com.networknt.service.SingletonServiceFactory;
 import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
 import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
 import io.undertow.util.Headers;
 import io.undertow.util.Methods;
+import org.h2.tools.RunScript;
 import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -18,7 +20,12 @@ import org.slf4j.LoggerFactory;
 import org.xnio.IoUtils;
 import org.xnio.OptionMap;
 
+import javax.sql.DataSource;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -35,6 +42,26 @@ public class CreateMenuTest {
 
     static final String s = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"createMenu\",\"version\":\"0.1.0\",\"data\":{\"host\":\"example.org\",\"description\":\"example org web site\",\"contains\":[\"1\",\"2\",\"3\"]}}";
 
+
+    public static DataSource ds;
+    static {
+        ds = (DataSource) SingletonServiceFactory.getBean(DataSource.class);
+        try (Connection connection = ds.getConnection()) {
+            // Runscript doesn't work need to execute batch here.
+            String schemaResourceName = "/embedded-event-store-schema.sql";
+            InputStream in = CreateMenuTest.class.getResourceAsStream(schemaResourceName);
+
+            if (in == null) {
+                throw new RuntimeException("Failed to load resource: " + schemaResourceName);
+            }
+            InputStreamReader reader = new InputStreamReader(in);
+            RunScript.execute(connection, reader);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void testCreateMenu() throws ClientException, ApiException {
         final Http2Client client = Http2Client.getInstance();
@@ -46,6 +73,8 @@ public class CreateMenuTest {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        System.out.println("\n");
+        System.out.println("json:" + s);
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");

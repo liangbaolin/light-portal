@@ -2,10 +2,10 @@
 singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
-      DriverClassName: com.mysql.jdbc.Driver
-      jdbcUrl: jdbc:mysql://localhost:3306/eventuate?useSSL=false
-      username: mysqluser
-      password: mysqlpw
+      DriverClassName: org.h2.jdbcx.JdbcDataSource
+      jdbcUrl: jdbc:h2:~/test
+      username: sa
+      password: sa
 - com.networknt.eventuate.common.impl.sync.AggregateCrud:
   - com.networknt.eventuate.client.EventuateLocalDBAggregateCrud
 - com.networknt.eventuate.common.impl.sync.AggregateEvents:

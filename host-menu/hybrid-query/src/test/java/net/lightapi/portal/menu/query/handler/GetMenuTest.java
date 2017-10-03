@@ -46,6 +46,7 @@ public class GetMenuTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         final String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"getMenu\",\"version\":\"0.1.0\"}";
+        System.out.println("json:" + requestBody);
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
