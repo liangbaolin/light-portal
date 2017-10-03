@@ -70,6 +70,7 @@ public class MenuQueryRepositoryArangoTest {
 
     @Test
     public void testCreateAnotherMenu() {
+        menuQueryRepository.removeMenu("e2");
         String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
         menuQueryRepository.createMenu("e2", site2);
     }
