@@ -67,4 +67,10 @@ public class MenuQueryRepositoryArangoTest {
         System.out.println("result = " + result);
         Assert.assertNotNull(result);
     }
+
+    @Test
+    public void testCreateAnotherMenu() {
+        String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
+        menuQueryRepository.createMenu("e2", site2);
+    }
 }
