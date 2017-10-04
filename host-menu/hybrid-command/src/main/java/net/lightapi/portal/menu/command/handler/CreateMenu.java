@@ -1,6 +1,7 @@
 
 package net.lightapi.portal.menu.command.handler;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.config.Config;
 import com.networknt.eventuate.common.AggregateRepository;
 import com.networknt.eventuate.common.EventuateAggregateStore;
@@ -29,16 +30,23 @@ public class CreateMenu implements Handler {
 
     @Override
     public ByteBuffer handle(Object input)  {
-        try {
-            CompletableFuture<String> result =  service.create(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {
-                String s = e.getAggregate().getMenu();
-                return s;
-            });
-            return NioUtils.toByteBuffer(result.get());
-        } catch (Exception e) {
-            logger.error("Error converting map to json", e);
-            // TODO return error code
+        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
+        String menuData = inputPara.findPath("data").toString();
+        if (menuData!=null && menuData.length()>0) {
+            try {
+                CompletableFuture<String> result =  service.create(menuData).thenApply((e) -> {
+                    String s = e.getAggregate().getMenu();
+                    return s;
+                });
+                return NioUtils.toByteBuffer(result.get());
+            } catch (Exception e) {
+                logger.error("Error converting map to json", e);
+                // TODO return error code
+                return NioUtils.toByteBuffer("error");
+            }
+        } else {
             return NioUtils.toByteBuffer("error");
         }
+
     }
 }

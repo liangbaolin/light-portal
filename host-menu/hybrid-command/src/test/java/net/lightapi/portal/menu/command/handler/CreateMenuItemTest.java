@@ -71,6 +71,7 @@ public class CreateMenuItemTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"createMenuItem\",\"version\":\"0.1.0\",\"data\":{\"menuItemId\":\"14\",\"label\":\"Access Admin\",\"route\":\"/admin/accessAdmin\",\"roles\":[\"admin\",\"owner\"]}}";
+        System.out.println("\n result:" + requestBody);
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");

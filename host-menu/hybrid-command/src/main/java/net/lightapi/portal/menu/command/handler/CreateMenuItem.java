@@ -1,6 +1,7 @@
 
 package net.lightapi.portal.menu.command.handler;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.config.Config;
 import com.networknt.eventuate.common.AggregateRepository;
 import com.networknt.eventuate.common.EventuateAggregateStore;
@@ -27,7 +28,9 @@ public class CreateMenuItem implements Handler {
 
     @Override
     public ByteBuffer handle(Object input)  {
-        System.out.println("input = " + input);
+        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
+        String menuItemData = inputPara.findPath("data").toString();
+        System.out.println("input = " + menuItemData);
         try {
             CompletableFuture<String> result =  service.create(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {
                 String s = e.getAggregate().getMenuItem();
