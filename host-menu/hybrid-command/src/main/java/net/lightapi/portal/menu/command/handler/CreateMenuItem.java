@@ -28,9 +28,7 @@ public class CreateMenuItem implements Handler {
 
     @Override
     public ByteBuffer handle(Object input)  {
-        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
-        String menuItemData = inputPara.findPath("data").toString();
-        System.out.println("input = " + menuItemData);
+        System.out.println("input = " + input);
         try {
             CompletableFuture<String> result =  service.create(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {
                 String s = e.getAggregate().getMenuItem();
