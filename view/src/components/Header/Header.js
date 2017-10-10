@@ -8,24 +8,16 @@
  */
 
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Header.css';
-import Link from '../Link';
-import Navigation from '../Navigation';
+import ButtonAppBar from './ButtonAppBar';
 
 class Header extends React.Component {
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <Navigation />
-          <Link className={s.brand} to="/">
-            <span className={s.brandTxt}>Your Company</span>
-          </Link>
-        </div>
+      <div>
+        <ButtonAppBar title="Light Portal" />
       </div>
     );
   }
 }
 
-export default withStyles(s)(Header);
+export default Header;
