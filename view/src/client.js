@@ -12,6 +12,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
+import { MuiThemeProvider } from 'material-ui/styles';
 import { createPath } from 'history/PathUtils';
 import App from './components/App';
 import createFetch from './createFetch';
@@ -84,7 +85,9 @@ async function onLocationChange(location, action) {
 
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
     appInstance = renderReactApp(
-      <App context={context}>{route.component}</App>,
+      <App context={context}>
+        <MuiThemeProvider>{route.component}</MuiThemeProvider>
+      </App>,
       container,
       () => {
         if (isInitialRender) {

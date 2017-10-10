@@ -6,6 +6,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+import AccountCircle from 'material-ui-icons/AccountCircle';
 import Link from '../Link';
 
 const styles = theme => ({
@@ -23,6 +24,11 @@ const styles = theme => ({
   brand: {
     color: '#ffffff',
     textDecoration: 'none',
+  },
+  icon: {
+    margin: theme.spacing.unit,
+    width: 38,
+    height: 38,
   },
 });
 
@@ -44,6 +50,7 @@ function ButtonAppBar(props) {
               {title}
             </Typography>
           </Link>
+          <AccountCircle className={classes.icon} />
         </Toolbar>
       </AppBar>
     </div>
