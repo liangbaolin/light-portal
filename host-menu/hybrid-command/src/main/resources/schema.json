@@ -1,0 +1,154 @@
+{
+  "lightapi.net/menu/deleteMenuItem/0.1.0": {
+    "schema": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+        "menuItemId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "menuItemId"
+      ]
+    },
+    "scope": "menuItem.w"
+  },
+  "lightapi.net/menu/createMenuItem/0.1.0": {
+    "schema": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+        "menuItemId": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "route": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "menuItemId",
+        "label"
+      ]
+    },
+    "scope": "menuItem.w"
+  },
+  "lightapi.net/menu/updateMenuItem/0.1.0": {
+    "schema": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+        "menuItemId": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "route": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "menuItemId",
+        "label"
+      ]
+    },
+    "scope": "menuItem.w"
+  },
+  "lightapi.net/menu/createMenu/0.1.0": {
+    "schema": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "contains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "scope": "menu.w"
+  },
+  "lightapi.net/menu/deleteMenu/0.1.0": {
+    "schema": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "scope": "menu.w"
+  },
+  "lightapi.net/menu/updateMenu/0.1.0": {
+    "schema": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "contains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "scope": "menu.w"
+  }
+}

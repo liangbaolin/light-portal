@@ -1,0 +1,113 @@
+[
+  [
+    {
+      "_key": "networknt.com",
+      "_id": "menu/networknt.com",
+      "_rev": "_Vk2gK9i---",
+      "description": "menu mapping for networknt site"
+    },
+    {
+      "_key": "admin",
+      "_id": "menu_item/admin",
+      "_rev": "_Vk2gK9u--_",
+      "lable": "Admin",
+      "route": "/admin",
+      "roles": [
+        "admin",
+        "owner"
+      ]
+    }
+  ],
+  [
+    {
+      "_key": "networknt.com",
+      "_id": "menu/networknt.com",
+      "_rev": "_Vk2gK9i---",
+      "description": "menu mapping for networknt site"
+    },
+    {
+      "_key": "admin",
+      "_id": "menu_item/admin",
+      "_rev": "_Vk2gK9u--_",
+      "lable": "Admin",
+      "route": "/admin",
+      "roles": [
+        "admin",
+        "owner"
+      ]
+    },
+    {
+      "_key": "hostAdmin",
+      "_id": "menu_item/hostAdmin",
+      "_rev": "_Vk2gK9u--A",
+      "label": "Host Admin",
+      "route": "/admin/host",
+      "roles": [
+        "admin",
+        "owner"
+      ]
+    }
+  ],
+  [
+    {
+      "_key": "networknt.com",
+      "_id": "menu/networknt.com",
+      "_rev": "_Vk2gK9i---",
+      "description": "menu mapping for networknt site"
+    },
+    {
+      "_key": "admin",
+      "_id": "menu_item/admin",
+      "_rev": "_Vk2gK9u--_",
+      "lable": "Admin",
+      "route": "/admin",
+      "roles": [
+        "admin",
+        "owner"
+      ]
+    },
+    {
+      "_key": "formAdmin",
+      "_id": "menu_item/formAdmin",
+      "_rev": "_Vk2gK9y--_",
+      "label": "Form Admin",
+      "route": "/admin/form",
+      "roles": [
+        "formAdmin",
+        "admin",
+        "owner"
+      ]
+    }
+  ],
+  [
+    {
+      "_key": "networknt.com",
+      "_id": "menu/networknt.com",
+      "_rev": "_Vk2gK9i---",
+      "description": "menu mapping for networknt site"
+    },
+    {
+      "_key": "admin",
+      "_id": "menu_item/admin",
+      "_rev": "_Vk2gK9u--_",
+      "lable": "Admin",
+      "route": "/admin",
+      "roles": [
+        "admin",
+        "owner"
+      ]
+    },
+    {
+      "_key": "accessAdmin",
+      "_id": "menu_item/accessAdmin",
+      "_rev": "_Vk2gK9y---",
+      "label": "Access Admin",
+      "route": "/admin/access",
+      "roles": [
+        "accessAdmin",
+        "admin",
+        "owner"
+      ]
+    }
+  ]
+]

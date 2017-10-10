@@ -1,0 +1,30 @@
+version: "2"
+#
+# Services
+#
+services:
+  postgresdb:
+    build: ./docker/postgres
+    environment:
+       POSTGRES_USER: postgres
+       POSTGRES_PASSWORD: postgres
+    ports:
+        - 5432:5432
+    networks:
+        - localnet
+
+
+  usermanagement-service:
+    build: ./usermanagement-service/
+    volumes:
+      - ./docker/usermanagement-service/config:/config
+    ports:
+      - 8080:8080
+    networks:
+      - localnet
+# Networks
+#
+networks:
+  localnet:
+    # driver: bridge
+    external: true
