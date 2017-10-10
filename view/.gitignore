@@ -1,16 +1,29 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# dependencies
-node_modules
+# Dependencies
+node_modules/
 
-# testing
+# Compiled output
+build
+
+# Runtime data
+database.sqlite
+
+# Test coverage
 coverage
 
-# production
-dist
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# misc
+# Editors and IDEs
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Misc
 .DS_Store
-.env
-npm-debug.log
-.vscode
