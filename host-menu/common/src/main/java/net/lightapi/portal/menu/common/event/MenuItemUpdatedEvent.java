@@ -2,11 +2,12 @@ package net.lightapi.portal.menu.common.event;
 
 public class MenuItemUpdatedEvent implements MenuItemEvent {
     String data;
+    String itemId;
 
     public MenuItemUpdatedEvent() {
     }
 
-    public MenuItemUpdatedEvent(String data) {
+    public MenuItemUpdatedEvent(String itemId, String data) {
         this.data = data;
     }
 
@@ -16,5 +17,9 @@ public class MenuItemUpdatedEvent implements MenuItemEvent {
 
     public void setMenuItem(String data) {
         this.data = data;
+    }
+
+    public String getItemId() {
+        return itemId;
     }
 }

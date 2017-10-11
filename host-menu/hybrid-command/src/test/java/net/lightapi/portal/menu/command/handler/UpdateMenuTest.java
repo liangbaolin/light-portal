@@ -32,10 +32,11 @@ public class UpdateMenuTest {
     static final int httpPort = server.getServerConfig().getHttpPort();
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
+    static final String s = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"updateMenu\",\"version\":\"0.1.0\",\"data\":{\"id\":\"0011-111-222\", \"host\":\"example.org\",\"description\":\"example org web site\",\"contains\":[\"1\",\"2\",\"3\"]}}";
 
     @Test
     public void testUpdateMenu() throws ClientException, ApiException {
-        /*
+/*
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -45,11 +46,13 @@ public class UpdateMenuTest {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        System.out.println("\n");
+        System.out.println("json:" + s);
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
-            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
+            connection.sendRequest(request, client.createClientCallback(reference, latch, s));
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);
@@ -61,6 +64,6 @@ public class UpdateMenuTest {
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+*/
     }
 }

@@ -1,11 +1,11 @@
 package net.lightapi.portal.menu.command;
 
 public class UpdateMenuCommand implements MenuCommand {
-    String host;
+    String id;
     String data;
 
-    public UpdateMenuCommand(String host, String data) {
-        this.host = host;
+    public UpdateMenuCommand(String id, String data) {
+        this.id = id;
         this.data = data;
     }
 
@@ -13,5 +13,5 @@ public class UpdateMenuCommand implements MenuCommand {
         return data;
     }
 
-    public String getHost() { return host; }
+    public String getId() { return id; }
 }

@@ -18,6 +18,7 @@ import java.util.List;
 
 public class MenuAggregate extends ReflectiveMutableCommandProcessingAggregate<MenuAggregate, MenuCommand> {
 
+    String id;
     String data;
     boolean deleted;
 
@@ -32,7 +33,7 @@ public class MenuAggregate extends ReflectiveMutableCommandProcessingAggregate<M
         if(this.deleted) {
             return Collections.emptyList();
         }
-        return EventUtil.events(new MenuUpdatedEvent(cmd.getMenu()));
+        return EventUtil.events(new MenuUpdatedEvent(cmd.getId(), cmd.getMenu()));
     }
 
     public List<Event> process(DeleteMenuCommand cmd) {
@@ -48,6 +49,7 @@ public class MenuAggregate extends ReflectiveMutableCommandProcessingAggregate<M
     }
 
     public void apply(MenuUpdatedEvent event) {
+        this.id = event.getId();
         this.data = event.getMenu();
     }
 
