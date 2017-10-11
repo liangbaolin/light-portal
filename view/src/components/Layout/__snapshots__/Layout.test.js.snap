@@ -7,14 +7,14 @@ exports[`Layout renders children correctly 1`] = `
       className="ButtonAppBar-root-1"
     >
       <header
-        className="MuiPaper-root-13 MuiPaper-shadow4-19 MuiAppBar-root-6 MuiAppBar-positionStatic-9 MuiAppBar-colorPrimary-11"
+        className="MuiPaper-root-11 MuiPaper-shadow4-17 MuiAppBar-root-4 MuiAppBar-positionStatic-7 MuiAppBar-colorPrimary-9"
       >
         <div
-          className="MuiToolbar-root-40 MuiToolbar-gutters-41"
+          className="MuiToolbar-root-38 MuiToolbar-gutters-39"
         >
           <button
             aria-label="Menu"
-            className="MuiButtonBase-root-51 MuiIconButton-root-42 MuiIconButton-colorContrast-44 ButtonAppBar-menuButton-3"
+            className="MuiButtonBase-root-49 MuiIconButton-root-40 MuiIconButton-colorContrast-42 ButtonAppBar-menuButton-2"
             disabled={false}
             onBlur={[Function]}
             onFocus={[Function]}
@@ -30,11 +30,11 @@ exports[`Layout renders children correctly 1`] = `
             type="button"
           >
             <span
-              className="MuiIconButton-label-48"
+              className="MuiIconButton-label-46"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-53 MuiIconButton-icon-49"
+                className="MuiSvgIcon-root-51 MuiIconButton-icon-47"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -44,30 +44,50 @@ exports[`Layout renders children correctly 1`] = `
               </svg>
             </span>
             <span
-              className="MuiTouchRipple-root-54"
+              className="MuiTouchRipple-root-52"
             />
           </button>
           <a
-            className="ButtonAppBar-brand-4"
+            className="ButtonAppBar-brand-3"
             href="/"
             onClick={[Function]}
           >
             <h2
-              className="MuiTypography-root-61 MuiTypography-title-67 MuiTypography-colorInherit-80 ButtonAppBar-flex-2"
+              className="MuiTypography-root-59 MuiTypography-title-65 MuiTypography-colorInherit-78"
             >
               Light Portal
             </h2>
           </a>
-          <svg
-            aria-hidden="true"
-            className="MuiSvgIcon-root-53 ButtonAppBar-icon-5"
-            focusable="false"
-            viewBox="0 0 24 24"
+          <a
+            href="/login"
+            onClick={[Function]}
           >
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
-            />
-          </svg>
+            <button
+              className="MuiButtonBase-root-49 MuiButton-root-83 MuiButton-flatContrast-88"
+              disabled={false}
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchStart={[Function]}
+              role="button"
+              tabIndex={0}
+              type="button"
+            >
+              <span
+                className="MuiButton-label-85"
+              >
+                Login
+              </span>
+              <span
+                className="MuiTouchRipple-root-52"
+              />
+            </button>
+          </a>
         </div>
       </header>
     </div>
