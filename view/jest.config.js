@@ -77,7 +77,7 @@ module.exports = {
   // resolver: // [string]
   // rootDir: // [string]
   // roots: // [array<string>]
-  // setupFiles: // [array]
+  setupFiles: ['<rootDir>/tools/shim.js'],
   // setupTestFrameworkScriptFile: // [string]
   // snapshotSerializers: // [array<string>]
   // testEnvironment: // [string]

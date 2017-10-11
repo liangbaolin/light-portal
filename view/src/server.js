@@ -16,6 +16,15 @@ import fetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+// Material-UI SSR
+import { SheetsRegistry } from 'react-jss/lib/jss';
+import JssProvider from 'react-jss/lib/JssProvider';
+import { create } from 'jss';
+import preset from 'jss-preset-default';
+// import createPalette from 'material-ui/styles/createPalette'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
+// end Material-UI SSR
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
@@ -96,12 +105,26 @@ app.get('*', async (req, res, next) => {
       res.redirect(route.status || 302, route.redirect);
       return;
     }
+    // Create a sheetsRegistry instance.
+    const sheetsRegistry = new SheetsRegistry();
+
+    // Create a theme instance.
+    const theme = createMuiTheme();
+    const jss = create(preset());
+    jss.options.createGenerateClassName = createGenerateClassName;
 
     const data = { ...route };
     data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>,
+      <App context={context}>
+        <JssProvider registry={sheetsRegistry} jss={jss}>
+          <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+            {route.component}
+          </MuiThemeProvider>
+        </JssProvider>
+      </App>,
     );
-    data.styles = [{ id: 'css', cssText: [...css].join('') }];
+    const materialCSS = sheetsRegistry.toString();
+    data.styles = [{ id: 'css', cssText: [...css].join('') }, materialCSS];
     data.scripts = [assets.vendor.js];
     if (route.chunks) {
       data.scripts.push(...route.chunks.map(chunk => assets[chunk].js));
