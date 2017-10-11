@@ -58,7 +58,13 @@ function ButtonAppBar(props) {
 }
 
 ButtonAppBar.propTypes = {
-  classes: PropTypes.shape.isRequired,
+  classes: PropTypes.shape({
+    brand: PropTypes.string.isRequired,
+    flex: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    menuButton: PropTypes.string.isRequired,
+    root: PropTypes.string.isRequired,
+  }).isRequired,
   title: PropTypes.string.isRequired,
 };
 

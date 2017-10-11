@@ -2,117 +2,79 @@
 
 exports[`Layout renders children correctly 1`] = `
 <div>
-  <div
-    className="root"
-  >
+  <div>
     <div
-      className="container"
+      className="ButtonAppBar-root-1"
     >
-      <div
-        className="root"
-        role="navigation"
+      <header
+        className="MuiPaper-root-13 MuiPaper-shadow4-19 MuiAppBar-root-6 MuiAppBar-positionStatic-9 MuiAppBar-colorPrimary-11"
       >
-        <a
-          className="link"
-          href="/about"
-          onClick={[Function]}
+        <div
+          className="MuiToolbar-root-40 MuiToolbar-gutters-41"
         >
-          About
-        </a>
-        <a
-          className="link"
-          href="/contact"
-          onClick={[Function]}
-        >
-          Contact
-        </a>
-        <span
-          className="spacer"
-        >
-           | 
-        </span>
-        <a
-          className="link"
-          href="/login"
-          onClick={[Function]}
-        >
-          Log in
-        </a>
-        <span
-          className="spacer"
-        >
-          or
-        </span>
-        <a
-          className="link highlight"
-          href="/register"
-          onClick={[Function]}
-        >
-          Sign up
-        </a>
-      </div>
-      <a
-        className="brand"
-        href="/"
-        onClick={[Function]}
-      >
-        <img
-          alt="React"
-          height="38"
-          src="logo-small.png"
-          srcSet="logo-small@2x.png 2x"
-          width="38"
-        />
-        <span
-          className="brandTxt"
-        >
-          Your Company
-        </span>
-      </a>
-      <div
-        className="banner"
-      >
-        <h1
-          className="bannerTitle"
-        >
-          React
-        </h1>
-        <p
-          className="bannerDesc"
-        >
-          Complex web apps made easy
-        </p>
-      </div>
+          <button
+            aria-label="Menu"
+            className="MuiButtonBase-root-51 MuiIconButton-root-42 MuiIconButton-colorContrast-44 ButtonAppBar-menuButton-3"
+            disabled={false}
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchStart={[Function]}
+            role="button"
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label-48"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-53 MuiIconButton-icon-49"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                />
+              </svg>
+            </span>
+            <span
+              className="MuiTouchRipple-root-54"
+            />
+          </button>
+          <a
+            className="ButtonAppBar-brand-4"
+            href="/"
+            onClick={[Function]}
+          >
+            <h2
+              className="MuiTypography-root-61 MuiTypography-title-67 MuiTypography-colorInherit-80 ButtonAppBar-flex-2"
+            >
+              Light Portal
+            </h2>
+          </a>
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-53 ButtonAppBar-icon-5"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+            />
+          </svg>
+        </div>
+      </header>
     </div>
   </div>
   <div
     className="child"
   />
-  <div
-    className="root"
-  >
-    <div
-      className="container"
-    >
-      <a
-        className="link"
-        href="https://gitter.im/kriasoft/react-starter-kit"
-      >
-        Ask a question
-      </a>
-      <span
-        className="spacer"
-      >
-        |
-      </span>
-      <a
-        className="link"
-        href="https://github.com/kriasoft/react-starter-kit/issues/new"
-      >
-        Report an issue
-      </a>
-    </div>
-  </div>
   <div
     className="root"
   >
