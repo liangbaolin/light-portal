@@ -194,6 +194,7 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
             bd.setProperties(map);
             bd.addAttribute(ENTITYID, entityId);
             final DocumentCreateEntity<BaseDocument> doc = db.collection(MENU).insertDocument(bd);
+            System.out.println("Id:" + doc.getId() + " ; key:" + doc.getKey());
             // create menu to menuItem edges from contains
             if(contains != null && contains.size() > 0) {
                 contains.forEach(item -> {
@@ -211,7 +212,21 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
 
     @Override
     public void updateMenu(String entityId, String data) {
+        final String query = "FOR m IN menu FILTER m.entityId == @entityId RETURN m";
+        final Map<String, Object> bindVars = new MapBuilder().put("entityId", entityId).get();
+        final ArangoCursor<VPackSlice> cursor = db.query(query, bindVars, null, VPackSlice.class);
+        for (; cursor.hasNext();) {
+            final VPackSlice vpack = cursor.next();
+            try {
+                Map<String, Object> map = mapper.readValue(data, new TypeReference<Map<String, Object>>() {});
+                db.graph(CONTAINSGRAPH).vertexCollection(MENU).updateVertex(vpack.get("_key").getAsString(), map);
 
+            } catch (final VPackException e) {
+                logger.error("Error accessing VPackSlice.", e);
+            } catch(IOException e) {
+                logger.error("Error parsing event data from json string to map in CreateMenu.", e);
+            }
+        }
     }
 
     @Override
@@ -257,6 +272,23 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
 
     @Override
     public void updateMenuItem(String entityId, String data) {
+        // entityId should be uniquely indexed.
+        final String query = "FOR m IN menuItem FILTER m.entityId == @entityId RETURN m";
+        final Map<String, Object> bindVars = new MapBuilder().put("entityId", entityId).get();
+        final ArangoCursor<VPackSlice> cursor = db.query(query, bindVars, null, VPackSlice.class);
+        for (; cursor.hasNext();) {
+            final VPackSlice vpack = cursor.next();
+            try {
+                Map<String, Object> map = mapper.readValue(data, new TypeReference<Map<String, Object>>() {});
+
+                db.graph(CONTAINSGRAPH).vertexCollection(MENUITEM).updateVertex(vpack.get("_key").getAsString(), map);
+            } catch (final VPackException e) {
+                logger.error("Error accessing VPackSlice.", e);
+            } catch(IOException e) {
+                logger.error("Error parsing event data from json string to map in CreateMenu.", e);
+            }
+
+        }
 
     }
 

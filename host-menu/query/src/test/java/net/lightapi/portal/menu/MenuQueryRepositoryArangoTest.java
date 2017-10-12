@@ -74,4 +74,14 @@ public class MenuQueryRepositoryArangoTest {
         String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
         menuQueryRepository.createMenu("e2", site2);
     }
+
+    @Test
+    public void testUpdateAndGetMenu() {
+        menuQueryRepository.removeMenu("e2");
+        String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
+        menuQueryRepository.createMenu("e2", site2);
+        String site2_new = "{\"host\":\"example.org\",\"description\":\"example site111\",\"contains\":[\"1\",\"5\",\"3\"]}";
+        menuQueryRepository.updateMenu("e2", site2_new);
+        System.out.println(menuQueryRepository.getMenu());
+    }
 }
