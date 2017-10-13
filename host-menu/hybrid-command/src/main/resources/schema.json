@@ -45,8 +45,7 @@
         }
       },
       "required": [
-        "menuItemId",
-        "label"
+        "host"
       ]
     },
     "scope": "menuItem.w"
@@ -82,8 +81,7 @@
         }
       },
       "required": [
-        "menuItemId",
-        "label"
+        "host"
       ]
     },
     "scope": "menuItem.w"
