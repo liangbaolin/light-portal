@@ -1,0 +1,6 @@
+# Database configuration for ArangoDB
+host: 127.0.0.1
+port: 8529
+user: root
+password: openSesame
+dbName: menu
