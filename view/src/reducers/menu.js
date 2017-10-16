@@ -7,6 +7,7 @@ export default function runtime(state = {}, action) {
       return {
         ...state,
         name: action.payload._key,
+        routes: action.payload.contains,
       };
     default:
       return state;

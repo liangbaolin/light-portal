@@ -91,6 +91,9 @@ exports[`Layout renders children correctly 1`] = `
         </div>
       </header>
     </div>
+    <p>
+      Test Menu
+    </p>
   </div>
   <div
     className="child"

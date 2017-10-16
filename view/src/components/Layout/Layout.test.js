@@ -19,7 +19,11 @@ import Layout from './Layout';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
-const initialState = {};
+const initialState = {
+  menu: {
+    name: 'Test Menu',
+  },
+};
 
 describe('Layout', () => {
   test('renders children correctly', () => {
