@@ -12,7 +12,7 @@ import {
 
 function client(payload) {
   return new Promise(resolve => {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch(`https://jsonplaceholder.typicode.com/${payload}`)
       .then(response => response.json())
       .then(data => {
         resolve(data);
