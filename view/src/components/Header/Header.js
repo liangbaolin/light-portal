@@ -8,6 +8,8 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ButtonAppBar from './ButtonAppBar';
 
 class Header extends React.Component {
@@ -15,9 +17,13 @@ class Header extends React.Component {
     return (
       <div>
         <ButtonAppBar title="Light Portal" />
+        <p>{this.props.name}</p>
       </div>
     );
   }
 }
+const mapState = state => ({
+  name: state.menu.name,
+});
 
-export default Header;
+export default connect(mapState)(Header);

@@ -105,9 +105,7 @@ app.get('*', async (req, res, next) => {
     );
 
     // Fetch Menu By Host
-    fetchMenuByHost().then(menuService => {
-      store.dispatch(getMenuService(menuService));
-    });
+    store.dispatch(getMenuService(await fetchMenuByHost()));
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
