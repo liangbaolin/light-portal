@@ -44,7 +44,7 @@ function ButtonAppBar(props) {
             </Typography>
           </Link>
           {routes.map(route => (
-            <Link to={route.route} key={route._key}>
+            <Link to={route.route} key={route.label}>
               <Button color="contrast">{route.label}</Button>
             </Link>
           ))}
