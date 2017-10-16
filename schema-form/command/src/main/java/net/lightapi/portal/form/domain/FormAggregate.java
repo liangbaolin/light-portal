@@ -33,7 +33,7 @@ public class FormAggregate extends ReflectiveMutableCommandProcessingAggregate<F
         if(this.deleted) {
             return Collections.emptyList();
         }
-        return EventUtil.events(new FormUpdatedEvent(cmd.getId(), cmd.getMenu()));
+        return EventUtil.events(new FormUpdatedEvent(cmd.getId(), cmd.getForm()));
     }
 
     public List<Event> process(DeleteFormCommand cmd) {
