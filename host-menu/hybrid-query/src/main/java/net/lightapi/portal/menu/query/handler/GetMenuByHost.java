@@ -18,8 +18,8 @@ public class GetMenuByHost implements Handler {
 
     @Override
     public ByteBuffer handle(Object input)  {
-        Map<String, Object> data = (Map<String, Object>)((Map<String, Object>)input).get("data");
-        String result = menuQueryRepository.getMenuByHost((String)data.get("host"));
+        String host = ((Map<String, String>)input).get("host");
+        String result = menuQueryRepository.getMenuByHost(host);
         return NioUtils.toByteBuffer(result);
     }
 }
