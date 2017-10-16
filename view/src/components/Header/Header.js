@@ -8,16 +8,28 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ButtonAppBar from './ButtonAppBar';
 
 class Header extends React.Component {
   render() {
     return (
       <div>
-        <ButtonAppBar title="Light Portal" />
+        <ButtonAppBar title={this.props.name} routes={this.props.routes} />
       </div>
     );
   }
 }
 
-export default Header;
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+const mapState = state => ({
+  name: state.menu.name,
+  routes: state.menu.routes,
+});
+
+export default connect(mapState)(Header);

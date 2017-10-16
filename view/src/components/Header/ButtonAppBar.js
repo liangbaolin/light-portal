@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
@@ -25,7 +26,7 @@ const styles = {
 };
 
 function ButtonAppBar(props) {
-  const { classes, title } = props;
+  const { classes, title, routes } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -42,9 +43,11 @@ function ButtonAppBar(props) {
               {title}
             </Typography>
           </Link>
-          <Link to="/login">
-            <Button color="contrast">Login</Button>
-          </Link>
+          {routes.map(route => (
+            <Link to={route.route} key={route.label}>
+              <Button color="contrast">{route.label}</Button>
+            </Link>
+          ))}
         </Toolbar>
       </AppBar>
     </div>
@@ -58,6 +61,7 @@ ButtonAppBar.propTypes = {
     root: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.string.isRequired,
+  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(ButtonAppBar);

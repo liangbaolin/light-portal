@@ -33,7 +33,12 @@ import createFetch from './createFetch';
 import router from './router';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
+import configureStore from './store/configureStore';
+import { setRuntimeVariable } from './actions/runtime';
+import { getMenuService } from './actions/menu';
 import config from './config';
+// API
+import fetchMenuByHost from './api/menu';
 
 const app = express();
 
@@ -79,6 +84,29 @@ app.get('*', async (req, res, next) => {
   try {
     const css = new Set();
 
+    // Universal HTTP client
+    const universalFetch = createFetch(fetch, {
+      baseUrl: config.api.serverUrl,
+      cookie: req.headers.cookie,
+    });
+
+    const initialState = {};
+
+    const store = configureStore(initialState, {
+      universalFetch,
+      // I should not use `history` on server.. but how I do redirection? follow universal-router
+    });
+
+    store.dispatch(
+      setRuntimeVariable({
+        name: 'initialNow',
+        value: Date.now(),
+      }),
+    );
+
+    // Fetch Menu By Host
+    store.dispatch(getMenuService(await fetchMenuByHost()));
+
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
     const context = {
@@ -89,10 +117,10 @@ app.get('*', async (req, res, next) => {
         styles.forEach(style => css.add(style._getCss()));
       },
       // Universal HTTP client
-      fetch: createFetch(fetch, {
-        baseUrl: config.api.serverUrl,
-        cookie: req.headers.cookie,
-      }),
+      fetch: universalFetch,
+      // You can access redux through react-redux connect
+      store,
+      storeSubscription: null,
     };
 
     const route = await router.resolve({
@@ -115,7 +143,7 @@ app.get('*', async (req, res, next) => {
 
     const data = { ...route };
     data.children = ReactDOM.renderToString(
-      <App context={context}>
+      <App context={context} store={store}>
         <JssProvider registry={sheetsRegistry} jss={jss}>
           <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
             {route.component}
@@ -132,6 +160,7 @@ app.get('*', async (req, res, next) => {
     data.scripts.push(assets.client.js);
     data.app = {
       apiUrl: config.api.clientUrl,
+      state: context.store.getState(),
     };
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
