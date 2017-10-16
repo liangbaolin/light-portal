@@ -9,7 +9,7 @@ public class UpdateFormCommand implements FormCommand {
         this.data = data;
     }
 
-    public String getMenu() {
+    public String getForm() {
         return data;
     }
 

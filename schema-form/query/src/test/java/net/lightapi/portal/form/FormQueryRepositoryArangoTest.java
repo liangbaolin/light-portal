@@ -28,37 +28,42 @@ public class FormQueryRepositoryArangoTest {
     @Test
     public void testForm() throws Exception {
         // clean up all vertexes if exist.
+
         formQueryRepository.removeForm("e1");
 
-        String site1 = "{\"host\":\"example.com\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
-        formQueryRepository.createMenu("e1", site1);
+        String site1 = "{\"id\":\"2233-55\",\"description\":\"example site\"}";
+        formQueryRepository.createForm("e1", site1);
 
-        String result = formQueryRepository.getMenuByHost("example.com");
+        String result = formQueryRepository.getFormByEntityId("e1");
         System.out.println("result = " + result);
         Assert.assertNotNull(result);
     }
 
     @Test
-    public void testGetMenuByHost() {
-        String result = formQueryRepository.getMenuByHost("example.com");
+    public void testGetForm() {
+        String result = formQueryRepository.getForm();
         System.out.println("result = " + result);
         Assert.assertNotNull(result);
     }
 
     @Test
-    public void testCreateAnotherMenu() {
-        formQueryRepository.removeMenu("e2");
-        String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
-        formQueryRepository.createMenu("e2", site2);
+    public void testCreateAnotherForm() {
+        formQueryRepository.removeForm("e2");
+        String site2 = "{\"id\":\"2233-555\",\"description\":\"example site\"}";
+        formQueryRepository.createForm("e2", site2);
+        String result = formQueryRepository.getFormByEntityId("e2");
+        Assert.assertNotNull(result);
+        String result2 = formQueryRepository.getFormByEntityId("e20");
+        Assert.assertNull(result2);
     }
 
     @Test
     public void testUpdateAndGetMenu() {
-        formQueryRepository.removeMenu("e2");
-        String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
-        formQueryRepository.createMenu("e2", site2);
-        String site2_new = "{\"host\":\"example.org\",\"description\":\"example site111\",\"contains\":[\"1\",\"5\",\"3\"]}";
-        formQueryRepository.updateMenu("e2", site2_new);
-        System.out.println(formQueryRepository.getMenu());
+        formQueryRepository.removeForm("e2");
+        String site2 = "{\"id\":\"2233-555\",\"description\":\"example site\"}";
+        formQueryRepository.createForm("e2", site2);
+        String site2_new = "{\"id\":\"2233-555\",\"description\":\"real site\"}";
+        formQueryRepository.updateForm("e2", site2_new);
+        System.out.println(formQueryRepository.getForm());
     }
 }

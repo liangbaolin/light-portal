@@ -45,7 +45,7 @@
         }
       },
       "required": [
-        "menuItemId",
+        "host",
         "label"
       ]
     },

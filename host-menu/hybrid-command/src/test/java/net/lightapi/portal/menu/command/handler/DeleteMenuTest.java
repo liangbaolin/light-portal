@@ -42,6 +42,7 @@ public class DeleteMenuTest {
     static final int httpPort = server.getServerConfig().getHttpPort();
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
+    static final String s = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"deleteMenu\",\"version\":\"0.1.0\",\"data\":{\"id\":\"111222-2222\"}}";
 
     public static DataSource ds;
     static {
@@ -64,8 +65,8 @@ public class DeleteMenuTest {
 
     @Test
     public void testDeleteMenu() throws ClientException, ApiException {
-/*
-        final Http2Client client = Http2Client.getInstance();
+        /*
+       final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
         try {
@@ -73,23 +74,14 @@ public class DeleteMenuTest {
         } catch (Exception e) {
             throw new ClientException(e);
         }
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("host", "lightapi.net");
-        map.put("service", "menu");
-        map.put("action", "deleteMenu");
-        map.put("version", "0.1.0");
-        map.put("id", "101010");
 
-        JSONObject json = new JSONObject();
-        json.putAll( map );
-        System.out.printf( "JSON: %s", json.toString() );
 
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
-            connection.sendRequest(request, client.createClientCallback(reference, latch, json.toString() ));
+            connection.sendRequest(request, client.createClientCallback(reference, latch, s ));
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);
