@@ -1,29 +1,13 @@
-import {
-  MENU_SERVICE_GET,
-  MENU_SERVICE_SUCCESS,
-  MENU_SERVICE_ERROR,
-} from '../constants';
+/* eslint no-underscore-dangle: 0 */
 
-const initialState = {
-  data: [],
-};
+import { MENU_SERVICE_SUCCESS } from '../constants';
 
-export default function menu(state = initialState, action) {
+export default function menu(state = {}, action) {
   switch (action.type) {
-    case MENU_SERVICE_GET:
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value,
-      };
     case MENU_SERVICE_SUCCESS:
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
-      };
-    case MENU_SERVICE_ERROR:
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value,
+        key: action.payload._key,
       };
     default:
       return state;

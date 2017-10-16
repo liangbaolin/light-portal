@@ -35,7 +35,10 @@ import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
+import { getMenuService } from './actions/menu';
 import config from './config';
+// API
+import fetchMenuByHost from './api/menu';
 
 const app = express();
 
@@ -100,6 +103,11 @@ app.get('*', async (req, res, next) => {
         value: Date.now(),
       }),
     );
+
+    // Fetch Menu By Host
+    fetchMenuByHost().then(menuService => {
+      store.dispatch(getMenuService(menuService));
+    });
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
