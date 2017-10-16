@@ -22,6 +22,11 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
 const mapState = state => ({
   name: state.menu.name,
 });
