@@ -22,6 +22,13 @@ const mockStore = configureStore(middlewares);
 const initialState = {
   menu: {
     name: 'Test Menu',
+    routes: [
+      {
+        route: '/login',
+        roles: ['admin', 'owner'],
+        label: 'Login',
+      },
+    ],
   },
 };
 

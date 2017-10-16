@@ -55,7 +55,7 @@ exports[`Layout renders children correctly 1`] = `
             <h2
               className="MuiTypography-root-59 MuiTypography-title-65 MuiTypography-colorInherit-78"
             >
-              Light Portal
+              Test Menu
             </h2>
           </a>
           <a
@@ -91,9 +91,6 @@ exports[`Layout renders children correctly 1`] = `
         </div>
       </header>
     </div>
-    <p>
-      Test Menu
-    </p>
   </div>
   <div
     className="child"

@@ -16,8 +16,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <ButtonAppBar title="Light Portal" />
-        <p>{this.props.name}</p>
+        <ButtonAppBar title={this.props.name} routes={this.props.routes} />
       </div>
     );
   }
@@ -25,10 +24,12 @@ class Header extends React.Component {
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
+  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapState = state => ({
   name: state.menu.name,
+  routes: state.menu.routes,
 });
 
 export default connect(mapState)(Header);
