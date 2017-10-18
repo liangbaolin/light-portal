@@ -1,4 +1,5 @@
 ---
 singletons:
-- net.lightapi.portal.menu.MenuRepository:
-  - MenuRepositoryArangoImpl
+- net.lightapi.portal.form.FormRepository:
+  - net.lightapi.portal.form.FormRepositoryArangoImpl
+
