@@ -1,5 +1,5 @@
 
-package net.lightapi.portal.menu.command.handler;
+package net.lightapi.portal.form.query.handler;
 
 import com.networknt.server.Server;
 import com.networknt.server.ServerConfig;

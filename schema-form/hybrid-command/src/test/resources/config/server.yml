@@ -29,7 +29,7 @@ enableTwoWayTls: false
 truststoreName: tls/server.truststore
 
 # Unique service identifier. Used in service registration and discovery etc.
-serviceId: net.lightapi.menu-command-0.1.0
+serviceId: net.lightapi.form-command-0.1.0
 
 # Flag to enable service registration. Only be true if running as standalone Java jar.
 enableRegistry: false

@@ -1,5 +1,5 @@
 
-package net.lightapi.portal.menu.query.handler;
+package net.lightapi.portal.form.query.handler;
 
 import com.networknt.client.Http2Client;
 import com.networknt.exception.ApiException;
@@ -22,11 +22,11 @@ import java.net.URI;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class GetMenuItemTest {
+public class GetFormTest {
     @ClassRule
     public static TestServer server = TestServer.getInstance();
 
-    static final Logger logger = LoggerFactory.getLogger(GetMenuItem.class); 
+    static final Logger logger = LoggerFactory.getLogger(GetForm.class); 
     static final boolean enableHttp2 = server.getServerConfig().isEnableHttp2();
     static final boolean enableHttps = server.getServerConfig().isEnableHttps();
     static final int httpPort = server.getServerConfig().getHttpPort();
@@ -34,7 +34,8 @@ public class GetMenuItemTest {
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
     @Test
-    public void testGetMenuItem() throws ClientException, ApiException {
+    public void testGetForm() throws ClientException, ApiException {
+        /*
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -44,12 +45,11 @@ public class GetMenuItemTest {
             throw new ClientException(e);
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
-        final String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"getMenuItem\",\"version\":\"0.1.0\"}";
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
-            connection.sendRequest(request, client.createClientCallback(reference, latch, requestBody));
+            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);
@@ -61,5 +61,6 @@ public class GetMenuItemTest {
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
+        */
     }
 }
