@@ -2,14 +2,18 @@
 package net.lightapi.portal.form.command.handler;
 
 import com.networknt.client.Http2Client;
+import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.exception.ApiException;
 import com.networknt.exception.ClientException;
+import com.networknt.service.SingletonServiceFactory;
 import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
 import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
 import io.undertow.util.Headers;
 import io.undertow.util.Methods;
+import net.lightapi.portal.form.common.model.*;
+import org.h2.tools.RunScript;
 import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -18,7 +22,12 @@ import org.slf4j.LoggerFactory;
 import org.xnio.IoUtils;
 import org.xnio.OptionMap;
 
+import javax.sql.DataSource;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -32,10 +41,29 @@ public class CreateFormTest {
     static final int httpPort = server.getServerConfig().getHttpPort();
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
+    static final String s = "{\"host\":\"lightapi.net\",\"service\":\"form\",\"action\":\"createForm\",\"version\":\"0.1.0\",\"data\":{\"formId\":\"1111\",\"version\":\"100\"}}";
 
+    public static DataSource ds;
+    static {
+        ds = (DataSource) SingletonServiceFactory.getBean(DataSource.class);
+        try (Connection connection = ds.getConnection()) {
+            // Runscript doesn't work need to execute batch here.
+            String schemaResourceName = "/embedded-event-store-schema.sql";
+            InputStream in = CreateFormTest.class.getResourceAsStream(schemaResourceName);
+
+            if (in == null) {
+                throw new RuntimeException("Failed to load resource: " + schemaResourceName);
+            }
+            InputStreamReader reader = new InputStreamReader(in);
+            RunScript.execute(connection, reader);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @Test
     public void testCreateForm() throws ClientException, ApiException {
-        /*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -44,12 +72,30 @@ public class CreateFormTest {
         } catch (Exception e) {
             throw new ClientException(e);
         }
+
+        FormRequest formRequest = new FormRequest("lightapi.net", "form", "createForm", "0.1.0");
+        Form form = new Form();
+        form.setDescription("test Form");
+        form.setVersion("1.0");
+        Action action = new Action("lightapi.net", "form", "createForm", "0.1.0", "POST");
+        form.setAction(action);
+        FormField formField = new FormField("Key_field", "text", false, "1");
+        form.addFormField(formField);
+        Property property = new Property("Key", "text", "Key_field", false, 1);
+        Schema schema = new Schema("FormSchema", "Form Schema");
+        schema.addProperties(property);
+        form.setSchema(schema);
+        formRequest.setData(form);
+
+        String json = JSonMapper.toJson(formRequest);
+        System.out.println("\n request json string: " + json);
+
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
-            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
+            connection.sendRequest(request, client.createClientCallback(reference, latch, json));
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);
@@ -61,6 +107,6 @@ public class CreateFormTest {
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+
     }
 }

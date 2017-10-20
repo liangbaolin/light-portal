@@ -18,6 +18,11 @@ public class GetFormById implements Handler {
     public ByteBuffer handle(Object input)  {
         String formId = ((Map<String, String>)input).get("formId");
         String result = formQueryRepository.getFormByEntityId(formId);
-        return NioUtils.toByteBuffer(result);
+        if (result==null) {
+            return null;
+        } else {
+            return NioUtils.toByteBuffer(result);
+        }
+
     }
 }

@@ -1,0 +1,33 @@
+version: "2"
+#
+# Services
+#
+services:
+
+  hybrid-command:
+      build: ./docker/hybrid-command/
+      volumes:
+        - ./docker/hybrid-command/config:/config
+        - ./docker/hybrid-command/service:/service
+      ports:
+        - 8083:8083
+      networks:
+          - localnet
+
+  hybrid-query:
+      build: ./docker/hybrid-query/
+      volumes:
+        - ./docker/hybrid-query/config:/config
+        - ./docker/hybrid-query/service:/service
+      ports:
+        - 8082:8082
+      networks:
+          - localnet
+
+
+# Networks
+#
+networks:
+  localnet:
+    # driver: bridge
+    external: true

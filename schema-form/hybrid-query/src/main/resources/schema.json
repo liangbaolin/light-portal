@@ -1,7 +1,5 @@
 {"lightapi.net/form/getForm/0.1.0":{"schema": {
         "title": "Service"
-      },"scope": "form.all.r"},"lightapi.net/form/getFormByFormTitle/0.1.0":{"schema": {
-        "title": "Service"
       },"scope": "form.all.r"},"lightapi.net/form/getFormById/0.1.0":{"schema": {
         "title": "Service"
       },"scope": "form.all.r"}}
