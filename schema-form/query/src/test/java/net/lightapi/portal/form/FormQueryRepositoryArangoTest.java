@@ -66,4 +66,10 @@ public class FormQueryRepositoryArangoTest {
         formQueryRepository.updateForm("e2", site2_new);
         System.out.println(formQueryRepository.getForm());
     }
+
+    @Test
+    public void testRemove() {
+        formQueryRepository.removeForm("e2");
+        formQueryRepository.removeForm("e1");
+    }
 }

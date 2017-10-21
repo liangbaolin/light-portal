@@ -63,7 +63,7 @@ public class MenuQueryRepositoryArangoTest {
 
     @Test
     public void testGetMenuByHost() {
-        String result = menuQueryRepository.getMenuByHost("example.com");
+        String result = menuQueryRepository.getMenuByHost("example.cm");
         System.out.println("result = " + result);
         Assert.assertNotNull(result);
     }

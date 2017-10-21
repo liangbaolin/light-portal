@@ -14,7 +14,7 @@ export default function fetchMenuByHost() {
         action: 'getMenuByHost',
         version: '0.1.0',
         data: {
-          host: 'gonzalovazquez.org',
+          host: 'example.org',
         },
       }),
     })

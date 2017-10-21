@@ -45,6 +45,7 @@ public class GetFormByIdTest {
             throw new ClientException(e);
         }
         final String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"form\",\"action\":\"getFormById\",\"version\":\"0.1.0\",\"data\":{\"formId\":\"111-222-333\"}}";
+       System.out.println("result:" + requestBody);
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
