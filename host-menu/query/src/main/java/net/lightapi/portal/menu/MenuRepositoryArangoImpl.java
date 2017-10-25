@@ -5,7 +5,6 @@ import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.*;
 import com.arangodb.model.HashIndexOptions;
-import com.arangodb.model.VertexDeleteOptions;
 import com.arangodb.util.MapBuilder;
 import com.arangodb.velocypack.VPackSlice;
 import com.arangodb.velocypack.exception.VPackException;
@@ -14,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.config.Config;
+import net.lightapi.portal.config.ArangoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,9 +49,9 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
                 .registerModule(new VPackJdk8Module())
                 .build();
         // if first time connect to the arango, create menu database.
-        if(!arangoDB.getDatabases().contains(config.getDbName())) {
-            arangoDB.createDatabase(config.getDbName());
-            db = arangoDB.db(config.getDbName());
+        if(!arangoDB.getDatabases().contains(config.getMenuDBName())) {
+            arangoDB.createDatabase(config.getMenuDBName());
+            db = arangoDB.db(config.getMenuDBName());
             // add two collections with unique indexes
             CollectionEntity menuCollection = db.createCollection(MENU);
             final Collection<String> fields = new ArrayList<String>();
@@ -117,7 +117,7 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
                             "        return result;\n" +
                             "    }\n", null);
         }
-        if(db == null) db = arangoDB.db(config.getDbName());
+        if(db == null) db = arangoDB.db(config.getMenuDBName());
     }
 
     @Override

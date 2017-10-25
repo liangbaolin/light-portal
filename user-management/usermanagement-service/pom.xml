@@ -179,7 +179,25 @@
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>json-schema-validator</artifactId>
+<<<<<<< HEAD
             <version>${version.json-schema-validator}</version>
+=======
+        </dependency>
+        <dependency>
+            <groupId>light-portal</groupId>
+            <artifactId>user-management-common</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>light-portal</groupId>
+            <artifactId>user-management-jdbc</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>light-portal</groupId>
+            <artifactId>usermanagement-auth</artifactId>
+            <version>0.1.0</version>
+>>>>>>> 90bec453a138c0364ae5a1e85ccf19ebe74939d5
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
@@ -208,11 +226,14 @@
             <version>${version.jackson}</version>
         </dependency>
         <dependency>
+<<<<<<< HEAD
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${version.jackson}</version>
         </dependency>
         <dependency>
+=======
+>>>>>>> 90bec453a138c0364ae5a1e85ccf19ebe74939d5
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${version.logback}</version>

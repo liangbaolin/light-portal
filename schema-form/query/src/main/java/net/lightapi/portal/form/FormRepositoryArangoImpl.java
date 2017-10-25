@@ -6,13 +6,12 @@ import com.arangodb.ArangoDBException;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.*;
 import com.arangodb.model.HashIndexOptions;
-import com.arangodb.util.MapBuilder;
-import com.arangodb.velocypack.VPackSlice;
 import com.arangodb.velocypack.module.jdk8.VPackJdk8Module;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.config.Config;
+import net.lightapi.portal.config.ArangoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +44,9 @@ public class FormRepositoryArangoImpl implements FormRepository {
                 .registerModule(new VPackJdk8Module())
                 .build();
         // if first time connect to the arango, create menu database.
-        if(!arangoDB.getDatabases().contains(config.getDbName())) {
-            arangoDB.createDatabase(config.getDbName());
-            db = arangoDB.db(config.getDbName());
+        if(!arangoDB.getDatabases().contains(config.getFormDBName())) {
+            arangoDB.createDatabase(config.getFormDBName());
+            db = arangoDB.db(config.getFormDBName());
             // add form collection with unique indexes
             CollectionEntity formCollection = db.createCollection(FORM);
             final Collection<String> fields = new ArrayList<String>();
@@ -56,7 +55,7 @@ public class FormRepositoryArangoImpl implements FormRepository {
             options.unique(true);
             db.collection(FORM).createHashIndex(fields, options);
         }
-        if(db == null) db = arangoDB.db(config.getDbName());
+        if(db == null) db = arangoDB.db(config.getFormDBName());
     }
 
     @Override
