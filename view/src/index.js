@@ -27,8 +27,8 @@ const context = {
 
 ReactDOM.render(
   <App context={context}>
-    <Router history={history} routes={routes} />
-    {/* <Login /> */}
+    {/* <Router history={history} routes={routes} /> */}
+    <Login />
   </App>,
   document.getElementById('root'),
 );
