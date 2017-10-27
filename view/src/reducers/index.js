@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import runtime from './runtime';
+import { routerReducer } from 'react-router-redux';
 import menu from './menu';
 
 export default combineReducers({
   menu,
-  runtime,
+  routing: routerReducer,
 });

@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 /* eslint-env jest */
 /* eslint-disable padded-blocks, no-unused-expressions */
 
@@ -21,14 +12,32 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const initialState = {
   menu: {
-    name: 'Test Menu',
-    routes: [
+    contains: [
       {
         route: '/login',
-        roles: ['admin', 'owner'],
-        label: 'Login',
+        roles: ['user'],
+        _rev: '_Vzj_HTu---',
+        entityId: 'e2',
+        _id: 'menuItem/2',
+        label: 'login',
+        _key: '2',
+      },
+      {
+        route: '/logout',
+        roles: ['user'],
+        _rev: '_Vzj_HTy---',
+        entityId: 'e3',
+        _id: 'menuItem/3',
+        label: 'logout',
+        _key: '3',
       },
     ],
+    _rev: '_Vzj_HRG---',
+    host: 'example.org',
+    description: 'example site111',
+    entityId: 'e2',
+    _id: 'menu/example.org',
+    _key: 'example.org',
   },
 };
 
@@ -37,7 +46,7 @@ describe('Layout', () => {
     const store = mockStore(initialState);
     const wrapper = renderer
       .create(
-        <App context={{ insertCss: () => {}, fetch: () => {}, store }}>
+        <App context={{ store }}>
           <Layout>
             <div className="child" />
           </Layout>

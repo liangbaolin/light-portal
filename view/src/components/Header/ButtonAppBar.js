@@ -8,7 +8,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import Link from '../Link';
+import Link from '../Link/Link';
 
 const styles = {
   root: {
@@ -22,10 +22,11 @@ const styles = {
     flex: 1,
     color: '#ffffff',
     textDecoration: 'none',
+    textAlign: 'left',
   },
 };
 
-function ButtonAppBar(props) {
+const ButtonAppBar = props => {
   const { classes, title, routes } = props;
   return (
     <div className={classes.root}>
@@ -38,13 +39,13 @@ function ButtonAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Link className={classes.brand} to="/">
+          <Link className={classes.brand} to="/" href="/">
             <Typography type="title" color="inherit">
               {title}
             </Typography>
           </Link>
           {routes.map(route => (
-            <Link to={route.route} key={route.label}>
+            <Link to={route.route} key={route.label} href={route.route}>
               <Button color="contrast">{route.label}</Button>
             </Link>
           ))}

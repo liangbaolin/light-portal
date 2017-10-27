@@ -1,22 +1,19 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ButtonAppBar from './ButtonAppBar';
+import { getMenuService } from '../../actions/menu';
 
 class Header extends React.Component {
+  componentWillMount() {
+    this.props.getMenuService();
+  }
   render() {
     return (
       <div>
-        <ButtonAppBar title={this.props.name} routes={this.props.routes} />
+        {this.props.routes ? (
+          <ButtonAppBar title={this.props.name} routes={this.props.routes} />
+        ) : null}
       </div>
     );
   }
@@ -25,6 +22,7 @@ class Header extends React.Component {
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getMenuService: PropTypes.func.isRequired,
 };
 
 const mapState = state => ({
@@ -32,4 +30,8 @@ const mapState = state => ({
   routes: state.menu.routes,
 });
 
-export default connect(mapState)(Header);
+const mapDispatchToProps = dispatch => ({
+  getMenuService: () => dispatch(getMenuService()),
+});
+
+export default connect(mapState, mapDispatchToProps)(Header);
