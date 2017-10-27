@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "flow-bin": "^0.57.3",
-    "history": "^4.7.2",
     "husky": "^0.14.3",
     "lint-staged": "^4.3.0",
     "material-ui": "^1.0.0-beta.17",
@@ -15,7 +14,6 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
-    "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.14",

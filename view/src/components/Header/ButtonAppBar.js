@@ -44,7 +44,6 @@ const ButtonAppBar = props => {
               {title}
             </Typography>
           </Link>
-          <Link to="/login" href="login">Login</Link>
           {routes.map(route => (
             <Link to={route.route} key={route.label} href={route.route}>
               <Button color="contrast">{route.label}</Button>
@@ -54,7 +53,7 @@ const ButtonAppBar = props => {
       </AppBar>
     </div>
   );
-}
+};
 
 ButtonAppBar.propTypes = {
   classes: PropTypes.shape({
