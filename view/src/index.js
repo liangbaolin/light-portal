@@ -1,34 +1,47 @@
 // @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { BrowserRouter } from 'react-router-dom';
-import { Router } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import browserHistory from './history';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import store from './store/configureStore';
 import './index.css';
 import App from './components/App';
-import Layout from './components/Layout/Layout';
+import Home from './routes/home/Home';
 import Login from './routes/login/Login';
 import registerServiceWorker from './registerServiceWorker';
 
-const history = syncHistoryWithStore(browserHistory, store);
-
-const routes = {
-  path: '/',
-  component: Login,
-  indexRoute: { component: Login },
-};
+/**
+ * Not being used yet
+ */
+const routes = [
+  {
+    component: Home,
+    routes: [
+      {
+        path: '/',
+        exact: true,
+        component: Home,
+      },
+      {
+        path: '/login',
+        exact: true,
+        component: Login,
+      },
+    ],
+  },
+];
 
 const context = {
   store,
-  // routes,
 };
 
 ReactDOM.render(
   <App context={context}>
-    {/* <Router history={history} routes={routes} /> */}
-    <Login />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+      </Switch>
+    </BrowserRouter>
   </App>,
   document.getElementById('root'),
 );
