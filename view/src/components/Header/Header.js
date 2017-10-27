@@ -5,9 +5,16 @@ import ButtonAppBar from './ButtonAppBar';
 import { getMenuService } from '../../actions/menu';
 
 class Header extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getMenuService: PropTypes.func.isRequired,
+  };
+
   componentWillMount() {
     this.props.getMenuService();
   }
+
   render() {
     return (
       <div>
@@ -18,12 +25,6 @@ class Header extends React.Component {
     );
   }
 }
-
-Header.propTypes = {
-  name: PropTypes.string.isRequired,
-  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  getMenuService: PropTypes.func.isRequired,
-};
 
 const mapState = state => ({
   name: state.menu.name,
