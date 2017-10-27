@@ -1,6 +1,6 @@
 {
-  "name": "superapp",
-  "version": "0.1.0",
+  "name": "light-portal",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "flow-bin": "^0.57.3",
@@ -33,7 +33,6 @@
     ]
   },
   "scripts": {
-    "precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
