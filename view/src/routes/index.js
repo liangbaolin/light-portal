@@ -1,10 +1,12 @@
-import Layout from '../components/Layout/Layout';
 import Home from './home/Home';
 import Login from './login/Login';
 
-export const routes = [
+/**
+ * Global Routes
+ */
+export default [
   {
-    component: Layout,
+    component: Home,
     routes: [
       {
         path: '/',
