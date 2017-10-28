@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout/Layout';
 
-class Login extends Component {
+class Home extends Component {
   render() {
     return (
       <Layout>
@@ -11,4 +11,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Home;
