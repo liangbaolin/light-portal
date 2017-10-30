@@ -5,6 +5,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import mockResponse from '../../tools/mockResponse';
 import App from '../App';
 import Home from '../../routes/home/Home';
 import Login from '../../routes/login/Login';
@@ -35,15 +36,6 @@ const routes = [
     ],
   },
 ];
-
-const mockResponse = (status, statusText, response) =>
-  new window.Response(response, {
-    status,
-    statusText,
-    headers: {
-      'Content-type': 'application/json',
-    },
-  });
 
 const menuByHostResponse = {
   contains: [
