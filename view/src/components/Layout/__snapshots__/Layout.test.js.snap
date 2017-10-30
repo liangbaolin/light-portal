@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Layout renders children correctly 1`] = `
-<div>
+<div
+  className="App"
+>
   <div>
     <div
       className="ButtonAppBar-root-1"
@@ -24,6 +26,7 @@ exports[`Layout renders children correctly 1`] = `
             onMouseLeave={[Function]}
             onMouseUp={[Function]}
             onTouchEnd={[Function]}
+            onTouchMove={[Function]}
             onTouchStart={[Function]}
             role="button"
             tabIndex={0}
@@ -55,106 +58,15 @@ exports[`Layout renders children correctly 1`] = `
             <h2
               className="MuiTypography-root-59 MuiTypography-title-65 MuiTypography-colorInherit-78"
             >
-              Test Menu
+              Test
             </h2>
-          </a>
-          <a
-            href="/login"
-            onClick={[Function]}
-          >
-            <button
-              className="MuiButtonBase-root-49 MuiButton-root-83 MuiButton-flatContrast-88"
-              disabled={false}
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
-              type="button"
-            >
-              <span
-                className="MuiButton-label-85"
-              >
-                Login
-              </span>
-              <span
-                className="MuiTouchRipple-root-52"
-              />
-            </button>
           </a>
         </div>
       </header>
     </div>
   </div>
-  <div
-    className="child"
-  />
-  <div
-    className="root"
-  >
-    <div
-      className="container"
-    >
-      <span
-        className="text"
-      >
-        © Your Company
-      </span>
-      <span
-        className="spacer"
-      >
-        ·
-      </span>
-      <a
-        className="link"
-        href="/"
-        onClick={[Function]}
-      >
-        Home
-      </a>
-      <span
-        className="spacer"
-      >
-        ·
-      </span>
-      <a
-        className="link"
-        href="/admin"
-        onClick={[Function]}
-      >
-        Admin
-      </a>
-      <span
-        className="spacer"
-      >
-        ·
-      </span>
-      <a
-        className="link"
-        href="/privacy"
-        onClick={[Function]}
-      >
-        Privacy
-      </a>
-      <span
-        className="spacer"
-      >
-        ·
-      </span>
-      <a
-        className="link"
-        href="/not-found"
-        onClick={[Function]}
-      >
-        Not Found
-      </a>
-    </div>
-  </div>
+  <p>
+    Welcome to light portal
+  </p>
 </div>
 `;

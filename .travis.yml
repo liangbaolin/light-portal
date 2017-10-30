@@ -9,10 +9,11 @@ jdk:
 cache:
  directories:
    - $HOME/.m2
+   - view/node_modules
 
 install:
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
 
 script: 
   - cd hybrid-server && mvn package
-  - cd ../view && npm i && yarn lint && yarn test -- -u && yarn test
+  - cd ../view && yarn install && yarn test -- -u && yarn test
