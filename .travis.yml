@@ -16,4 +16,4 @@ install:
 
 script: 
   - cd hybrid-server && mvn package
-  - cd ../view && yarn i && yarn test -- -u && yarn test
+  - cd ../view && yarn install && yarn test -- -u && yarn test
