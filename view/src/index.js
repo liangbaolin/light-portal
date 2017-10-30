@@ -7,6 +7,9 @@ import App from './components/App';
 import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 
+/**
+ * Define context for Application
+ */
 const context = {
   store,
   routes,

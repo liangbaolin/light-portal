@@ -26,6 +26,10 @@ const styles = {
   },
 };
 
+/**
+ * Renders Buttom App Nav
+ * @param {object} props - Route and Menu ID.
+ */
 const ButtonAppBar = props => {
   const { classes, title, routes } = props;
   return (

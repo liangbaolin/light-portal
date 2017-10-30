@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import ButtonAppBar from './ButtonAppBar';
 import { getMenuService } from '../../actions/menu';
 
+/**
+ * Connected Component
+ * Renders ButtonBar and fetches MenuService onMount
+ */
 class Header extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,

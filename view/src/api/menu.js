@@ -6,6 +6,10 @@ const body = {
   data: { host: 'example.org' },
 };
 
+/**
+ * Returns a promise from Menu Service
+ * @returns Promise
+ */
 export default async () => {
   const res = await fetch('/api/json', {
     method: 'POST',

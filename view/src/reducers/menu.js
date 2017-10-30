@@ -6,7 +6,13 @@ const initialState = {
   routes: [],
 };
 
-export default function runtime(state = initialState, action) {
+/**
+ * Define reducer for Menu Service
+ * @param {object} state - Menu State
+ * @param {string} action - Actions
+ * @returns Immutable object with new state
+ */
+export default function menu(state = initialState, action) {
   switch (action.type) {
     case MENU_SERVICE_SUCCESS:
       return {
