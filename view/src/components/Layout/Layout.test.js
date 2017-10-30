@@ -6,52 +6,80 @@ import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import App from '../App';
-import Layout from './Layout';
+import Home from '../../routes/home/Home';
+import Login from '../../routes/login/Login';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
+
 const initialState = {
   menu: {
-    contains: [
-      {
-        route: '/login',
-        roles: ['user'],
-        _rev: '_Vzj_HTu---',
-        entityId: 'e2',
-        _id: 'menuItem/2',
-        label: 'login',
-        _key: '2',
-      },
-      {
-        route: '/logout',
-        roles: ['user'],
-        _rev: '_Vzj_HTy---',
-        entityId: 'e3',
-        _id: 'menuItem/3',
-        label: 'logout',
-        _key: '3',
-      },
-    ],
-    _rev: '_Vzj_HRG---',
-    host: 'example.org',
-    description: 'example site111',
-    entityId: 'e2',
-    _id: 'menu/example.org',
-    _key: 'example.org',
+    name: 'Test',
+    routes: [],
   },
 };
 
+const routes = [
+  {
+    component: Home,
+    routes: [
+      {
+        path: '/',
+        exact: true,
+        component: Home,
+      },
+      {
+        path: '/login',
+        component: Login,
+      },
+    ],
+  },
+];
+
+const mockResponse = (status, statusText, response) =>
+  new window.Response(response, {
+    status,
+    statusText,
+    headers: {
+      'Content-type': 'application/json',
+    },
+  });
+
+const menuByHostResponse = {
+  contains: [
+    {
+      route: '/login',
+      roles: ['user'],
+      _rev: '_Vzj_HTu---',
+      entityId: 'e2',
+      _id: 'menuItem/2',
+      label: 'login',
+      _key: '2',
+    },
+  ],
+  _rev: '_Vzj_HRG---',
+  host: 'example.org',
+  description: 'example site111',
+  entityId: 'e2',
+  _id: 'menu/example.org',
+  _key: 'example.org',
+};
+
 describe('Layout', () => {
+  beforeEach(() => {
+    window.fetch = jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(
+          mockResponse(200, 'ok', JSON.stringify(menuByHostResponse)),
+        ),
+      );
+  });
+
   test('renders children correctly', () => {
     const store = mockStore(initialState);
     const wrapper = renderer
-      .create(
-        <App context={{ store }}>
-          <Layout>
-            <div className="child" />
-          </Layout>
-        </App>,
-      )
+      .create(<App context={{ store, routes }} />)
       .toJSON();
 
     expect(wrapper).toMatchSnapshot();
