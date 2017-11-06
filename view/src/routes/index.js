@@ -1,9 +1,16 @@
+/* eslint no-unused-vars: 0 */
+import React from 'react';
+import { connect } from 'react-redux';
+
 import Home from './home/Home';
 import Login from './login/Login';
+import Admin from './admin/Admin';
+import User from './user/User';
 
 /**
  * Global Routes
  */
+
 export default [
   {
     component: Home,
@@ -16,6 +23,14 @@ export default [
       {
         path: '/login',
         component: Login,
+      },
+      {
+        path: '/admin',
+        component: Admin,
+      },
+      {
+        path: '/user',
+        component: User,
       },
     ],
   },

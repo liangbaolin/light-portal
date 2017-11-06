@@ -7,9 +7,16 @@ import App from './components/App';
 import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 
+import { getMenuService } from './actions/menu';
+
 /**
- * Define context for Application
+ * Dispatch Menu Service onload
  */
+store.dispatch(getMenuService());
+
+/**
+   * Define context for Application
+   */
 const context = {
   store,
   routes,

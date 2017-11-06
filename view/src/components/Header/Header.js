@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ButtonAppBar from './ButtonAppBar';
-import { getMenuService } from '../../actions/menu';
 
 /**
  * Connected Component
@@ -12,12 +11,7 @@ class Header extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     routes: PropTypes.arrayOf(PropTypes.object).isRequired,
-    getMenuService: PropTypes.func.isRequired,
   };
-
-  componentWillMount() {
-    this.props.getMenuService();
-  }
 
   render() {
     return (
@@ -35,8 +29,4 @@ const mapState = state => ({
   routes: state.menu.routes,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getMenuService: () => dispatch(getMenuService()),
-});
-
-export default connect(mapState, mapDispatchToProps)(Header);
+export default connect(mapState, null)(Header);
