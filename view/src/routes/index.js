@@ -6,6 +6,7 @@ import Home from './home/Home';
 import Login from './login/Login';
 import Admin from './admin/Admin';
 import User from './user/User';
+import NotFound from './notFound/NotFound';
 
 /**
  * Global Routes
@@ -31,6 +32,9 @@ export default [
       {
         path: '/user',
         component: User,
+      },
+      {
+        component: NotFound,
       },
     ],
   },
