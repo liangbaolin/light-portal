@@ -11,7 +11,6 @@ import NotFound from './notFound/NotFound';
 /**
  * Global Routes
  */
-
 export default [
   {
     component: Home,
