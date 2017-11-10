@@ -11,7 +11,7 @@ const body = {
  * @returns Promise
  */
 export default async () => {
-  const res = await fetch('/api/rest', {
+  const res = await fetch('/api/json', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
