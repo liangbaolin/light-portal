@@ -23,14 +23,24 @@ const context = {
   routes: globalRoutes,
 };
 
+/**
+ * Mount Point
+ */
 const elementMountPoint = document.getElementById('root');
 
-ReactDOM.render(<App context={context} />, elementMountPoint, async () => {
-  const newContext = {
-    store,
-    routes: dynamicRoutes(context.routes, await fetchMenuByHost()),
-  };
-  ReactDOM.render(<App context={newContext} />, elementMountPoint);
-});
+/**
+ * Async IIFE React
+ */
+(async () => {
+  try {
+    const newContext = {
+      store,
+      routes: dynamicRoutes(context.routes, await fetchMenuByHost()),
+    };
+    ReactDOM.render(<App context={newContext} />, elementMountPoint);
+  } catch (e) {
+    ReactDOM.render(<App context={context} />, elementMountPoint);
+  }
+})();
 
 registerServiceWorker();
