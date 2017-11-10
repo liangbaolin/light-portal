@@ -42,6 +42,9 @@ export const globalRoutes = [
 
 /**
  * Dynamic Routes
+ * @param {object} routes - Initialize with dummy routes
+ * @param {object} payload - Routes from server
+ * @returns {object} new object routes
  */
 export const dynamicRoutes = (routes, payload) => {
   const pos = routes[0].routes.length - 1;

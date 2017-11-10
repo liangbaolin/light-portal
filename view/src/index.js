@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import store from './store/configureStore';
 
 import App from './components/App';
+import Spinner from './components/Spinner/Spinner';
 import { globalRoutes, dynamicRoutes } from './routes';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -30,8 +31,12 @@ const elementMountPoint = document.getElementById('root');
 
 /**
  * Async IIFE React
+ * Renders Spinner then tries to fetch routes from server.
+ * If routes are not available it renders application
+ * with default routes.
  */
 (async () => {
+  ReactDOM.render(<Spinner />, elementMountPoint);
   try {
     const newContext = {
       store,
