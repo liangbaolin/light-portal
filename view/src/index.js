@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import store from './store/configureStore';
 
 import App from './components/App';
-import routes from './routes';
+import { globalRoutes, dynamicRoutes } from './routes';
 import registerServiceWorker from './registerServiceWorker';
 
 import fetchMenuByHost from './api/menu';
@@ -16,21 +16,21 @@ import { getMenuService } from './actions/menu';
 store.dispatch(getMenuService());
 
 /**
-   * Define context for Application
-   */
+ * Define context for Application
+ */
 const context = {
   store,
-  routes,
+  routes: globalRoutes,
 };
 
-ReactDOM.render(
-  <App context={context} />,
-  document.getElementById('root'),
-  async () => {
-    const routesFromServer = await fetchMenuByHost();
-    context.routes.push(routesFromServer.contains);
-    console.log(context);
-  },
-);
+const elementMountPoint = document.getElementById('root');
+
+ReactDOM.render(<App context={context} />, elementMountPoint, async () => {
+  const newContext = {
+    store,
+    routes: dynamicRoutes(context.routes, await fetchMenuByHost()),
+  };
+  ReactDOM.render(<App context={newContext} />, elementMountPoint);
+});
 
 registerServiceWorker();
