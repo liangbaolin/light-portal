@@ -21,8 +21,8 @@ import java.time.LocalDate;
 
                 public static DataSource ds;
 
-                static {
-                    ds = (DataSource) SingletonServiceFactory.getBean(DataSource.class);
+     //           static {
+      //              ds = (DataSource) SingletonServiceFactory.getBean(DataSource.class);
             /*        try (Connection connection = ds.getConnection()) {
                         // Runscript doesn't work need to execute batch here.
                         String schemaResourceName = "/user_management_ddl.sql";
@@ -38,7 +38,7 @@ import java.time.LocalDate;
                         e.printStackTrace();
 
         }*/
-    }
+  //  }
 
     private UserRepository userRepository = (UserRepository)SingletonServiceFactory.getBean(UserRepository.class);
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
@@ -50,7 +50,7 @@ import java.time.LocalDate;
     @BeforeClass
     public static void setUp() {
         id = IdentityGenerator.generate();
-        user = new User(id, "testUser", "aaa.bbb@gmail.com");
+        user = new User(String.valueOf(id), "testUser", "aaa.bbb@gmail.com");
     //    Password password = passwordSecurity.ecrypt("password");
      //   user.setPassword(password);
         user.getContactData().setFirstName("Google");

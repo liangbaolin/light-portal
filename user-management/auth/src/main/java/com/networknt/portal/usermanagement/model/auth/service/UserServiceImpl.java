@@ -2,6 +2,7 @@
 package com.networknt.portal.usermanagement.model.auth.service;
 
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -340,11 +341,15 @@ public class UserServiceImpl implements UserService {
     user.addConfirmationToken(token);
     // user.addConfirmationToken(ConfirmationTokenType.EMAIL, 24*60);
     user = store(user);
-    System.out.println("http://localhost:8080/user/token/" + token.getId());
+    String linkStr = userConfig.getServerHost() +  token.getId();
+    String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
+    System.out.println(emailBody);
     //TODO send email
   //  EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
 
- //   emailSender.sendMail(userConfig.getSubject(), "TODO active email");
+     EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
+
+    emailSender.sendMail(email, userConfig.getSubject(), emailBody);
     if (isEmitEvent()) {
       userCommandService.add(toUserDto(user));
 
