@@ -354,9 +354,8 @@ public class UserServiceImpl implements UserService {
     } else {
       linkStr = userConfig.getServerHost() +  token.getId();
     }
-    System.out.println(userConfig.getContent());
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
-    System.out.println(emailBody);
+    logger.info(emailBody);
 
      EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
 
