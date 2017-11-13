@@ -1,5 +1,9 @@
 ---
-smtpHost: all
-fromEmail: light.portal@light4j.com
-subject: New User Initial confirmation email
+smtpHost: mail.lightapi.net
+port: 587
+fromEmail: noreply@lightapi.net
+subject: Light-portal User confirmation email
 emitEvent: false
+content: Welcome to Light-portal! <br/><br/> To complete your account registration, please confirm your email address by clicking on the following link:<br/><br/>  {0} <br/><br/>If you cannot click on the link above, please copy and paste it into your web browser.<br/>Please visit https://github.com/networknt/light-portal for more information.
+serverHost: http://localhost:8081/user/token/
+password: Change-to-real-password

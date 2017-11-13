@@ -51,7 +51,7 @@ public class UserQueryWorkflow {
     try {
       User user = service.fromUserDto(userDto, id);
 
-      service.signup(user, userDto.getPassword());
+      service.signup(user, userDto.getPassword(), true);
       //TODO remove the following implemetation after confirm email implemented
       Optional<ConfirmationToken> token = user.getConfirmationTokens().stream().findFirst();
       if (token.isPresent()) {

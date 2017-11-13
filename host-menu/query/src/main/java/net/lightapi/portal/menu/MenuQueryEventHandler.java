@@ -22,6 +22,7 @@ public class MenuQueryEventHandler {
     public void createMenu(DispatchedEvent<MenuCreatedEvent> de) {
         if(logger.isDebugEnabled()) logger.debug("createMenu is called with event = " + de);
         String data = de.getEvent().getMenu();
+        System.out.println("create menu with data:" + data);
         repo.createMenu(de.getEntityId(), data);
     }
 

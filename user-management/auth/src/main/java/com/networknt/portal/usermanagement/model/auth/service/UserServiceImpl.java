@@ -323,7 +323,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void signup(User user, String rawPassword)
+  public void signup(User user, String rawPassword , boolean withEventuate)
       throws Exception {
 
     Objects.requireNonNull(user, "user");
@@ -348,7 +348,13 @@ public class UserServiceImpl implements UserService {
     user.addConfirmationToken(token);
     // user.addConfirmationToken(ConfirmationTokenType.EMAIL, 24*60);
     user = store(user);
-    String linkStr = userConfig.getServerHost() +  token.getId();
+    String linkStr;
+    if (withEventuate) {
+      linkStr = userConfig.getServerHost() +  user.getId() + "?token=" + token.getId();
+    } else {
+      linkStr = userConfig.getServerHost() +  token.getId();
+    }
+    System.out.println(userConfig.getContent());
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
     System.out.println(emailBody);
 

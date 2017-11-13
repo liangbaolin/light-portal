@@ -180,7 +180,7 @@ public interface UserService {
    * @param user a {@link User}
    * @param rawPassword {@link User}'s cleartext password
    */
-  void signup(User user, String rawPassword)
+  void signup(User user, String rawPassword, boolean withEventuate)
       throws Exception;
 
   /**

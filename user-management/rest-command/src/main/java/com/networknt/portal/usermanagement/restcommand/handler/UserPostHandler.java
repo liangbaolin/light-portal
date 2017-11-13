@@ -86,6 +86,7 @@ public class UserPostHandler implements HttpHandler {
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
         try {
+            System.out.println("rest URL:" + apibHost);
             connection = client.connect(new URI(apibHost), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, OptionMap.create(UndertowOptions.ENABLE_HTTP2, true)).get();
         } catch (Exception e) {
             throw new ClientException(e);

@@ -40,7 +40,7 @@ public class UserPostHandler implements HttpHandler {
         String result = "Ok!";
         try {
             User user = service.fromUserDto(userDto);
-            service.signup(user, userDto.getPassword());
+            service.signup(user, userDto.getPassword(), false);
 
             //TODO remove the following implemetation after confirm email implemented
             Optional<ConfirmationToken> token = user.getConfirmationTokens().stream().findFirst();
