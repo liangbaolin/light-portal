@@ -82,10 +82,17 @@ public class UserServiceImpl implements UserService {
     ConfirmationToken token  = new ConfirmationToken(user , ConfirmationTokenType.EMAIL, 24*60);
     user.addConfirmationToken(token);
     user = update(user);
+    String linkStr = userConfig.getServerHost() +  token.getId();
+    String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
+    System.out.println(emailBody);
 
-    //TODO send email to new email address with confirm token
-    //  EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
-    //   emailSender.sendMail(userConfig.getSubject(), "TODO active email");
+    EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
+    try {
+      emailSender.sendMail(newEmail, userConfig.getSubject(), emailBody);
+    } catch (Exception e) {
+      logger.error(e.getMessage(), e);
+    }
+
 
   //  userEventEmitter.emit(new UserEvent(userId, EMAIL_CHANGED));
 
@@ -344,8 +351,6 @@ public class UserServiceImpl implements UserService {
     String linkStr = userConfig.getServerHost() +  token.getId();
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
     System.out.println(emailBody);
-    //TODO send email
-  //  EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getFromEmail(), email);
 
      EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
 

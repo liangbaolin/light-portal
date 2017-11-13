@@ -40,10 +40,15 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class UserPostHandler implements HttpHandler {
+    static String CONFIG_NAME = "query_side";
+    public static final String NO_USER_USER_EMAIL = "No user find to use the email";
     private EventuateAggregateStore eventStore  = (EventuateAggregateStore) SingletonServiceFactory.getBean(EventuateAggregateStore.class);
     private AggregateRepository userRepository = new AggregateRepository(UserAggregate.class, eventStore);
 
     private UserCommandService service = new UserCommandServiceImpl(userRepository);
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+    static String apibHost = (String) Config.getInstance().getJsonMapConfig(CONFIG_NAME).get("query_side_api");
     @Override
     public void handleRequest(HttpServerExchange exchange) throws Exception {
 
@@ -54,33 +59,34 @@ public class UserPostHandler implements HttpHandler {
         Map s = (Map)exchange.getAttachment(BodyHandler.REQUEST_BODY);
         String json = mapper.writeValueAsString(s);
         UserDto userDto = mapper.readValue(json, UserDto.class);
+        if (verifyEmail(userDto.getContactData().getEmail())) {
+            CompletableFuture<User> result = service.add(userDto).thenApply((e) -> {
+                User m =  new User();
+                m.setId(e.getEntityId());
+                m.setPassword(e.getAggregate().getUser().getPassword());
+                m.setHost(e.getAggregate().getUser().getHost());
+                m.setScreenName(e.getAggregate().getUser().getScreenName());
+                m.getContactData().setEmail(e.getAggregate().getUser().getContactData().getEmail());
+                return m;
+            });
 
-        //TODO verify email & screenName
-
-        CompletableFuture<User> result = service.add(userDto).thenApply((e) -> {
-            User m =  new User();
-            m.setId(e.getEntityId());
-            m.setPassword(e.getAggregate().getUser().getPassword());
-            m.setHost(e.getAggregate().getUser().getHost());
-            m.setScreenName(e.getAggregate().getUser().getScreenName());
-            m.getContactData().setEmail(e.getAggregate().getUser().getContactData().getEmail());
-            return m;
-        });
-
-        exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
-        exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result.get()));
-
+            exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+            exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result.get()));
+        } else {
+            exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+            exchange.getResponseSender().send("email has been taken by other user");
+        }
 
     }
 
 
 
     public boolean verifyEmail(String email) throws Exception{
-   /*     final Http2Client client = Http2Client.getInstance();
+        final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
         try {
-            connection = client.connect(new URI(url), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, enableHttp2 ? OptionMap.create(UndertowOptions.ENABLE_HTTP2, true): OptionMap.EMPTY).get();
+            connection = client.connect(new URI(apibHost), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, OptionMap.create(UndertowOptions.ENABLE_HTTP2, true)).get();
         } catch (Exception e) {
             throw new ClientException(e);
         }
@@ -99,8 +105,12 @@ public class UserPostHandler implements HttpHandler {
         }
          String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         System.out.println("response:" + body);
+        if (NO_USER_USER_EMAIL.equalsIgnoreCase(body)) {
+            return true;
+        } else {
+            return false;
+        }
 
-*/ return true;
     }
 
 

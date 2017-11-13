@@ -1,6 +1,6 @@
 ---
 smtpHost: mail.lightapi.net
-port:587
+port: 587
 fromEmail: noreply@lightapi.net
 subject: New User Initial confirmation email
 emitEvent: false
